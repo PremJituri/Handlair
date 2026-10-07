@@ -1,0 +1,12 @@
+import { createFileRoute } from "@tanstack/react-router";
+import { X } from "lucide-react";
+import { useState } from "react";
+import { Button } from "@/components/ui/button";
+import { CtaBand, PageHero } from "@/components/site-shell";
+import { gallery } from "@/data/handlair";
+
+export const Route = createFileRoute("/gallery")({ head: () => ({ meta: [
+  { title: "Industrial Equipment Gallery — Handlair" }, { name: "description", content: "View Handlair air cooling, dust collection, blower, fan and extraction equipment." }, { property: "og:title", content: "Handlair Equipment Gallery" }, { property: "og:description", content: "Air handling equipment and systems in the field." }, { property: "og:type", content: "website" }, { name: "twitter:card", content: "summary_large_image" },
+] }), component: GalleryPage });
+
+function GalleryPage() { const [active, setActive] = useState<(typeof gallery)[number] | null>(null); return <><PageHero eyebrow="Project gallery" title="Equipment in the field."><p>A closer look at Handlair cooling, ventilation, dust collection and fume exhaust equipment.</p></PageHero><section className="mx-auto max-w-7xl px-5 py-24 lg:px-8"><div className="columns-2 gap-3 lg:columns-3">{gallery.map((item, i) => <button type="button" key={item.name} onClick={() => setActive(item)} className="group relative mb-3 block w-full overflow-hidden bg-secondary text-left"><img src={item.image} alt={item.name} loading="lazy" className={`w-full object-cover transition-transform duration-500 group-hover:scale-105 ${i % 3 === 0 ? "aspect-[4/5]" : "aspect-square"}`} /><span className="absolute inset-x-0 bottom-0 bg-foreground/85 p-3 text-sm font-bold text-background">{item.name}</span></button>)}</div></section>{active && <div className="fixed inset-0 z-[70] grid place-items-center bg-foreground/95 p-5" role="dialog" aria-modal="true" aria-label={active.name}><Button size="icon" variant="secondary" className="absolute right-5 top-5" onClick={() => setActive(null)} aria-label="Close image"><X /></Button><figure><img src={active.image} alt={active.name} className="max-h-[78vh] max-w-[90vw] object-contain" /><figcaption className="mt-4 text-center font-display text-xl uppercase text-background">{active.name}</figcaption></figure></div>}<CtaBand /></> }
