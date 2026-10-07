@@ -8,3 +8,5 @@
 > Commits you push to the connected branch sync back to Lovable and show up in
 > the editor, so keep the branch in a working state.
 <!-- LOVABLE:END -->
+
+- Keep shared public-site chrome in `SiteShell` and business catalog content in `src/data/handlair.ts` so every route stays visually and factually consistent.
