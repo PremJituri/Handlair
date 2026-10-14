@@ -53,7 +53,7 @@ export function Footer() {
 export function SiteShell({ children }: { children: ReactNode }) { return <><Header /><main>{children}</main><Footer /></>; }
 
 export function PageHero({ eyebrow, title, children }: { eyebrow: string; title: string; children: ReactNode }) {
-  return <section className="pattern-grid border-b border-border"><div className="mx-auto max-w-7xl px-5 py-20 lg:px-8 lg:py-28"><p className="eyebrow">{eyebrow}</p><h1 className="mt-6 max-w-5xl font-display text-5xl uppercase leading-[.96] md:text-7xl">{title}</h1><div className="mt-7 max-w-2xl text-lg text-muted-foreground">{children}</div></div></section>;
+  return <section className="pattern-grid border-b border-border"><div className="mx-auto max-w-7xl px-5 py-20 lg:px-8 lg:py-28"><p className="eyebrow">{eyebrow}</p><h1 className="mt-6 max-w-5xl font-display text-4xl uppercase leading-[1.02] md:text-6xl lg:text-7xl">{title}</h1><div className="mt-7 max-w-2xl text-lg text-muted-foreground">{children}</div></div></section>;
 }
 
 export function CtaBand() {
