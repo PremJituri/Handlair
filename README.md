@@ -1,14 +1,38 @@
-# Welcome to your Lovable project
+# Handlair
+
+# HANDLAIR WEBSITE — COLOR THEME
+
+COLOR PALETTE
+
+Use these exact colors as the new design-system palette:
+
+```js
+
+colors: {
+
+  text: '#050315',
+
+  background: '#fbfbfe',
+
+  primary: '#2dcd74',
+
+  secondary: '#e4ffdc',
+
+  accent: '#80e98e',
+
+}
 
 This project was built with [Lovable](https://lovable.dev).
 
+**Live app**: https://handlair.lovable.app
+
 ## Build with Lovable
 
-Open your project in the [Lovable editor](https://lovable.dev) and keep building.
+Continue developing this project in the [Lovable editor](https://lovable.dev/projects/8310ac31-568e-4517-b15f-5b792f2e639f).
 
 - **Ship faster**: describe what you want to build and Lovable handles the code.
-- **Stay in sync**: connect the project to GitHub and every change made in Lovable is committed straight to your repository.
-- **Full ownership**: this code is yours. Push to your repository and your changes sync back into Lovable, ready for your next prompt.
+- **Stay in sync**: every change made in Lovable is committed straight to this repository.
+- **Full ownership**: this code is yours. Push to `main` on GitHub and your changes sync back into Lovable, ready for your next prompt.
 
 ## Development
 
@@ -20,10 +44,3 @@ cd <repository-name>
 npm i
 npm run dev
 ```
-
-## Built with
-
-- TanStack Start
-- TypeScript
-- React
-- Tailwind CSS
