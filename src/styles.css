@@ -19,8 +19,8 @@
  */
 
 @theme inline {
-  --font-display: "Archivo Black", sans-serif;
-  --font-sans: "Hind", sans-serif;
+  --font-display: "IBM Plex Serif", serif;
+  --font-sans: "IBM Plex Serif", serif;
   --radius-sm: calc(var(--radius) - 4px);
   --radius-md: calc(var(--radius) - 2px);
   --radius-lg: var(--radius);
@@ -147,7 +147,7 @@
     line-height: 1.55;
   }
 
-  h1, h2, h3, h4, h5, h6 { letter-spacing: 0; }
+  h1, h2, h3, h4, h5, h6 { letter-spacing: 0.015em; }
   ::selection { background: var(--accent); color: var(--foreground); }
 }
 
