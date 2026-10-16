@@ -42,9 +42,9 @@ export function Footer() {
   return (
     <footer className="border-t border-border bg-secondary/40">
       <div className="mx-auto grid max-w-7xl gap-12 px-5 py-16 md:grid-cols-[1.4fr_1fr_1fr] lg:px-8">
-        <div><Logo /><p className="mt-6 max-w-sm text-muted-foreground">Equipment and systems for air handling and industrial air pollution control.</p></div>
+        <div><Logo /><p className="mt-6 max-w-sm type-body">Equipment and systems for air handling and industrial air pollution control.</p></div>
         <div><h2 className="eyebrow">Navigate</h2><div className="mt-5 grid gap-3">{nav.map(([label, to]) => <Link key={to} to={to} className="font-semibold hover:text-primary">{label}</Link>)}</div></div>
-        <div><h2 className="eyebrow">Connect</h2><div className="mt-5 space-y-3 text-sm text-muted-foreground"><a className="flex gap-2 hover:text-foreground" href={`tel:${contact.phone}`}><Phone className="size-4" />{contact.phone}</a><a className="flex gap-2 hover:text-foreground" href="mailto:sales@handlair.co.in"><Mail className="size-4" />sales@handlair.co.in</a><p>{contact.address}</p></div></div>
+        <div><h2 className="eyebrow">Connect</h2><div className="mt-5 space-y-3 type-body"><a className="flex gap-2 hover:text-foreground" href={`tel:${contact.phone}`}><Phone className="size-4" />{contact.phone}</a><a className="flex gap-2 hover:text-foreground" href="mailto:sales@handlair.co.in"><Mail className="size-4" />sales@handlair.co.in</a><p>{contact.address}</p></div></div>
       </div>
       <div className="border-t border-border px-5 py-6 text-center text-xs text-muted-foreground">© Handlair. All rights reserved.</div>
     </footer>
@@ -54,9 +54,9 @@ export function Footer() {
 export function SiteShell({ children }: { children: ReactNode }) { return <><Header /><main>{children}</main><Footer /></>; }
 
 export function PageHero({ eyebrow, title, children }: { eyebrow: string; title: string; children: ReactNode }) {
-  return <section className="pattern-grid border-b border-border"><div className="mx-auto max-w-7xl px-5 py-20 lg:px-8 lg:py-28"><p className="eyebrow">{eyebrow}</p><h1 className="mt-6 max-w-5xl font-display text-4xl uppercase leading-[1.02] md:text-6xl lg:text-7xl">{title}</h1><div className="mt-7 max-w-2xl text-lg text-muted-foreground">{children}</div></div></section>;
+  return <section className="pattern-grid border-b border-border"><div className="mx-auto max-w-7xl px-5 py-20 lg:px-8 lg:py-28"><p className="eyebrow">{eyebrow}</p><h1 className="mt-6 max-w-5xl type-page">{title}</h1><div className="mt-7 max-w-2xl type-lead">{children}</div></div></section>;
 }
 
 export function CtaBand() {
-  return <section className="bg-secondary"><div className="mx-auto flex max-w-7xl flex-col items-start justify-between gap-8 px-5 py-20 md:flex-row md:items-end lg:px-8"><div><p className="eyebrow">Start a conversation</p><h2 className="mt-5 max-w-3xl font-display text-4xl uppercase md:text-6xl">Looking for a reliable air handling solution?</h2></div><Button asChild size="xl"><Link to="/enquiry">Send an enquiry <ArrowUpRight /></Link></Button></div></section>;
+  return <section className="bg-secondary"><div className="mx-auto flex max-w-7xl flex-col items-start justify-between gap-8 px-5 py-20 md:flex-row md:items-end lg:px-8"><div><p className="eyebrow">Start a conversation</p><h2 className="mt-5 max-w-3xl type-h2">Looking for a reliable air handling solution?</h2></div><Button asChild size="xl"><Link to="/enquiry">Send an enquiry <ArrowUpRight /></Link></Button></div></section>;
 }
