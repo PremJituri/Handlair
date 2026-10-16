@@ -93,7 +93,7 @@ function Lightbox({ items, index, setIndex }: { items: typeof gallery; index: nu
   const next = useCallback(() => setIndex((index + 1) % items.length), [index, items.length, setIndex]);
   const touchX = useRef<number | null>(null);
   const thumbRef = useRef<HTMLDivElement>(null);
-  const item = items[index];
+  const item = items[index] ?? items[0]!;
 
   useEffect(() => {
     const onKey = (e: KeyboardEvent) => {
@@ -119,10 +119,11 @@ function Lightbox({ items, index, setIndex }: { items: typeof gallery; index: nu
       </div>
       <div
         className="relative flex min-h-0 flex-1 items-center justify-center px-4 md:px-20"
-        onTouchStart={(e) => { touchX.current = e.touches[0].clientX; }}
+        onTouchStart={(e) => { touchX.current = e.touches[0]?.clientX ?? null; }}
         onTouchEnd={(e) => {
-          if (touchX.current === null) return;
-          const dx = e.changedTouches[0].clientX - touchX.current;
+          const end = e.changedTouches[0]?.clientX;
+          if (touchX.current === null || end === undefined) return;
+          const dx = end - touchX.current;
           if (Math.abs(dx) > 50) (dx > 0 ? prev : next)();
           touchX.current = null;
         }}
