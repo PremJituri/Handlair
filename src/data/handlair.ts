@@ -10,7 +10,7 @@ import gallery3 from "@/assets/gallery3.jpg.asset.json";
 import gallery4 from "@/assets/gallery4.jpg.asset.json";
 import gallery5 from "@/assets/gallery5.jpg.asset.json";
 import gallery6 from "@/assets/gallery6.jpg.asset.json";
-import hero from "@/assets/hero.png.asset.json";
+import hero from "@/assets/hero-refined.jpg.asset.json";
 import mancooler from "@/assets/mancooler.jpg.asset.json";
 import roof from "@/assets/roof.jpg.asset.json";
 import scrubber from "@/assets/scrubber.jpg.asset.json";
