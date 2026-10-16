@@ -2,6 +2,7 @@ import { Link } from "@tanstack/react-router";
 import { ArrowUpRight, Mail, Menu, Phone, X } from "lucide-react";
 import { useState, type ReactNode } from "react";
 import { Button } from "@/components/ui/button";
+import { Magnetic, MagneticLabel } from "@/components/core/magnetic";
 import { contact } from "@/data/handlair";
 import logoAsset from "@/assets/maaria-logo.jpg.asset.json";
 
@@ -11,6 +12,8 @@ const nav = [
   ["Gallery", "/gallery"],
   ["Contact", "/contact"],
 ] as const;
+
+const springOptions = { bounce: 0.1 };
 
 export function Logo() {
   return (
@@ -30,10 +33,10 @@ export function Header() {
         <nav className="hidden items-center gap-8 lg:flex" aria-label="Main navigation">
           {nav.map(([label, to]) => <Link key={to} to={to} className="text-sm font-semibold uppercase text-muted-foreground transition-colors hover:text-foreground" activeProps={{ className: "text-foreground" }}>{label}</Link>)}
         </nav>
-        <div className="hidden lg:block"><Button asChild size="lg"><Link to="/enquiry">Send an enquiry <ArrowUpRight /></Link></Button></div>
+        <div className="hidden lg:block"><Magnetic intensity={0.2} springOptions={springOptions} actionArea="global" range={200}><Button asChild size="lg" className="rounded-lg"><Link to="/enquiry"><MagneticLabel>Send an enquiry <ArrowUpRight /></MagneticLabel></Link></Button></Magnetic></div>
         <Button variant="ghost" size="icon" className="lg:hidden" onClick={() => setOpen(!open)} aria-label={open ? "Close menu" : "Open menu"}>{open ? <X /> : <Menu />}</Button>
       </div>
-      {open && <nav className="border-t border-border bg-background px-5 py-5 lg:hidden" aria-label="Mobile navigation"><div className="flex flex-col gap-1">{nav.map(([label, to]) => <Link key={to} to={to} onClick={() => setOpen(false)} className="border-b border-border py-4 font-display text-xl uppercase">{label}</Link>)}<Button asChild size="lg" className="mt-4"><Link to="/enquiry" onClick={() => setOpen(false)}>Send an enquiry</Link></Button></div></nav>}
+      {open && <nav className="border-t border-border bg-background px-5 py-5 lg:hidden" aria-label="Mobile navigation"><div className="flex flex-col gap-1">{nav.map(([label, to]) => <Link key={to} to={to} onClick={() => setOpen(false)} className="border-b border-border py-4 font-display text-xl uppercase">{label}</Link>)}<Magnetic intensity={0.2} springOptions={springOptions} actionArea="global" range={200} className="w-full"><Button asChild size="lg" className="mt-4 w-full rounded-lg"><Link to="/enquiry" onClick={() => setOpen(false)}>Send an enquiry</Link></Button></Magnetic></div></nav>}
     </header>
   );
 }
@@ -58,5 +61,5 @@ export function PageHero({ eyebrow, title, children }: { eyebrow: string; title:
 }
 
 export function CtaBand() {
-  return <section className="bg-secondary"><div className="mx-auto flex max-w-7xl flex-col items-start justify-between gap-8 px-5 py-20 md:flex-row md:items-end lg:px-8"><div><p className="eyebrow">Start a conversation</p><h2 className="mt-5 max-w-3xl type-h2">Looking for a reliable air handling solution?</h2></div><Button asChild size="xl"><Link to="/enquiry">Send an enquiry <ArrowUpRight /></Link></Button></div></section>;
+  return <section className="bg-secondary"><div className="mx-auto flex max-w-7xl flex-col items-start justify-between gap-8 px-5 py-20 md:flex-row md:items-end lg:px-8"><div><p className="eyebrow">Start a conversation</p><h2 className="mt-5 max-w-3xl type-h2">Looking for a reliable air handling solution?</h2></div><Magnetic intensity={0.2} springOptions={springOptions} actionArea="global" range={200}><Button asChild size="xl" className="rounded-lg"><Link to="/enquiry"><MagneticLabel>Send an enquiry <ArrowUpRight /></MagneticLabel></Link></Button></Magnetic></div></section>;
 }
