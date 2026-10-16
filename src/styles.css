@@ -167,3 +167,21 @@
   @keyframes rise { from { opacity: 0; transform: translateY(18px); } to { opacity: 1; transform: translateY(0); } }
   .animate-rise { animation: rise .7s ease-out both; }
 }
+
+/* Typography scale — one source of truth for headings and copy */
+@utility type-page {
+  @apply font-display text-4xl uppercase leading-[1.05] md:text-5xl lg:text-6xl;
+}
+@utility type-h2 {
+  @apply font-display text-3xl uppercase leading-tight md:text-4xl;
+}
+@utility type-h3 {
+  @apply font-display text-xl uppercase leading-snug md:text-2xl;
+}
+@utility type-lead {
+  @apply text-lg leading-relaxed text-muted-foreground;
+}
+@utility type-body {
+  @apply text-base leading-relaxed text-muted-foreground;
+  & strong { @apply font-bold text-foreground; }
+}
