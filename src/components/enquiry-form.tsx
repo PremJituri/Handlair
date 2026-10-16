@@ -3,10 +3,13 @@ import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
 import { Button } from "@/components/ui/button";
+import { Magnetic, MagneticLabel } from "@/components/core/magnetic";
 import { CheckCircle2 } from "lucide-react";
 
 const schema = z.object({ firstName: z.string().min(2, "Please enter your first name"), lastName: z.string().optional(), company: z.string().optional(), email: z.string().email("Enter a valid email"), mobile: z.string().min(7, "Enter a valid mobile number"), city: z.string().optional(), country: z.string().optional(), message: z.string().min(10, "Please tell us a little more") });
 type FormData = z.infer<typeof schema>;
+
+const springOptions = { bounce: 0.1 };
 
 export function EnquiryForm({ compact = false }: { compact?: boolean }) {
   const [sent, setSent] = useState(false);
@@ -22,7 +25,7 @@ export function EnquiryForm({ compact = false }: { compact?: boolean }) {
     {!compact && <Field label="City" error={errors.city?.message}><input className={field} {...register("city")} /></Field>}
     {!compact && <Field label="Country" error={errors.country?.message}><input className={field} {...register("country")} /></Field>}
     <div className="sm:col-span-2"><Field label="Requirement" error={errors.message?.message}><textarea rows={5} className={field} {...register("message")} /></Field></div>
-    <div className="sm:col-span-2"><Button type="submit" size="xl" disabled={isSubmitting}>{isSubmitting ? "Preparing…" : "Submit enquiry"}</Button></div>
+    <div className="sm:col-span-2"><Magnetic intensity={0.2} springOptions={springOptions} actionArea="global" range={200}><Button type="submit" size="xl" disabled={isSubmitting} className="rounded-lg"><MagneticLabel>{isSubmitting ? "Preparing…" : "Submit enquiry"}</MagneticLabel></Button></Magnetic></div>
   </form>;
 }
 
