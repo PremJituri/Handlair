@@ -14,6 +14,15 @@ import hero from "@/assets/hero-refined.jpg.asset.json";
 import mancooler from "@/assets/mancooler.jpg.asset.json";
 import roof from "@/assets/roof.jpg.asset.json";
 import scrubber from "@/assets/scrubber.jpg.asset.json";
+import install1 from "@/assets/install1.jpg.asset.json";
+import install2 from "@/assets/install2.jpg.asset.json";
+import install3 from "@/assets/install3.jpg.asset.json";
+import install4 from "@/assets/install4.jpg.asset.json";
+import install5 from "@/assets/install5.jpg.asset.json";
+import install6 from "@/assets/install6.jpg.asset.json";
+import install7 from "@/assets/install7.jpg.asset.json";
+import install8 from "@/assets/install8.jpg.asset.json";
+import install9 from "@/assets/install9.jpg.asset.json";
 
 export type Product = {
   slug: string;
@@ -101,13 +110,25 @@ export const products: Product[] = [
 
 export const systems = ["Air Cooling Systems", "Ventilation Systems", "Pressurisation Systems", "Air Filtration Systems", "Dust Collection Systems", "Fume Exhausting Systems"];
 
-export const gallery = [
-  { image: gallery1.url, name: "Air Cooling System" },
-  { image: gallery2.url, name: "Dust Collector with Silencer" },
-  { image: gallery3.url, name: "High Temperature Blower" },
-  { image: gallery4.url, name: "Bifurcated Fan" },
-  { image: gallery5.url, name: "Roof Extractor" },
-  { image: gallery6.url, name: "Welding Fume Exhaust" },
+export const galleryCategories = ["Air Cooling", "Ducting & Ventilation", "Fans & Blowers", "Dust & Fume Control"] as const;
+export type GalleryCategory = (typeof galleryCategories)[number];
+
+export const gallery: { image: string; name: string; category: GalleryCategory }[] = [
+  { image: install1.url, name: "Air Cooling System", category: "Air Cooling" },
+  { image: install2.url, name: "Air Cooling Unit 25 K", category: "Air Cooling" },
+  { image: install3.url, name: "Air Cooling Unit", category: "Air Cooling" },
+  { image: install4.url, name: "Air Cooling Unit 5 K", category: "Air Cooling" },
+  { image: install5.url, name: "Air Cooling Unit 6 K", category: "Air Cooling" },
+  { image: install6.url, name: "Air Cooling Unit 50 K", category: "Air Cooling" },
+  { image: install7.url, name: "Air Distribution Duct Work", category: "Ducting & Ventilation" },
+  { image: install8.url, name: "Air Distribution Ducting", category: "Ducting & Ventilation" },
+  { image: install9.url, name: "Axial Fan", category: "Fans & Blowers" },
+  { image: gallery1.url, name: "Air Cooling System", category: "Air Cooling" },
+  { image: gallery2.url, name: "Dust Collector with Silencer", category: "Dust & Fume Control" },
+  { image: gallery3.url, name: "High Temperature Blower", category: "Fans & Blowers" },
+  { image: gallery4.url, name: "Bifurcated Fan", category: "Fans & Blowers" },
+  { image: gallery5.url, name: "Roof Extractor", category: "Ducting & Ventilation" },
+  { image: gallery6.url, name: "Welding Fume Exhaust", category: "Dust & Fume Control" },
 ];
 
 export const contact = {
