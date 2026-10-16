@@ -3,6 +3,7 @@ import { ArrowUpRight, Mail, Menu, Phone, X } from "lucide-react";
 import { useState, type ReactNode } from "react";
 import { Button } from "@/components/ui/button";
 import { contact } from "@/data/handlair";
+import logoAsset from "@/assets/maaria-logo.jpg.asset.json";
 
 const nav = [
   ["About", "/about"],
@@ -14,7 +15,7 @@ const nav = [
 export function Logo() {
   return (
     <Link to="/" className="flex items-center gap-3" aria-label="Handlair home">
-      <span className="grid size-10 place-items-center bg-foreground text-background"><span className="size-4 rotate-45 border-2 border-current" /></span>
+      <img src={logoAsset.url} alt="Maaria logo: green fan-flower emblem with the word Maaria, inside a red blower outline" width={1280} height={1160} className="h-12 w-auto object-contain sm:h-14" />
       <span><strong className="block font-display text-xl leading-none uppercase">Handlair</strong><span className="text-[10px] font-semibold uppercase text-muted-foreground">Air systems engineering</span></span>
     </Link>
   );
