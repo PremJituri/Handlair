@@ -56,27 +56,24 @@ function GalleryPage() {
         <ul className="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3">
           {items.map((item, i) => (
             <li key={item.image}>
-              <button
+              <Button
                 type="button"
+                variant="ghost"
                 onClick={() => setIndex(i)}
                 aria-label={`View ${item.name} in lightbox`}
-                className="group block w-full overflow-hidden border border-border bg-background text-left transition-shadow hover:shadow-lg focus-visible:outline-2 focus-visible:outline-primary"
+                className="group flex h-auto w-full flex-col items-stretch gap-0 overflow-hidden rounded-none border border-border bg-background p-0 text-left whitespace-normal transition-shadow hover:bg-background hover:shadow-lg focus-visible:outline-2 focus-visible:outline-primary"
               >
                 <div className="relative aspect-[4/3] overflow-hidden bg-secondary">
-                  <img src={item.image} alt={item.name} loading="lazy" className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105" />
-                  <span className="absolute left-3 top-3 bg-foreground px-2 py-1 text-xs font-bold text-background">{String(i + 1).padStart(2, "0")}</span>
-                  <div className="absolute inset-0 flex items-center justify-center bg-foreground/0 opacity-0 transition-all group-hover:bg-foreground/45 group-hover:opacity-100 group-focus-visible:bg-foreground/45 group-focus-visible:opacity-100">
-                    <span className="glass-surface inline-flex items-center gap-2 px-4 py-2 text-sm font-bold text-foreground"><Maximize2 className="size-4" /> View in lightbox</span>
-                  </div>
-                  <span className="glass-surface absolute right-3 top-3 grid size-9 place-items-center text-foreground"><Maximize2 className="size-4" /></span>
+                  <img src={item.image} alt={item.name} loading="lazy" className="h-full w-full object-contain p-2 motion-safe:transition-transform motion-safe:duration-500 motion-safe:group-hover:scale-[1.02]" />
                 </div>
-                <div className="flex items-center justify-between gap-3 border-t border-border p-4">
-                  <div>
+                <div className="glass-surface mx-2 my-2 flex items-center justify-between gap-3 px-3 py-2">
+                  <div className="min-w-0">
                     <p className="eyebrow text-primary">{item.category}</p>
-                    <h3 className="mt-1 text-lg font-bold uppercase leading-snug">{item.name}</h3>
+                    <h3 className="mt-1 text-base font-bold uppercase leading-tight">{item.name}</h3>
                   </div>
+                  <span className="flex shrink-0 items-center gap-2 text-foreground" title="View in lightbox"><Maximize2 className="size-4" /><span className="sr-only">View in lightbox</span></span>
                 </div>
-              </button>
+              </Button>
             </li>
           ))}
         </ul>
@@ -144,7 +141,7 @@ function Lightbox({ items, index, setIndex }: { items: typeof gallery; index: nu
         {items.map((t, i) => (
           <button key={t.image} data-i={i} type="button" onClick={() => setIndex(i)} aria-label={`Show ${t.name}`} aria-current={i === index}
             className={cn("h-14 w-20 shrink-0 overflow-hidden border-2 transition-opacity", i === index ? "border-primary opacity-100" : "border-transparent opacity-50 hover:opacity-90")}>
-            <img src={t.image} alt="" className="h-full w-full object-cover" />
+            <img src={t.image} alt="" className="h-full w-full object-contain" />
           </button>
         ))}
       </div>
