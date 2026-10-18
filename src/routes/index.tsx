@@ -1,9 +1,9 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { ArrowRight, MoveDown } from "lucide-react";
+import { ArrowRight, ArrowUpRight, MoveDown } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { ProductGrid } from "@/components/product-grid";
 import { CtaBand } from "@/components/site-shell";
-import { gallery, heroImage, systems } from "@/data/handlair";
+import { heroImage, showcase, systems } from "@/data/handlair";
 
 export const Route = createFileRoute("/")({
   head: () => ({ meta: [
