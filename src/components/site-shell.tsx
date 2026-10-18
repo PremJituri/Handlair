@@ -27,16 +27,16 @@ export function Logo() {
 export function Header() {
   const [open, setOpen] = useState(false);
   return (
-    <header className="sticky top-0 z-50 border-b border-border bg-background/95 backdrop-blur-md">
-      <div className="mx-auto flex h-20 max-w-7xl items-center justify-between px-5 lg:px-8">
+    <header className="glass-surface sticky top-3 z-50 mx-3 mt-3 mb-3 sm:mx-5 lg:mx-8 xl:mx-auto xl:w-[calc(100%-4rem)] xl:max-w-7xl">
+      <div className="mx-auto flex h-20 max-w-7xl items-center justify-between gap-3 px-4 lg:px-6">
         <Logo />
         <nav className="hidden items-center gap-8 lg:flex" aria-label="Main navigation">
           {nav.map(([label, to]) => <Link key={to} to={to} className="text-sm font-semibold uppercase text-muted-foreground transition-colors hover:text-foreground" activeProps={{ className: "text-foreground" }}>{label}</Link>)}
         </nav>
         <div className="hidden lg:block"><Magnetic intensity={0.2} springOptions={springOptions} actionArea="global" range={200}><Button asChild size="lg" className="rounded-lg"><Link to="/enquiry"><MagneticLabel>Send an enquiry <ArrowUpRight /></MagneticLabel></Link></Button></Magnetic></div>
-        <Button variant="ghost" size="icon" className="lg:hidden" onClick={() => setOpen(!open)} aria-label={open ? "Close menu" : "Open menu"}>{open ? <X /> : <Menu />}</Button>
+        <Button variant="ghost" size="icon" className="shrink-0 lg:hidden" aria-expanded={open} aria-controls="mobile-navigation" onClick={() => setOpen(!open)} aria-label={open ? "Close menu" : "Open menu"}>{open ? <X /> : <Menu />}</Button>
       </div>
-      {open && <nav className="border-t border-border bg-background px-5 py-5 lg:hidden" aria-label="Mobile navigation"><div className="flex flex-col gap-1">{nav.map(([label, to]) => <Link key={to} to={to} onClick={() => setOpen(false)} className="border-b border-border py-4 font-display text-xl uppercase">{label}</Link>)}<Magnetic intensity={0.2} springOptions={springOptions} actionArea="global" range={200} className="w-full"><Button asChild size="lg" className="mt-4 w-full rounded-lg"><Link to="/enquiry" onClick={() => setOpen(false)}>Send an enquiry</Link></Button></Magnetic></div></nav>}
+      {open && <nav id="mobile-navigation" className="max-h-[calc(100dvh-7rem)] overflow-y-auto rounded-b-lg border-t border-border bg-background/80 px-5 py-5 lg:hidden" aria-label="Mobile navigation"><div className="flex flex-col gap-1">{nav.map(([label, to]) => <Link key={to} to={to} onClick={() => setOpen(false)} className="border-b border-border py-4 font-display text-xl uppercase">{label}</Link>)}<Magnetic intensity={0.2} springOptions={springOptions} actionArea="global" range={200} className="w-full"><Button asChild size="lg" className="mt-4 w-full rounded-lg"><Link to="/enquiry" onClick={() => setOpen(false)}>Send an enquiry</Link></Button></Magnetic></div></nav>}
     </header>
   );
 }

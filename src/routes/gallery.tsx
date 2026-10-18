@@ -66,9 +66,9 @@ function GalleryPage() {
                   <img src={item.image} alt={item.name} loading="lazy" className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105" />
                   <span className="absolute left-3 top-3 bg-foreground px-2 py-1 text-xs font-bold text-background">{String(i + 1).padStart(2, "0")}</span>
                   <div className="absolute inset-0 flex items-center justify-center bg-foreground/0 opacity-0 transition-all group-hover:bg-foreground/45 group-hover:opacity-100 group-focus-visible:bg-foreground/45 group-focus-visible:opacity-100">
-                    <span className="inline-flex items-center gap-2 bg-background px-4 py-2 text-sm font-bold text-foreground"><Maximize2 className="size-4" /> View in lightbox</span>
+                    <span className="glass-surface inline-flex items-center gap-2 px-4 py-2 text-sm font-bold text-foreground"><Maximize2 className="size-4" /> View in lightbox</span>
                   </div>
-                  <span className="absolute right-3 top-3 grid size-9 place-items-center bg-background/90 text-foreground"><Maximize2 className="size-4" /></span>
+                  <span className="glass-surface absolute right-3 top-3 grid size-9 place-items-center text-foreground"><Maximize2 className="size-4" /></span>
                 </div>
                 <div className="flex items-center justify-between gap-3 border-t border-border p-4">
                   <div>
@@ -93,7 +93,7 @@ function Lightbox({ items, index, setIndex }: { items: typeof gallery; index: nu
   const next = useCallback(() => setIndex((index + 1) % items.length), [index, items.length, setIndex]);
   const touchX = useRef<number | null>(null);
   const thumbRef = useRef<HTMLDivElement>(null);
-  const item = items[index] ?? items[0]!;
+  const item = items[index] ?? items[0];
 
   useEffect(() => {
     const onKey = (e: KeyboardEvent) => {
@@ -110,6 +110,8 @@ function Lightbox({ items, index, setIndex }: { items: typeof gallery; index: nu
   useEffect(() => {
     thumbRef.current?.querySelector<HTMLElement>(`[data-i="${index}"]`)?.scrollIntoView({ block: "nearest", inline: "center", behavior: "smooth" });
   }, [index]);
+
+  if (!item) return null;
 
   return (
     <div className="fixed inset-0 z-[70] flex flex-col bg-foreground/95 text-background" role="dialog" aria-modal="true" aria-label={`${item.name}, image ${index + 1} of ${items.length}`} onClick={close}>
