@@ -2,4 +2,4 @@
 - [x] Add selective glass details across public pages.
 - [x] Verify page rendering, navigation and mobile menu.
 - [x] Refine existing glass surfaces with mineral gradients, bevels and inset rims without resizing elements.
-- [ ] Verify dimensions, navigation, gallery controls and transparency fallbacks.
+- [x] Verify dimensions, navigation, gallery controls and transparency fallbacks.
