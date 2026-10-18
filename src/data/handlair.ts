@@ -23,6 +23,12 @@ import install6 from "@/assets/install6.jpg.asset.json";
 import install7 from "@/assets/install7.jpg.asset.json";
 import install8 from "@/assets/install8.jpg.asset.json";
 import install9 from "@/assets/install9.jpg.asset.json";
+import fieldInstall from "@/assets/field-install.jpg.asset.json";
+import fieldAxial from "@/assets/field-axial.jpg.asset.json";
+import fieldBlower from "@/assets/field-blower.jpg.asset.json";
+import fieldBagfilter from "@/assets/field-bagfilter.jpg.asset.json";
+import fieldPulsejet from "@/assets/field-pulsejet.jpg.asset.json";
+import fieldCyclone from "@/assets/field-cyclone.jpg.asset.json";
 
 export type Product = {
   slug: string;
@@ -129,6 +135,15 @@ export const gallery: { image: string; name: string; category: GalleryCategory }
   { image: gallery4.url, name: "Bifurcated Fan", category: "Fans & Blowers" },
   { image: gallery5.url, name: "Roof Extractor", category: "Ducting & Ventilation" },
   { image: gallery6.url, name: "Welding Fume Exhaust", category: "Dust & Fume Control" },
+];
+
+export const showcase: { image: string; name: string; tag: string }[] = [
+  { image: fieldInstall.url, name: "Dust Collection Plant", tag: "Turnkey installation" },
+  { image: fieldAxial.url, name: "Axial Flow Fan", tag: "Fans & blowers" },
+  { image: fieldBlower.url, name: "Centrifugal Blower", tag: "Fans & blowers" },
+  { image: fieldBagfilter.url, name: "Bag Filter Dust Collector", tag: "Dust & fume control" },
+  { image: fieldPulsejet.url, name: "Pulse Jet Bag Filter", tag: "Dust & fume control" },
+  { image: fieldCyclone.url, name: "Cyclone Dust Collector", tag: "Dust & fume control" },
 ];
 
 export const contact = {
