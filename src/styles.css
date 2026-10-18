@@ -207,8 +207,8 @@
 }
 
 /* Mineral glass: no sizing changes. Lightning CSS supplies Safari prefixes. */
-:where(.glass-surface) {
-  position: relative;
+@layer base {
+  :where(.glass-surface) { position: relative; }
 }
 @utility glass-surface {
   isolation: isolate;
