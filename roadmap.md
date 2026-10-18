@@ -3,3 +3,5 @@
 - [x] Verify page rendering, navigation and mobile menu.
 - [x] Refine existing glass surfaces with mineral gradients, bevels and inset rims without resizing elements.
 - [x] Verify dimensions, navigation, gallery controls and transparency fallbacks.
+- [x] Extend contained photo framing and compact captions to product cards, product detail photos and gallery images.
+- [x] Verify sitewide photo rendering and gallery controls on desktop and mobile.
