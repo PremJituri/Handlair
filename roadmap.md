@@ -3,3 +3,4 @@
 - [x] Verify page rendering, navigation and mobile menu.
 - [x] Refine existing glass surfaces with mineral gradients, bevels and inset rims without resizing elements.
 - [x] Verify dimensions, navigation, gallery controls and transparency fallbacks.
+- [x] Extend opening patterns behind the unchanged navigation on every page and verify desktop/mobile positions.

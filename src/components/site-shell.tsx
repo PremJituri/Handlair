@@ -57,7 +57,7 @@ export function Footer() {
 export function SiteShell({ children }: { children: ReactNode }) { return <><Header /><main>{children}</main><Footer /></>; }
 
 export function PageHero({ eyebrow, title, children }: { eyebrow: string; title: string; children: ReactNode }) {
-  return <section className="pattern-grid border-b border-border"><div className="mx-auto max-w-7xl px-5 py-20 lg:px-8 lg:py-28"><p className="eyebrow">{eyebrow}</p><h1 className="mt-6 max-w-5xl type-page">{title}</h1><div className="mt-7 max-w-2xl type-lead">{children}</div></div></section>;
+  return <section className="pattern-grid -mt-[var(--header-slot)] border-b border-border"><div className="mx-auto max-w-7xl px-5 pb-20 pt-[calc(5rem+var(--header-slot))] lg:px-8 lg:pb-28 lg:pt-[calc(7rem+var(--header-slot))]"><p className="eyebrow">{eyebrow}</p><h1 className="mt-6 max-w-5xl type-page">{title}</h1><div className="mt-7 max-w-2xl type-lead">{children}</div></div></section>;
 }
 
 export function CtaBand() {

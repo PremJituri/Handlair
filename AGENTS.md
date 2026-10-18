@@ -14,3 +14,5 @@
 - Keep mineral glass in shared semantic CSS utilities with non-interactive overlays and opaque fallbacks; preserve positioning and dimensions, and let Lightning CSS generate vendor prefixes so published Chrome retains the standard filter.
 
 - Render homepage showcase photos and glass captions in separate flex rows with contained images so captions never obscure equipment or crop its extremities.
+
+- Extend opening page patterns behind the unchanged header using the shared header-slot offset and equal compensating inner top spacing to preserve content positions.
