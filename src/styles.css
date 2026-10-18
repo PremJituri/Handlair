@@ -72,6 +72,8 @@
   --glass-navigation-gradient: linear-gradient(135deg, oklch(0.965 0.071 137 / 18%), oklch(0.988 0.003 286 / 12%) 46%, oklch(0.86 0.16 143 / 16%));
   --glass-border: oklch(1 0 0 / 45%);
   --glass-radius: 8px;
+  /* Header slot height: mt-3 + h-20 bar + 1px top/bottom borders + mb-3 (site-shell Header). Keep in sync if the bar's own sizing changes. */
+  --header-slot: calc(0.75rem + 5rem + 2px + 0.75rem);
   --glass-fallback: oklch(0.975 0.015 150 / 94%);
   --glass-gradient: linear-gradient(135deg, oklch(0.965 0.071 137 / 20%) 0%, oklch(0.988 0.003 286 / 10%) 46%, oklch(0.86 0.16 143 / 14%) 100%);
   --glass-reflection: linear-gradient(105deg, oklch(1 0 0 / 28%) 0%, oklch(1 0 0 / 8%) 22%, transparent 48%, oklch(1 0 0 / 10%) 78%, transparent 100%);
