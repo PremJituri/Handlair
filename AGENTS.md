@@ -13,4 +13,4 @@
 
 - Keep mineral glass in shared semantic CSS utilities with non-interactive overlays and opaque fallbacks; preserve positioning and dimensions, and let Lightning CSS generate vendor prefixes so published Chrome retains the standard filter.
 
-- Render equipment photos with object-contain and captions in separate rows across showcase, product and gallery cards so labels never obscure equipment or crop its extremities.
+- Render homepage showcase photos and glass captions in separate flex rows with contained images so captions never obscure equipment or crop its extremities.
