@@ -10,3 +10,5 @@
 <!-- LOVABLE:END -->
 
 - Keep shared public-site chrome in `SiteShell` and business catalog content in `src/data/handlair.ts` so every route stays visually and factually consistent.
+
+- Keep frosted styling in shared semantic CSS utilities with opaque fallbacks, applied selectively to navigation, image controls and framed tools for readability and performance.

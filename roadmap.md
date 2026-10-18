@@ -1,0 +1,3 @@
+- [x] Float and frost the shared navigation.
+- [x] Add selective glass details across public pages.
+- [x] Verify page rendering, navigation and mobile menu.
