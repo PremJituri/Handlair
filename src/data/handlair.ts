@@ -114,7 +114,7 @@ export const products: Product[] = [
   },
 ];
 
-export const systems = ["Air Cooling Systems", "Ventilation Systems", "Pressurisation Systems", "Air Filtration Systems", "Dust Collection Systems", "Fume Exhausting Systems"];
+export const systems = ["Centrifugal Blowers", "Axial Flow Fans", "Man Coolers", "Roof Extractors", "Oil Bath Filters", "Bag Type Dust Collectors", "Cyclone Dust Collectors", "Spray Scrubbers", "Venturi Scrubbers", "Pre-Filters, Fine Filters & HEPA Filters", "Air Cooling Systems", "Ventilation Systems", "Pressurisation Systems", "Fume Exhaust Systems", "Dust Collection Systems"];
 
 export const galleryCategories = ["Air Cooling", "Ducting & Ventilation", "Fans & Blowers", "Dust & Fume Control"] as const;
 export type GalleryCategory = (typeof galleryCategories)[number];
