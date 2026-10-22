@@ -23,7 +23,7 @@ export function ProductCatalogue() {
       <div className="relative w-full sm:max-w-sm"><Search className="pointer-events-none absolute left-3 top-3 size-4 text-muted-foreground" /><Input aria-label="Search products" placeholder="Search products" value={query} onChange={(event) => setQuery(event.target.value)} className="h-11 pl-10 pr-10 text-base" />{query && <Button size="icon" variant="ghost" onClick={() => setQuery("")} aria-label="Clear search" className="absolute right-1 top-1"><X /></Button>}</div>
     </div>
     <div className="mt-8 grid items-start gap-8 lg:grid-cols-[15rem_minmax(0,1fr)]">
-      <aside><h2 className="mb-4 font-bold uppercase">Subcategories</h2><nav aria-label="Product subcategories" className="flex gap-2 overflow-x-auto pb-3 lg:flex-col lg:overflow-visible">
+      <aside className="min-w-0"><h2 className="mb-4 font-bold uppercase">Subcategories</h2><nav aria-label="Product subcategories" className="flex gap-2 overflow-x-auto pb-3 lg:flex-col lg:overflow-visible">
         <Button variant="ghost" aria-pressed={subcategory === "all"} onClick={() => setSubcategory("all")} className={cn("min-h-11 shrink-0 justify-start text-base lg:h-auto lg:whitespace-normal lg:py-3 lg:text-left", subcategory === "all" && "bg-secondary")}>All in {category === "all" ? "catalogue" : "category"}</Button>
         {categoryProducts.map((product) => <Button key={product.slug} variant="ghost" aria-pressed={subcategory === product.slug} onClick={() => setSubcategory(product.slug)} className={cn("min-h-11 shrink-0 justify-start text-base lg:h-auto lg:whitespace-normal lg:py-3 lg:text-left", subcategory === product.slug && "bg-secondary")}>{product.subcategory}</Button>)}
       </nav></aside>
