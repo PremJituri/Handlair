@@ -13,6 +13,14 @@ const nav = [
   ["Contact", "/contact"],
 ] as const;
 
+const headerNav = [
+  ["Home", "/"],
+  ["About", "/about"],
+  ["Products", "/products"],
+  ["Contact", "/contact"],
+] as const;
+
+
 const springOptions = { bounce: 0.1 };
 
 export function Logo() {
@@ -31,12 +39,12 @@ export function Header() {
       <div className="mx-auto flex h-20 max-w-7xl items-center justify-between gap-3 px-4 lg:px-6">
         <Logo />
         <nav className="hidden items-center gap-8 lg:flex" aria-label="Main navigation">
-          {nav.map(([label, to]) => <Link key={to} to={to} className="text-sm font-semibold uppercase text-muted-foreground transition-colors hover:text-foreground" activeProps={{ className: "text-foreground" }}>{label}</Link>)}
+          {headerNav.map(([label, to]) => <Link key={to} to={to} className="text-sm font-semibold uppercase text-muted-foreground transition-colors hover:text-foreground" activeProps={{ className: "text-foreground" }}>{label}</Link>)}
         </nav>
         <div className="hidden lg:block"><Magnetic intensity={0.2} springOptions={springOptions} actionArea="global" range={200}><Button asChild size="lg" className="rounded-lg"><Link to="/enquiry"><MagneticLabel>Send an enquiry <ArrowUpRight /></MagneticLabel></Link></Button></Magnetic></div>
         <Button variant="ghost" size="icon" className="shrink-0 lg:hidden" aria-expanded={open} aria-controls="mobile-navigation" onClick={() => setOpen(!open)} aria-label={open ? "Close menu" : "Open menu"}>{open ? <X /> : <Menu />}</Button>
       </div>
-      {open && <nav id="mobile-navigation" className="max-h-[calc(100dvh-7rem)] overflow-y-auto rounded-b-lg border-t border-border bg-background/80 px-5 py-5 lg:hidden" aria-label="Mobile navigation"><div className="flex flex-col gap-1">{nav.map(([label, to]) => <Link key={to} to={to} onClick={() => setOpen(false)} className="border-b border-border py-4 font-display text-xl uppercase">{label}</Link>)}<Magnetic intensity={0.2} springOptions={springOptions} actionArea="global" range={200} className="w-full"><Button asChild size="lg" className="mt-4 w-full rounded-lg"><Link to="/enquiry" onClick={() => setOpen(false)}>Send an enquiry</Link></Button></Magnetic></div></nav>}
+      {open && <nav id="mobile-navigation" className="max-h-[calc(100dvh-7rem)] overflow-y-auto rounded-b-lg border-t border-border bg-background/80 px-5 py-5 lg:hidden" aria-label="Mobile navigation"><div className="flex flex-col gap-1">{headerNav.map(([label, to]) => <Link key={to} to={to} onClick={() => setOpen(false)} className="border-b border-border py-4 font-display text-xl uppercase">{label}</Link>)}<Magnetic intensity={0.2} springOptions={springOptions} actionArea="global" range={200} className="w-full"><Button asChild size="lg" className="mt-4 w-full rounded-lg"><Link to="/enquiry" onClick={() => setOpen(false)}>Send an enquiry</Link></Button></Magnetic></div></nav>}
     </header>
   );
 }
