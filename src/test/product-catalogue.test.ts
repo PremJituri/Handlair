@@ -14,8 +14,8 @@ describe("Owner-specified product hierarchy", () => {
   });
   it("returns the full catalogue and isolates selected subcategories", () => {
     expect(filterCatalogue("all")).toHaveLength(12);
-    expect(filterCatalogue("dust", "air-cooling-units").map((item) => item.slug)).toEqual(["air-cooling-units"]);
-    expect(filterCatalogue("air", "air-cooling-units")).toHaveLength(0);
+    expect(filterCatalogue("air", "air-cooling-units").map((item) => item.slug)).toEqual(["air-cooling-units"]);
+    expect(filterCatalogue("dust", "air-cooling-units")).toHaveLength(0);
   });
   it("preserves existing product names, technical facts and URLs", () => {
     for (const original of products) {
