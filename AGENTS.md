@@ -16,3 +16,4 @@
 - Render homepage showcase photos and glass captions in separate flex rows with contained images so captions never obscure equipment or crop its extremities.
 
 - Extend opening page patterns behind the unchanged header using the shared header-slot offset and equal compensating inner top spacing to preserve content positions.
+- Keep Products-only taxonomy and image associations in `src/data/product-catalogue.ts`, derived from the shared business records; preserve legacy product URLs and do not alter the standalone Gallery for catalogue changes.
