@@ -36,10 +36,10 @@ export function ProductGallery({ name, images }: { name: string; images: Product
     </div>
     <div className="mt-3 flex justify-between gap-3 text-base text-muted-foreground"><span>{photo.name}</span><span className="shrink-0" aria-live="polite">Image {index + 1} of {images.length}</span></div>
     {images.length > 1 && thumbnails}
-    <Dialog open={open} onOpenChange={setOpen}><DialogContent className="z-[70] w-[calc(100%-2rem)] max-w-5xl gap-3 rounded-lg p-4 sm:p-6" onKeyDown={(event) => event.stopPropagation()}>
+    <Dialog open={open} onOpenChange={setOpen}><DialogContent className="z-[70] w-[calc(100%-2rem)] max-w-5xl gap-3 rounded-lg p-4 sm:p-6" onKeyDown={(event) => { keys(event); event.stopPropagation(); }}>
       <DialogTitle className="pr-8 text-xl leading-snug">{name}</DialogTitle><DialogDescription className="text-base">{photo.name} — Image {index + 1} of {images.length}</DialogDescription>
-      <div className="relative h-[50dvh] min-h-40 sm:h-[60dvh]" onKeyDown={keys} tabIndex={0} aria-label="Product image viewer" onTouchStart={(event) => { touchStart.current = event.touches[0]?.clientX ?? null; }} onTouchEnd={swipe}><Photo key={photo.src} photo={photo} enlarged />{arrows}</div>
-      {images.length > 1 && <div onKeyDown={keys}>{thumbnails}</div>}
+      <div className="relative h-[50dvh] min-h-40 sm:h-[60dvh]" tabIndex={0} aria-label="Product image viewer" onTouchStart={(event) => { touchStart.current = event.touches[0]?.clientX ?? null; }} onTouchEnd={swipe}><Photo key={photo.src} photo={photo} enlarged />{arrows}</div>
+      {images.length > 1 && thumbnails}
     </DialogContent></Dialog>
   </div>;
 }
