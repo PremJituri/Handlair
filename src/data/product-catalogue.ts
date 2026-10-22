@@ -28,12 +28,12 @@ function variant(sourceSlug: string, slug: string, name: string, category: Catal
   const source = products.find((product) => product.slug === sourceSlug);
   if (!source) throw new Error(`Missing existing product: ${sourceSlug}`);
   // Combined source photography cannot establish which individual variant is pictured.
-  return { slug, name, category, subcategory: name, sourceSlug, detail, summary, specifications, image: "", images: [], missing: "A dedicated product photo is not yet available. Please contact Handlair for product-specific information." };
+  return { slug, name, category, subcategory: name, sourceSlug, detail, summary, ...(specifications ? { specifications } : {}), image: "", images: [], missing: "A dedicated product photo is not yet available. Please contact Handlair for product-specific information." };
 }
 
 export const catalogueProducts: CatalogueProduct[] = [
   fromRecord("centrifugal-blowers", "air", "Centrifugal Blowers", ["Centrifugal Blower", "High Temperature Blower"]),
-  fromRecord("axial-flow-fans", "air", "Axial Flow Fans", ["Axial Fan", "Axial Flow Fan", "Bifurcated Fan"]),
+  fromRecord("axial-flow-fans", "air", "Axial Flow Fans", ["Axial Fan", "Axial Flow Fan"]),
   fromRecord("roof-extractors", "air", "Roof Extractors", ["Roof Extractor"]),
   fromRecord("industrial-mancoolers", "air", "Man Coolers"),
   fromRecord("air-cooling-units", "dust", "Air Cooling Systems", ["Air Cooling System", "Air Cooling Unit 25 K", "Air Cooling Unit", "Air Cooling Unit 5 K", "Air Cooling Unit 6 K", "Air Cooling Unit 50 K"]),
