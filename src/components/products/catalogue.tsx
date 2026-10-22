@@ -16,10 +16,22 @@ export function ProductCatalogue() {
 
   return <section className="mx-auto max-w-7xl px-5 py-12 lg:px-8 lg:py-16">
     <nav aria-label="Product categories" className="grid grid-cols-1 gap-3 sm:grid-cols-3">
-      {catalogueCategories.map((item, index) => <Button key={item.id} variant="ghost" aria-pressed={category === item.id} onClick={() => { setCategory(item.id); setSubcategory("all"); }} className={cn("h-auto min-h-24 justify-between whitespace-normal rounded-lg border p-5 text-left text-base", category === item.id ? "border-primary bg-secondary text-foreground" : "border-border bg-background hover:bg-secondary/40")}><span className="flex min-w-0 flex-col gap-2"><span className="font-normal text-muted-foreground">0{index + 1} / {filterCatalogue(item.id).length} products</span><span className="uppercase">{item.name}</span></span><ArrowRight className="ml-3" /></Button>)}
+      {catalogueCategories.map((item, index) => { const active = category === item.id; return <Button key={item.id} variant="ghost" aria-pressed={active} onClick={() => { setCategory(item.id); setSubcategory("all"); }} className={cn("group h-auto min-h-24 justify-between whitespace-normal rounded-lg border p-5 text-left text-base hover:bg-secondary/40 hover:text-foreground", active ? "border-primary bg-secondary text-foreground ring-1 ring-primary" : "border-border bg-background hover:border-primary/60")}>
+        <span className="flex min-w-0 flex-col gap-1.5">
+          <span className="font-normal text-muted-foreground">0{index + 1} / {filterCatalogue(item.id).length} products</span>
+          <span className="font-semibold uppercase">{item.name}</span>
+        </span>
+        <span aria-hidden="true" className={cn("ml-4 flex size-9 shrink-0 items-center justify-center rounded-full border transition-colors", active ? "border-primary bg-primary text-primary-foreground" : "border-border bg-transparent group-hover:border-primary/60 group-hover:bg-secondary")}>
+          <ArrowRight className="transition-transform motion-safe:group-hover:translate-x-0.5" />
+        </span>
+      </Button>; })}
     </nav>
     <div className="mt-8 flex flex-col gap-4 border-b border-border pb-6 sm:flex-row sm:items-center sm:justify-between">
-      <Button variant={category === "all" ? "secondary" : "ghost"} onClick={reset} className="w-fit text-base"><Layers3 /> Full catalogue <span className="font-normal">({catalogueProducts.length})</span></Button>
+      <Button variant="ghost" onClick={reset} aria-pressed={category === "all"} className={cn("group h-11 w-fit shrink-0 gap-2.5 rounded-full border px-4 text-base hover:bg-secondary/40 hover:text-foreground", category === "all" ? "border-primary bg-secondary text-foreground" : "border-border bg-background hover:border-primary/60")}>
+        <Layers3 />
+        Full catalogue
+        <span className="rounded-full border border-border bg-background px-2.5 py-0.5 font-normal text-muted-foreground">{catalogueProducts.length}</span>
+      </Button>
       <div className="relative w-full sm:max-w-sm"><Search className="pointer-events-none absolute left-3 top-3 size-4 text-muted-foreground" /><Input aria-label="Search products" placeholder="Search products" value={query} onChange={(event) => setQuery(event.target.value)} className="h-11 pl-10 pr-10 text-base" />{query && <Button size="icon" variant="ghost" onClick={() => setQuery("")} aria-label="Clear search" className="absolute right-1 top-1"><X /></Button>}</div>
     </div>
     <div className="mt-8 grid items-start gap-8 lg:grid-cols-[15rem_minmax(0,1fr)]">
