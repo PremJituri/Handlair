@@ -4,3 +4,6 @@
 - [x] Refine existing glass surfaces with mineral gradients, bevels and inset rims without resizing elements.
 - [x] Verify dimensions, navigation, gallery controls and transparency fallbacks.
 - [x] Extend opening patterns behind the unchanged navigation on every page and verify desktop/mobile positions.
+- [ ] Organize the Products-only catalogue using the supplied categories and subcategories.
+- [ ] Add accurate product-specific detail galleries and missing-information states.
+- [ ] Verify filtering, detail images, mobile layouts, and unchanged Gallery behavior.
