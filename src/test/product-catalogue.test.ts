@@ -3,19 +3,19 @@ import { catalogueProducts, filterCatalogue, findCatalogueProduct } from "@/data
 import { products, gallery } from "@/data/handlair";
 
 describe("Owner-specified product hierarchy", () => {
-  it("groups the four air cooling / ventilation subcategories", () => {
-    expect(filterCatalogue("air").map((item) => item.subcategory)).toEqual(["Centrifugal Blowers", "Axial Flow Fans", "Roof Extractors", "Man Coolers"]);
+  it("groups the five air cooling / ventilation subcategories", () => {
+    expect(filterCatalogue("air").map((item) => item.subcategory)).toEqual(["Centrifugal Blowers", "Axial Flow Fans", "Roof Extractors", "Man Coolers", "Air Cooling Systems"]);
   });
-  it("places air cooling and the four dust-control subcategories in Dust Collection", () => {
-    expect(filterCatalogue("dust").map((item) => item.subcategory)).toEqual(["Air Cooling Systems", "Bag Type Dust Collectors", "Cyclone Dust Collectors", "Spray Scrubbers", "Venturi Scrubbers"]);
+  it("places the four dust-control subcategories in Dust Collection", () => {
+    expect(filterCatalogue("dust").map((item) => item.subcategory)).toEqual(["Bag Type Dust Collectors", "Cyclone Dust Collectors", "Spray Scrubbers", "Venturi Scrubbers"]);
   });
   it("exposes the three filter subcategories", () => {
     expect(filterCatalogue("filters").map((item) => item.subcategory)).toEqual(["Pre-Filters", "Fine Filters & HEPA Filters", "Oil Bath Pre-Filters"]);
   });
   it("returns the full catalogue and isolates selected subcategories", () => {
     expect(filterCatalogue("all")).toHaveLength(12);
-    expect(filterCatalogue("dust", "air-cooling-units").map((item) => item.slug)).toEqual(["air-cooling-units"]);
-    expect(filterCatalogue("air", "air-cooling-units")).toHaveLength(0);
+    expect(filterCatalogue("air", "air-cooling-units").map((item) => item.slug)).toEqual(["air-cooling-units"]);
+    expect(filterCatalogue("dust", "air-cooling-units")).toHaveLength(0);
   });
   it("preserves existing product names, technical facts and URLs", () => {
     for (const original of products) {

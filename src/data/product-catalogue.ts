@@ -36,7 +36,7 @@ export const catalogueProducts: CatalogueProduct[] = [
   fromRecord("axial-flow-fans", "air", "Axial Flow Fans", ["Axial Fan", "Axial Flow Fan"]),
   fromRecord("roof-extractors", "air", "Roof Extractors", ["Roof Extractor"]),
   fromRecord("industrial-mancoolers", "air", "Man Coolers"),
-  fromRecord("air-cooling-units", "dust", "Air Cooling Systems", ["Air Cooling System", "Air Cooling Unit 25 K", "Air Cooling Unit", "Air Cooling Unit 5 K", "Air Cooling Unit 6 K", "Air Cooling Unit 50 K"]),
+  fromRecord("air-cooling-units", "air", "Air Cooling Systems", ["Air Cooling System", "Air Cooling Unit 25 K", "Air Cooling Unit", "Air Cooling Unit 5 K", "Air Cooling Unit 6 K", "Air Cooling Unit 50 K"]),
   fromRecord("bag-filter-dust-collectors", "dust", "Bag Type Dust Collectors", ["Bag Filter Dust Collector", "Pulse Jet Bag Filter"]),
   fromRecord("cyclone-dust-collectors", "dust", "Cyclone Dust Collectors", ["Cyclone Dust Collector"]),
   variant("wet-scrubbers", "spray-scrubbers", "Spray Scrubbers", "dust", "Spray scrubbers serve industrial fume and commercial kitchen exhaust.", "Spray-type systems for industrial fume and commercial kitchen exhaust."),
