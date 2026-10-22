@@ -16,10 +16,10 @@ export function ProductCatalogue() {
 
   return <section className="mx-auto max-w-7xl px-5 py-12 lg:px-8 lg:py-16">
     <nav aria-label="Product categories" className="grid grid-cols-1 gap-3 sm:grid-cols-3">
-      {catalogueCategories.map((item, index) => { const active = category === item.id; return <Button key={item.id} variant="ghost" aria-pressed={active} onClick={() => { setCategory(item.id); setSubcategory("all"); }} className={cn("group h-auto min-h-24 justify-between whitespace-normal rounded-lg border p-5 text-left text-base hover:bg-secondary/40 hover:text-foreground", active ? "border-primary bg-secondary text-foreground ring-1 ring-primary" : "border-border bg-background hover:border-primary/60")}>
-        <span className="flex min-w-0 flex-col gap-1.5">
-          <span className="font-normal text-muted-foreground">0{index + 1} / {filterCatalogue(item.id).length} products</span>
+      {catalogueCategories.map((item) => { const active = category === item.id; return <Button key={item.id} variant="ghost" aria-pressed={active} onClick={() => { setCategory(item.id); setSubcategory("all"); }} className={cn("group h-auto min-h-24 justify-between whitespace-normal rounded-lg border p-5 text-left text-base hover:bg-secondary/40 hover:text-foreground", active ? "border-primary bg-secondary text-foreground ring-1 ring-primary" : "border-border bg-background hover:border-primary/60")}>
+        <span className="flex min-w-0 flex-col gap-1">
           <span className="font-semibold uppercase">{item.name}</span>
+          <span className="text-sm font-normal text-muted-foreground">{filterCatalogue(item.id).length} products</span>
         </span>
         <span aria-hidden="true" className={cn("ml-4 flex size-9 shrink-0 items-center justify-center rounded-full border transition-colors", active ? "border-primary bg-primary text-primary-foreground" : "border-border bg-transparent group-hover:border-primary/60 group-hover:bg-secondary")}>
           <ArrowRight className="transition-transform motion-safe:group-hover:translate-x-0.5" />
