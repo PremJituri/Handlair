@@ -4,7 +4,7 @@ import { products, gallery } from "@/data/handlair";
 
 describe("Owner-specified product hierarchy", () => {
   it("groups the five air cooling / ventilation subcategories", () => {
-    expect(filterCatalogue("air").map((item) => item.subcategory)).toEqual(["Centrifugal Blowers", "Axial Flow Fans", "Roof Extractors", "Man Coolers", "Air Cooling Systems"]);
+    expect(filterCatalogue("air").map((item) => item.subcategory)).toEqual(["Air Cooling Systems", "Centrifugal Blowers", "Axial Flow Fans", "Roof Extractors", "Man Coolers"]);
   });
   it("places the four dust-control subcategories in Dust Collection", () => {
     expect(filterCatalogue("dust").map((item) => item.subcategory)).toEqual(["Bag Type Dust Collectors", "Cyclone Dust Collectors", "Spray Scrubbers", "Venturi Scrubbers"]);
