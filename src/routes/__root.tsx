@@ -23,15 +23,26 @@ import animation404 from "@/assets/table-fan-404.json";
  * client-side after hydration; SSR renders an equally sized placeholder so
  * nothing shifts. Reduced-motion visitors get the scene frozen on a keyframe.
  */
+type LottiePlayer = ComponentType<{
+  src?: string | object;
+  loop?: boolean | number;
+  autoplay?: boolean;
+  lottieRef?: Ref<LottieHandle>;
+  className?: string;
+}>;
+
 function NotFoundLottie() {
-  const [Lottie, setLottie] = useState<ComponentType<LottieComponentProps> | null>(null);
-  const lottieRef = useRef<LottieRefCurrentProps | null>(null);
+  const [Lottie, setLottie] = useState<LottiePlayer | null>(null);
+  const lottieRef = useRef<LottieHandle | null>(null);
   const [reduced, setReduced] = useState(false);
 
+  // lottie-react touches the DOM, so load it after hydration; the placeholder
+  // below keeps the same box so nothing shifts. Reduced-motion visitors get
+  // the scene frozen on a keyframe instead of looping playback.
   useEffect(() => {
     let cancelled = false;
     void import("lottie-react").then((mod) => {
-      if (!cancelled) setLottie(() => mod.default);
+      if (!cancelled) setLottie(mod.Lottie as unknown as LottiePlayer);
     });
     return () => {
       cancelled = true;
@@ -50,8 +61,10 @@ function NotFoundLottie() {
     if (!reduced || !Lottie) return;
     let tries = 0;
     const timer = window.setInterval(() => {
-      if (lottieRef.current) {
-        lottieRef.current.goToAndStop(150, true);
+      const player = lottieRef.current;
+      if (player) {
+        player.seek(150);
+        player.pause();
         window.clearInterval(timer);
       } else if (++tries > 20) {
         window.clearInterval(timer);
@@ -63,7 +76,15 @@ function NotFoundLottie() {
   return (
     <div role="img" aria-label="Animated table fan with 404 sparks, a playful nod to lost airflow" className="w-full max-w-md">
       {Lottie ? (
-        <Lottie lottieRef={lottieRef} animationData={animation404} loop={!reduced} autoplay={!reduced} className="h-auto w-full" />
+        <div className="aspect-[1044/900] w-full">
+          <Lottie
+            lottieRef={lottieRef}
+            src={animation404}
+            loop={!reduced}
+            autoplay={!reduced}
+            className="h-full w-full"
+          />
+        </div>
       ) : (
         <div className="aspect-[1044/900] w-full" aria-hidden="true" />
       )}
