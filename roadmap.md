@@ -7,3 +7,5 @@
 - [x] Organize the Products-only catalogue using the supplied categories and subcategories.
 - [x] Add accurate product-specific detail galleries and missing-information states.
 - [x] Verify filtering, detail images, mobile layouts, and unchanged Gallery behavior.
+- [x] Place the clients section before Selected work and renumber the home sections.
+- [x] Verify home section order, logo grid and field section in the preview.
