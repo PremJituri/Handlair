@@ -8,31 +8,128 @@ import {
   Scripts,
   type ErrorComponentProps,
 } from "@tanstack/react-router";
-import { useEffect, type ReactNode } from "react";
+import { useEffect, useRef, useState, type ComponentType, type ReactNode, type Ref } from "react";
+import { ArrowUpRight, Undo2 } from "lucide-react";
+import type { LottieHandle } from "lottie-react";
 
 import appCss from "../styles.css?url";
 import { reportLovableError } from "../lib/lovable-error-reporting";
 import { SiteShell } from "@/components/site-shell";
+import { Button } from "@/components/ui/button";
+import animation404 from "@/assets/table-fan-404.json";
+
+/**
+ * Table-fan 404 animation. lottie-react touches the DOM, so it is loaded
+ * client-side after hydration; SSR renders an equally sized placeholder so
+ * nothing shifts. Reduced-motion visitors get the scene frozen on a keyframe.
+ */
+type LottiePlayer = ComponentType<{
+  src?: string | object;
+  loop?: boolean | number;
+  autoplay?: boolean;
+  lottieRef?: Ref<LottieHandle>;
+  className?: string;
+}>;
+
+function NotFoundLottie() {
+  const [Lottie, setLottie] = useState<LottiePlayer | null>(null);
+  const lottieRef = useRef<LottieHandle | null>(null);
+  const [reduced, setReduced] = useState(false);
+
+  // lottie-react touches the DOM, so load it after hydration; the placeholder
+  // below keeps the same box so nothing shifts. Reduced-motion visitors get
+  // the scene frozen on a keyframe instead of looping playback.
+  useEffect(() => {
+    let cancelled = false;
+    void import("lottie-react").then((mod) => {
+      if (!cancelled) setLottie(mod.Lottie as unknown as LottiePlayer);
+    });
+    return () => {
+      cancelled = true;
+    };
+  }, []);
+
+  useEffect(() => {
+    const query = window.matchMedia("(prefers-reduced-motion: reduce)");
+    const update = () => setReduced(query.matches);
+    update();
+    query.addEventListener("change", update);
+    return () => query.removeEventListener("change", update);
+  }, []);
+
+  useEffect(() => {
+    if (!reduced || !Lottie) return;
+    let tries = 0;
+    const timer = window.setInterval(() => {
+      const player = lottieRef.current;
+      if (player) {
+        player.seek(150);
+        player.pause();
+        window.clearInterval(timer);
+      } else if (++tries > 20) {
+        window.clearInterval(timer);
+      }
+    }, 100);
+    return () => window.clearInterval(timer);
+  }, [reduced, Lottie]);
+
+  return (
+    <div role="img" aria-label="Animated table fan with 404 sparks, a playful nod to lost airflow" className="w-full max-w-md">
+      {Lottie ? (
+        <div className="aspect-[1044/900] w-full">
+          <Lottie
+            lottieRef={lottieRef}
+            src={animation404}
+            loop={!reduced}
+            autoplay={!reduced}
+            className="h-full w-full"
+          />
+        </div>
+      ) : (
+        <div className="aspect-[1044/900] w-full" aria-hidden="true" />
+      )}
+    </div>
+  );
+}
 
 function NotFoundComponent() {
+  const router = useRouter();
   return (
-    <div className="flex min-h-screen items-center justify-center bg-background px-4">
-      <div className="max-w-md text-center">
-        <h1 className="text-7xl font-bold text-foreground">404</h1>
-        <h2 className="mt-4 text-xl font-semibold text-foreground">Page not found</h2>
-        <p className="mt-2 text-sm text-muted-foreground">
-          The page you're looking for doesn't exist or has been moved.
-        </p>
-        <div className="mt-6">
-          <Link
-            to="/"
-            className="inline-flex items-center justify-center rounded-md bg-primary px-4 py-2 text-sm font-medium text-primary-foreground transition-colors hover:bg-primary/90"
-          >
-            Go home
-          </Link>
+    <section className="pattern-grid -mt-[var(--header-slot)] overflow-hidden border-b border-border">
+      <div className="mx-auto flex min-h-[calc(100vh-5rem)] w-full max-w-3xl flex-col items-center justify-center px-5 pb-16 pt-[calc(5rem+var(--header-slot))] text-center lg:px-8 lg:pb-24 lg:pt-[calc(7rem+var(--header-slot))]">
+        <p className="eyebrow">ERROR 404 / AIRFLOW DISRUPTED</p>
+        <div className="mt-8 animate-rise">
+          <NotFoundLottie />
         </div>
+        <h1 className="mt-6 font-display text-4xl font-bold uppercase leading-[1.05] md:text-5xl">
+          This duct leads nowhere.
+        </h1>
+        <p className="mt-4 max-w-xl type-lead">
+          The page or equipment spec you are looking for has been <strong className="text-foreground">moved, decommissioned</strong>, or lost in the ventilation ductwork.
+        </p>
+        <div className="mt-9 flex flex-wrap items-center justify-center gap-3">
+          <Button asChild size="xl">
+            <Link to="/">Back to Home</Link>
+          </Button>
+          <Button asChild size="xl" variant="outline">
+            <Link to="/products">Explore Product Range</Link>
+          </Button>
+        </div>
+        <Link
+          to="/contact"
+          className="mt-4 inline-flex items-center gap-1.5 font-bold text-primary underline-offset-4 transition-colors hover:text-primary/80 hover:underline"
+        >
+          Contact Engineering Support <ArrowUpRight className="size-4" />
+        </Link>
+        <button
+          type="button"
+          onClick={() => router.history.back()}
+          className="mt-6 inline-flex items-center gap-1.5 text-sm text-muted-foreground underline-offset-4 transition-colors hover:text-foreground hover:underline"
+        >
+          <Undo2 className="size-4" /> Go back to previous page
+        </button>
       </div>
-    </div>
+    </section>
   );
 }
 
