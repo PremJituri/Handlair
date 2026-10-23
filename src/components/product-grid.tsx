@@ -4,12 +4,14 @@ import { products } from "@/data/handlair";
 import airCoolingUnit from "@/assets/product-air-cooling-unit.jpg.asset.json";
 import bagFilterDustCollectors from "@/assets/product-bag-filter-dust-collectors.jpg.asset.json";
 import cycloneDustCollectors from "@/assets/product-cyclone-dust-collectors.jpg.asset.json";
+import wetScrubbers from "@/assets/product-wet-scrubbers.jpg.asset.json";
 
 // Home-page range cards use the dedicated product photography supplied by the owner.
 const rangeImages: Record<string, string> = {
   "air-cooling-units": airCoolingUnit.url,
   "bag-filter-dust-collectors": bagFilterDustCollectors.url,
   "cyclone-dust-collectors": cycloneDustCollectors.url,
+  "wet-scrubbers": wetScrubbers.url,
 };
 
 export function ProductGrid({ limit }: { limit?: number }) {
