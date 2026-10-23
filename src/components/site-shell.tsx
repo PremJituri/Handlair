@@ -23,11 +23,12 @@ const headerNav = [
 
 const springOptions = { bounce: 0.1 };
 
-export function Logo() {
+export function Logo({ tagline = "Air systems engineering" }: { tagline?: string }) {
   return (
     <Link to="/" className="flex items-center gap-3" aria-label="Handlair home">
       <img src={logoAsset.url} alt="Maaria logo: green fan-flower emblem with the word Maaria, inside a red blower outline" width={1280} height={1160} className="h-12 w-auto object-contain sm:h-14" />
-      <span><strong className="block font-display text-xl leading-none uppercase">Handlair</strong><span className="text-[10px] font-semibold uppercase text-muted-foreground">Air systems engineering</span></span>
+      <span><strong className="block font-display text-xl leading-none uppercase">Handlair</strong><span className="text-[10px] font-semibold uppercase text-muted-foreground">{tagline}</span></span>
+
     </Link>
   );
 }
@@ -37,7 +38,8 @@ export function Header() {
   return (
     <header className="glass-surface sticky top-3 z-50 mx-3 mt-3 mb-3 sm:mx-5 lg:mx-8 xl:mx-auto xl:w-[calc(100%-4rem)] xl:max-w-7xl">
       <div className="mx-auto flex h-20 max-w-7xl items-center justify-between gap-3 px-4 lg:px-6">
-        <Logo />
+        <Logo tagline="Engineering Technologies" />
+
         <nav className="hidden items-center gap-8 lg:flex" aria-label="Main navigation">
           {headerNav.map(([label, to]) => <Link key={to} to={to} className="text-sm font-semibold uppercase text-muted-foreground transition-colors hover:text-foreground" activeProps={{ className: "text-foreground" }}>{label}</Link>)}
         </nav>
