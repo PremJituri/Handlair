@@ -8,11 +8,15 @@ import {
   Scripts,
   type ErrorComponentProps,
 } from "@tanstack/react-router";
-import { useEffect, type ReactNode } from "react";
+import { useEffect, useRef, useState, type ComponentType, type ReactNode } from "react";
+import { ArrowUpRight, Undo2 } from "lucide-react";
+import type { LottieComponentProps, LottieRefCurrentProps } from "lottie-react";
 
 import appCss from "../styles.css?url";
 import { reportLovableError } from "../lib/lovable-error-reporting";
 import { SiteShell } from "@/components/site-shell";
+import { Button } from "@/components/ui/button";
+import animation404 from "@/assets/table-fan-404.json";
 
 function NotFoundComponent() {
   return (
