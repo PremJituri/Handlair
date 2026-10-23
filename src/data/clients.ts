@@ -1,0 +1,16 @@
+// Handlair client logos. Add, remove or reorder entries here; `file` matches a pointer in src/assets/clients-logos.
+const pointers = import.meta.glob<{ url: string }>("../assets/clients-logos/*.asset.json", { eager: true, import: "default" });
+
+const list: [file: string, name: string][] = [
+  ["maruti-suzuki", "Maruti Suzuki"], ["tata", "Tata"], ["vedanta", "Vedanta"], ["continental", "Continental"], ["denso", "Denso"], ["hella", "Hella"],
+  ["ds-group", "DS Group"], ["bikanervala", "Bikanervala"], ["jindal-stainless", "Jindal Stainless"], ["jindal", "Jindal"], ["uno-minda", "Uno Minda"], ["lumax", "Lumax"],
+  ["nhk-spring", "NHK Spring"], ["supreme", "Supreme Industries"], ["napino", "Napino Digital Solutions"], ["sudhir", "Sudhir Power"], ["jakson", "Jakson"], ["sandhar", "Sandhar Technologies"],
+  ["fiem", "Fiem Industries"], ["avl", "AVL"], ["usg-boral", "USG Boral"], ["aludecor", "Aludecor"], ["harvest-gold", "Harvest Gold"], ["bagrrys", "Bagrry's"],
+  ["hmd", "Hindustan Syringes & Medical Devices"], ["c-and-s-electric", "C&S Electric"], ["talbros", "Talbros"], ["rspl", "RSPL"], ["polyplastics", "Polyplastics Industries India"], ["richa-group", "Richa Group"],
+  ["gold-plus", "Gold Plus Glass"], ["kaltimex", "Kaltimex Energy"], ["united-group", "United Group"], ["kay-jay", "Kay Jay"], ["lifelong", "Lifelong"], ["ag", "AG"],
+  ["til", "TIL"], ["deshwal", "Deshwal Waste Management"], ["neel-metal", "Neel Metal Products"], ["pooja-forge", "Pooja Forge"], ["victora-tool-engineers", "Victora Tool Engineers"], ["victora-auto", "Victora Auto"],
+  // Company names not identifiable from the supplied files — awaiting confirmation.
+  ["client-21", "Handlair client"], ["client-22", "Handlair client"], ["client-31", "Handlair client"],
+];
+
+export const clients = list.map(([file, name]) => ({ name, logo: pointers[`../assets/clients-logos/${file}.webp.asset.json`]!.url }));
