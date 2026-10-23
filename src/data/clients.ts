@@ -11,6 +11,8 @@ const list: [file: string, name: string][] = [
   ["til", "TIL"], ["deshwal", "Deshwal Waste Management"], ["neel-metal", "Neel Metal Products"], ["pooja-forge", "Pooja Forge"], ["victora-tool-engineers", "Victora Tool Engineers"], ["victora-auto", "Victora Auto"],
   // Company names not identifiable from the supplied files — awaiting confirmation.
   ["client-21", "Handlair client"], ["client-22", "Handlair client"], ["client-31", "Handlair client"],
+  // Added from the owner's supplied logo files.
+  ["mukul", "Mukul"], ["alfa-therm", "Alfa Therm Limited"], ["sar", "SAR"],
 ];
 
 export const clients = list.map(([file, name]) => ({ name, logo: pointers[`../assets/clients-logos/${file}.webp.asset.json`]!.url }));
