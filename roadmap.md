@@ -9,3 +9,4 @@
 - [x] Verify filtering, detail images, mobile layouts, and unchanged Gallery behavior.
 - [x] Place the clients section before Selected work and renumber the home sections.
 - [x] Verify home section order, logo grid and field section in the preview.
+- [x] Remove the Selected work section from the home page and verify the gallery still opens.
