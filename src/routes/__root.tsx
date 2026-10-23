@@ -8,9 +8,9 @@ import {
   Scripts,
   type ErrorComponentProps,
 } from "@tanstack/react-router";
-import { useEffect, useRef, useState, type ComponentType, type ReactNode } from "react";
+import { useEffect, useRef, useState, type ComponentType, type ReactNode, type Ref } from "react";
 import { ArrowUpRight, Undo2 } from "lucide-react";
-import type { LottieComponentProps, LottieRefCurrentProps } from "lottie-react";
+import type { LottieHandle } from "lottie-react";
 
 import appCss from "../styles.css?url";
 import { reportLovableError } from "../lib/lovable-error-reporting";
