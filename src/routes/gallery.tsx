@@ -34,7 +34,7 @@ function GalleryPage() {
       <PageHero eyebrow="Project gallery" title="Equipment in the field.">
         <p>A curated collection of Handlair cooling, ducting, fan, dust collection and fume exhaust installations. Select any photo to view it full screen and browse the set.</p>
       </PageHero>
-      <section className="mx-auto max-w-7xl px-5 py-24 lg:px-8">
+      <section className="mx-auto site-container px-5 py-24 lg:px-8">
         <div className="mb-10 flex flex-wrap gap-2" role="tablist" aria-label="Filter gallery">
           {filters.map((f) => (
             <button
