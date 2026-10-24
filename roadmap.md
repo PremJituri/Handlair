@@ -14,4 +14,4 @@
 - [x] Verify four requested desktop sizes, other pages, and mobile/tablet regressions.
 - [x] Audit usage, capture a recoverable baseline, and identify existing check failures.
 - [x] Remove standalone Gallery and confirmed dead code while retaining product photo galleries.
-- [ ] Verify tests, lint, route resolution, interactions, and desktop/mobile visual preservation.
+- [x] Verify tests, lint, route resolution, interactions, and desktop/mobile visual preservation (13 tests pass; automatic build/type checks OK; full lint retains pre-existing formatting errors, non-format lint passes).
