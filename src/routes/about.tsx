@@ -95,38 +95,19 @@ function AboutPage() {
             <p className="eyebrow">01 / Company history</p>
             <h2 className="mt-5 type-h2">Three decades of air handling experience.</h2>
           </div>
-          <div className="mt-6">
-            <p className="max-w-3xl type-lead">
-              Founded in <strong className="text-foreground">1995 by A. D. Augustine</strong>,
-              Handlair brings over three decades of experience in industrial air handling,
-              ventilation and air pollution control. Its journey includes the incorporation of{" "}
-              <strong className="text-foreground">
-                Handlair Engineers Private Limited on 16 May 2013
-              </strong>
-              , an important milestone in its business history. Today,{" "}
-              <strong className="text-foreground">Handlair Engineering Technologies</strong>{" "}
-              carries forward the Handlair name with a focus on practical engineering, quality
-              workmanship and customer service.
-            </p>
-            <div className="mt-10 grid auto-rows-fr gap-6 sm:grid-cols-2 lg:gap-10">
-              <div className="h-full border-t border-border py-6">
-                <span className="text-base font-bold text-primary">1995</span>
-                <h3 className="mt-3 type-h3">Founded</h3>
-                <p className="mt-2 max-w-xl type-body">
-                  Handlair is founded by A. D. Augustine, beginning its work in industrial air
-                  handling.
-                </p>
-              </div>
-              <div className="h-full border-t border-border py-6">
-                <span className="text-base font-bold text-primary">16 May 2013</span>
-                <h3 className="mt-3 type-h3">Incorporated</h3>
-                <p className="mt-2 max-w-xl type-body">
-                  Handlair Engineers Private Limited is incorporated — a milestone in the
-                  company&rsquo;s business history.
-                </p>
-              </div>
-            </div>
-          </div>
+          <p className="mt-6 max-w-3xl type-lead">
+            Founded in <strong className="text-foreground">1995 by A. D. Augustine</strong>,
+            Handlair brings over three decades of experience in industrial air handling,
+            ventilation and air pollution control. Its journey includes the incorporation of{" "}
+            <strong className="text-foreground">
+              Handlair Engineers Private Limited on 16 May 2013
+            </strong>
+            , an important milestone in its business history. Today,{" "}
+            <strong className="text-foreground">Handlair Engineering Technologies</strong>{" "}
+            carries forward the Handlair name with a focus on practical engineering, quality
+            workmanship and customer service.
+          </p>
+
         </div>
       </section>
 
