@@ -5,12 +5,8 @@ import cooling from "@/assets/cooling.jpg.asset.json";
 import cyclone from "@/assets/cyclone.jpg.asset.json";
 import filters from "@/assets/filters.jpg.asset.json";
 import gallery1 from "@/assets/gallery1.jpg.asset.json";
-import gallery2 from "@/assets/gallery2.jpg.asset.json";
 import gallery3 from "@/assets/gallery3.jpg.asset.json";
-import gallery4 from "@/assets/gallery4.jpg.asset.json";
 import gallery5 from "@/assets/gallery5.jpg.asset.json";
-import gallery6 from "@/assets/gallery6.jpg.asset.json";
-import hero from "@/assets/hero-refined.jpg.asset.json";
 import mancooler from "@/assets/mancooler.jpg.asset.json";
 import roof from "@/assets/roof.jpg.asset.json";
 import scrubber from "@/assets/scrubber.jpg.asset.json";
@@ -20,10 +16,7 @@ import install3 from "@/assets/install3.jpg.asset.json";
 import install4 from "@/assets/install4.jpg.asset.json";
 import install5 from "@/assets/install5.jpg.asset.json";
 import install6 from "@/assets/install6.jpg.asset.json";
-import install7 from "@/assets/install7.jpg.asset.json";
-import install8 from "@/assets/install8.jpg.asset.json";
 import install9 from "@/assets/install9.jpg.asset.json";
-import fieldInstall from "@/assets/field-install.jpg.asset.json";
 import fieldAxial from "@/assets/field-axial.jpg.asset.json";
 import fieldBlower from "@/assets/field-blower.jpg.asset.json";
 import fieldBagfilter from "@/assets/field-bagfilter.jpg.asset.json";
@@ -38,8 +31,6 @@ export type Product = {
   detail: string;
   specifications?: string[];
 };
-
-export const heroImage = hero.url;
 
 export const products: Product[] = [
   {
@@ -116,29 +107,21 @@ export const products: Product[] = [
 
 export const systems = ["Centrifugal Blowers", "Axial Flow Fans", "Man Coolers", "Roof Extractors", "Oil Bath Filters", "Bag Type Dust Collectors", "Cyclone Dust Collectors", "Spray Scrubbers", "Venturi Scrubbers", "Pre-Filters, Fine Filters & HEPA Filters", "Air Cooling Systems", "Ventilation Systems", "Pressurisation Systems", "Fume Exhaust Systems", "Dust Collection Systems"];
 
-export const galleryCategories = ["Air Cooling", "Ducting & Ventilation", "Fans & Blowers", "Dust & Fume Control"] as const;
-export type GalleryCategory = (typeof galleryCategories)[number];
-
-export const gallery: { image: string; name: string; category: GalleryCategory }[] = [
+// Shared installation photos retained for product-detail image galleries.
+export const gallery: { image: string; name: string; category: string }[] = [
   { image: install1.url, name: "Air Cooling System", category: "Air Cooling" },
   { image: install2.url, name: "Air Cooling Unit 25 K", category: "Air Cooling" },
   { image: install3.url, name: "Air Cooling Unit", category: "Air Cooling" },
   { image: install4.url, name: "Air Cooling Unit 5 K", category: "Air Cooling" },
   { image: install5.url, name: "Air Cooling Unit 6 K", category: "Air Cooling" },
   { image: install6.url, name: "Air Cooling Unit 50 K", category: "Air Cooling" },
-  { image: install7.url, name: "Air Distribution Duct Work", category: "Ducting & Ventilation" },
-  { image: install8.url, name: "Air Distribution Ducting", category: "Ducting & Ventilation" },
   { image: install9.url, name: "Axial Fan", category: "Fans & Blowers" },
   { image: gallery1.url, name: "Air Cooling System", category: "Air Cooling" },
-  { image: gallery2.url, name: "Dust Collector with Silencer", category: "Dust & Fume Control" },
   { image: gallery3.url, name: "High Temperature Blower", category: "Fans & Blowers" },
-  { image: gallery4.url, name: "Bifurcated Fan", category: "Fans & Blowers" },
   { image: gallery5.url, name: "Roof Extractor", category: "Ducting & Ventilation" },
-  { image: gallery6.url, name: "Welding Fume Exhaust", category: "Dust & Fume Control" },
 ];
 
 export const showcase: { image: string; name: string; tag: string }[] = [
-  { image: fieldInstall.url, name: "Dust Collection Plant", tag: "Turnkey installation" },
   { image: fieldAxial.url, name: "Axial Flow Fan", tag: "Fans & blowers" },
   { image: fieldBlower.url, name: "Centrifugal Blower", tag: "Fans & blowers" },
   { image: fieldBagfilter.url, name: "Bag Filter Dust Collector", tag: "Dust & fume control" },

@@ -9,7 +9,6 @@ import logoAsset from "@/assets/maaria-logo.jpg.asset.json";
 const nav = [
   ["About", "/about"],
   ["Products", "/products"],
-  ["Gallery", "/gallery"],
   ["Contact", "/contact"],
 ] as const;
 

@@ -18,7 +18,6 @@ export const Route = createFileRoute("/")({
   component: Index,
 });
 
-// IMPORTANT: Replace this placeholder. See ./README.md for routing conventions.
 function Index() {
   return <>
     <section className="pattern-grid -mt-[var(--header-slot)] overflow-hidden border-b border-border"><div className="home-hero-layout mx-auto grid min-h-[calc(100vh-5rem)] site-container items-center gap-12 px-5 pb-16 pt-[calc(4rem+var(--header-slot))] lg:px-8"><div className="home-hero-copy animate-rise"><p className="eyebrow">Air handling & pollution control</p><h1 className="home-hero-title mt-6 font-display font-bold text-4xl uppercase leading-[1.02] sm:text-6xl">Engineering air for <span className="text-primary">industry.</span></h1><p className="mt-8 max-w-2xl type-lead"><strong className="text-foreground">HANDLAIR</strong> is a leading manufacturer of equipment and systems for air handling and industrial air pollution control.</p><div className="home-hero-actions mt-9 flex flex-wrap gap-3"><Button asChild size="xl"><Link to="/products">Explore products <ArrowRight /></Link></Button><Button asChild size="xl" variant="outline"><Link to="/enquiry">Discuss a requirement</Link></Button></div></div><div className="home-hero-media relative"><div className="glass-surface p-3"><HeroSlideshow /></div><div className="absolute -bottom-5 -left-5 hidden size-32 border-b-2 border-l-2 border-primary md:block" /><MoveDown className="absolute -bottom-10 right-3 hidden size-5 text-primary lg:block" /></div></div></section>
