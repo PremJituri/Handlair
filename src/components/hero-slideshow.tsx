@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { HERO_SLIDE_INTERVAL_MS, heroSlides } from "@/data/hero-slideshow";
+import { HERO_SLIDE_CROSSFADE_MS, HERO_SLIDE_INTERVAL_MS, heroSlides } from "@/data/hero-slideshow";
 
 export function HeroSlideshow() {
   const [active, setActive] = useState(0);
@@ -45,7 +45,13 @@ export function HeroSlideshow() {
       height={1280}
       fetchPriority={index === 0 ? "high" : "auto"}
       decoding="async"
-      className={`absolute inset-0 h-full w-full object-contain transition-opacity duration-700 ease-in-out motion-reduce:transition-none ${index === active ? "opacity-100" : "opacity-0"}`}
+      // The outgoing photo stays fully opaque underneath until the incoming one
+      // has dissolved in over it, so no frame ever shows the glass behind.
+      style={{
+        transitionDuration: `${HERO_SLIDE_CROSSFADE_MS}ms`,
+        transitionDelay: index === active ? "0ms" : `${HERO_SLIDE_CROSSFADE_MS}ms`,
+      }}
+      className={`absolute inset-0 h-full w-full object-contain transition-opacity ease-[cubic-bezier(0.4,0,0.2,1)] motion-reduce:transition-none ${index === active ? "z-10 opacity-100" : "z-0 opacity-0"}`}
     />)}
   </div>;
 }
