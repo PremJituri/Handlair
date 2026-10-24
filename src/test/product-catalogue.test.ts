@@ -33,6 +33,20 @@ describe("Owner-specified product hierarchy", () => {
       expect(product.images.some((item) => coolingImages.includes(item.src))).toBe(false);
     }
   });
+  it("preserves the exact ordered product photo sets after Gallery removal", () => {
+    const expected: Record<string, string[]> = {
+      "air-cooling-units": ["Air Cooling Units", "Air Cooling System", "Air Cooling Unit 25 K", "Air Cooling Unit", "Air Cooling Unit 5 K", "Air Cooling Unit 6 K", "Air Cooling Unit 50 K", "Air Cooling System"],
+      "centrifugal-blowers": ["Centrifugal Blowers", "High Temperature Blower", "Centrifugal Blower"],
+      "axial-flow-fans": ["Axial Flow Fans", "Axial Fan", "Axial Flow Fan"],
+      "roof-extractors": ["Roof Extractors", "Roof Extractor"],
+      "industrial-mancoolers": ["Industrial Mancoolers"],
+      "bag-filter-dust-collectors": ["Bag Filter Dust Collectors", "Bag Filter Dust Collector", "Pulse Jet Bag Filter"],
+      "cyclone-dust-collectors": ["Cyclone Dust Collectors", "Cyclone Dust Collector"],
+    };
+    for (const [slug, names] of Object.entries(expected)) {
+      expect(findCatalogueProduct(slug)?.images.map((photo) => photo.name)).toEqual(names);
+    }
+  });
   it("does not assign ambiguous family photos or invent HEPA specifications", () => {
     for (const slug of ["spray-scrubbers", "venturi-scrubbers", "pre-filters", "fine-hepa-filters", "oil-bath-pre-filters"]) expect(findCatalogueProduct(slug)?.images).toEqual([]);
     expect(findCatalogueProduct("fine-hepa-filters")?.specifications).toBeUndefined();
