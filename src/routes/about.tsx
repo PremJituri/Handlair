@@ -90,7 +90,7 @@ function AboutPage() {
       </PageHero>
 
       <section className="bg-secondary/45">
-        <div className="mx-auto grid site-container gap-14 px-5 py-24 lg:grid-cols-[.7fr_1.3fr] lg:px-8">
+        <div className="mx-auto grid site-container gap-8 px-5 py-16 md:py-20 lg:grid-cols-[.7fr_1.3fr] lg:gap-12 lg:px-8">
           <div>
             <p className="eyebrow">01 / Company history</p>
             <h2 className="mt-5 type-h2">Three decades of air handling experience.</h2>
@@ -108,17 +108,17 @@ function AboutPage() {
               carries forward the Handlair name with a focus on practical engineering, quality
               workmanship and customer service.
             </p>
-            <div className="grid gap-4 sm:grid-cols-2">
-              <div className="glass-surface p-6">
-                <span className="text-xs font-bold text-primary">1995</span>
+            <div className="grid grid-cols-1 border-t border-border sm:grid-cols-2">
+              <div className="h-full py-5 sm:pr-6">
+                <span className="text-base font-bold text-primary">1995</span>
                 <h3 className="mt-3 type-h3">Founded</h3>
                 <p className="mt-2 type-body">
                   Handlair is founded by A. D. Augustine, beginning its work in industrial air
                   handling.
                 </p>
               </div>
-              <div className="glass-surface p-6">
-                <span className="text-xs font-bold text-primary">16 May 2013</span>
+              <div className="h-full border-t border-border py-5 sm:border-l sm:border-t-0 sm:pl-6">
+                <span className="text-base font-bold text-primary">16 May 2013</span>
                 <h3 className="mt-3 type-h3">Incorporated</h3>
                 <p className="mt-2 type-body">
                   Handlair Engineers Private Limited is incorporated — a milestone in the
@@ -130,8 +130,8 @@ function AboutPage() {
         </div>
       </section>
 
-      <section className="mx-auto site-container px-5 py-24 lg:px-8">
-        <div className="mb-12 grid gap-6 lg:grid-cols-[.7fr_1.3fr] lg:items-end">
+      <section className="mx-auto site-container px-5 py-16 md:py-20 lg:px-8">
+        <div className="mb-8 grid gap-6 lg:grid-cols-[.7fr_1.3fr] lg:items-end lg:gap-12">
           <div>
             <p className="eyebrow">02 / Products and capabilities</p>
             <h2 className="mt-5 type-h2">Equipment for moving and cleaning air.</h2>
@@ -141,9 +141,9 @@ function AboutPage() {
             collection and fume extraction</strong>.
           </p>
         </div>
-        <ul className="grid gap-4 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5">
+        <ul className="grid auto-rows-fr border-l border-t border-border sm:grid-cols-2">
           {capabilities.map((item, i) => (
-            <li key={item} className="glass-surface flex items-start gap-3 p-5">
+            <li key={item} className="flex min-w-0 items-center gap-4 border-b border-r border-border px-5 py-4">
               <span className="shrink-0 text-xs font-bold text-primary">
                 {String(i + 1).padStart(2, "0")}
               </span>
@@ -154,35 +154,39 @@ function AboutPage() {
       </section>
 
       <section className="border-y border-border bg-secondary/45">
-        <div className="mx-auto grid site-container gap-14 px-5 py-24 lg:grid-cols-[.7fr_1.3fr] lg:px-8">
+        <div className="mx-auto grid site-container gap-8 px-5 py-16 md:py-20 lg:grid-cols-[.7fr_1.3fr] lg:gap-12 lg:px-8">
           <div>
             <p className="eyebrow">03 / Industries and applications</p>
             <h2 className="mt-5 type-h2">Where Handlair equipment works.</h2>
-            <p className="mt-6 max-w-sm type-body">
+            <p className="mt-6 type-body">
               Technical guidance and equipment selection form part of the approach, helping
               customers identify solutions suited to their operating requirements.
             </p>
           </div>
-          <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-            {applications.map((item, i) => (
-              <div key={item} className="glass-surface p-6">
-                <span className="text-xs font-bold text-primary">
-                  {String(i + 1).padStart(2, "0")}
-                </span>
-                <h3 className="mt-3 type-h3">{item}</h3>
-              </div>
+          <div className="grid content-start gap-x-6 sm:grid-cols-2">
+            {[applications.slice(0, 4), applications.slice(4)].map((column, columnIndex) => (
+              <ul key={columnIndex} className="border-t border-border">
+                {column.map((item, i) => (
+                  <li key={item} className="flex min-h-20 items-center gap-4 border-b border-border px-4 py-4">
+                    <span className="shrink-0 text-xs font-bold text-primary">
+                      {String(columnIndex * 4 + i + 1).padStart(2, "0")}
+                    </span>
+                    <h3 className="min-w-0 font-display text-base font-bold uppercase leading-snug">{item}</h3>
+                  </li>
+                ))}
+              </ul>
             ))}
           </div>
         </div>
       </section>
 
-      <section className="mx-auto site-container px-5 py-24 lg:px-8">
-        <div className="grid gap-10 lg:grid-cols-[.7fr_1.3fr] lg:items-center">
+      <section className="mx-auto site-container px-5 py-16 md:py-20 lg:px-8">
+        <div className="grid gap-8 lg:grid-cols-[.7fr_1.3fr] lg:items-center lg:gap-12">
           <div>
             <p className="eyebrow">04 / Export experience</p>
             <h2 className="mt-5 type-h2">Reaching Southeast Asia.</h2>
           </div>
-          <div className="glass-surface flex items-start gap-5 p-8">
+          <div className="grid grid-cols-[auto_minmax(0,1fr)] items-start gap-5 border-y border-border py-6">
             <Globe2 className="size-8 shrink-0 text-primary" aria-hidden />
             <p className="type-body">
               Beyond its domestic business, Handlair&rsquo;s export experience extends to{" "}
@@ -194,8 +198,8 @@ function AboutPage() {
       </section>
 
       <section className="border-t border-border bg-secondary/45">
-        <div className="mx-auto site-container px-5 py-24 lg:px-8">
-          <div className="grid gap-10 lg:grid-cols-[.7fr_1.3fr]">
+        <div className="mx-auto site-container px-5 py-16 md:py-20 lg:px-8">
+          <div className="grid gap-8 lg:grid-cols-[.7fr_1.3fr] lg:gap-12">
             <div>
               <p className="eyebrow">05 / Customer commitment</p>
               <h2 className="mt-5 type-h2">Built on lasting relationships.</h2>
@@ -209,16 +213,16 @@ function AboutPage() {
               better-ventilated industrial workplaces.
             </p>
           </div>
-          <div className="mt-12 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+          <div className="mt-10 grid grid-cols-2 gap-x-5 gap-y-4 lg:grid-cols-4 lg:gap-x-8">
             {commitments.map(({ icon: Icon, title, copy }) => (
-              <div key={title} className="glass-surface p-6">
+              <div key={title} className="row-span-3 grid h-full min-w-0 grid-rows-subgrid gap-4 border-t border-border pt-6">
                 <Icon className="size-6 text-primary" aria-hidden />
-                <h3 className="mt-4 type-h3">{title}</h3>
-                <p className="mt-2 type-body">{copy}</p>
+                <h3 className="font-display text-base font-bold uppercase leading-snug md:text-xl">{title}</h3>
+                <p className="type-body">{copy}</p>
               </div>
             ))}
           </div>
-          <p className="mt-14 text-center font-display text-2xl font-bold uppercase tracking-wide text-primary md:text-3xl">
+          <p className="mt-12 border-t border-border pt-10 text-center font-display text-2xl font-bold uppercase tracking-wide text-primary md:text-3xl">
             Engineering Air Solutions Since 1996.
           </p>
         </div>
