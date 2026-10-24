@@ -7,7 +7,7 @@ function Logo({ name, logo }: { name: string; logo: string }) {
 export function ClientLogos() {
   return (
     <section aria-labelledby="clients-heading">
-      <div className="mx-auto max-w-7xl px-5 py-24 lg:px-8">
+      <div className="mx-auto site-container px-5 py-24 lg:px-8">
         <p className="eyebrow">04 / Our clients</p>
         <h2 id="clients-heading" className="mt-5 type-h2">Trusted by Industry Leaders</h2>
         <p className="mt-4 type-lead">Proud to work with companies across industries.</p>

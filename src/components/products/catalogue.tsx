@@ -14,7 +14,7 @@ export function ProductCatalogue() {
   const items = filterCatalogue(category, subcategory).filter((product) => `${product.name} ${product.subcategory} ${product.summary}`.toLowerCase().includes(query.trim().toLowerCase()));
   const reset = () => { setCategory("all"); setSubcategory("all"); setQuery(""); };
 
-  return <section className="mx-auto max-w-7xl px-5 py-12 lg:px-8 lg:py-16">
+  return <section className="mx-auto site-container px-5 py-12 lg:px-8 lg:py-16">
     <nav aria-label="Product categories" className="grid grid-cols-1 gap-3 sm:grid-cols-3">
       {catalogueCategories.map((item) => { const active = category === item.id; return <Button key={item.id} variant="ghost" aria-pressed={active} onClick={() => { setCategory(item.id); setSubcategory("all"); }} className={cn("group h-auto min-h-24 justify-between whitespace-normal rounded-lg border p-5 text-left text-base hover:bg-secondary/40 hover:text-foreground", active ? "border-primary bg-secondary text-foreground ring-1 ring-primary" : "border-border bg-background hover:border-primary/60")}>
         <span className="flex min-w-0 flex-col gap-1">

@@ -36,8 +36,8 @@ export function Logo({ tagline = "Air systems engineering" }: { tagline?: string
 export function Header() {
   const [open, setOpen] = useState(false);
   return (
-    <header className="glass-surface sticky top-3 z-50 mx-3 mt-3 mb-3 sm:mx-5 lg:mx-8 xl:mx-auto xl:w-[calc(100%-4rem)] xl:max-w-7xl">
-      <div className="mx-auto flex h-20 max-w-7xl items-center justify-between gap-3 px-4 lg:px-6">
+    <header className="glass-surface sticky top-3 z-50 mx-3 mt-3 mb-3 sm:mx-5 lg:mx-8 xl:mx-auto xl:w-[calc(100%-4rem)] site-container">
+      <div className="mx-auto flex h-20 site-container items-center justify-between gap-3 px-4 lg:px-6">
         <Logo tagline="Engineering Technologies" />
 
         <nav className="hidden items-center gap-8 lg:flex" aria-label="Main navigation">
@@ -54,7 +54,7 @@ export function Header() {
 export function Footer() {
   return (
     <footer className="border-t border-border bg-secondary/40">
-      <div className="mx-auto grid max-w-7xl gap-12 px-5 py-16 md:grid-cols-[1.4fr_1fr_1fr] lg:px-8">
+      <div className="mx-auto grid site-container gap-12 px-5 py-16 md:grid-cols-[1.4fr_1fr_1fr] lg:px-8">
         <div><Logo /><p className="mt-6 max-w-sm type-body">Equipment and systems for air handling and industrial air pollution control.</p></div>
         <div><h2 className="eyebrow">Navigate</h2><div className="mt-5 grid gap-3">{nav.map(([label, to]) => <Link key={to} to={to} className="font-semibold hover:text-primary">{label}</Link>)}</div></div>
         <div><h2 className="eyebrow">Connect</h2><div className="mt-5 space-y-3 type-body"><a className="flex gap-2 hover:text-foreground" href={`tel:${contact.phone}`}><Phone className="size-4" />{contact.phone}</a><a className="flex gap-2 hover:text-foreground" href="mailto:sales@handlair.co.in"><Mail className="size-4" />sales@handlair.co.in</a><p>{contact.address}</p></div></div>
@@ -67,9 +67,9 @@ export function Footer() {
 export function SiteShell({ children }: { children: ReactNode }) { return <><Header /><main>{children}</main><Footer /></>; }
 
 export function PageHero({ eyebrow, title, children }: { eyebrow: string; title: string; children: ReactNode }) {
-  return <section className="pattern-grid -mt-[var(--header-slot)] border-b border-border"><div className="mx-auto max-w-7xl px-5 pb-20 pt-[calc(5rem+var(--header-slot))] lg:px-8 lg:pb-28 lg:pt-[calc(7rem+var(--header-slot))]"><p className="eyebrow">{eyebrow}</p><h1 className="mt-6 max-w-5xl type-page">{title}</h1><div className="mt-7 max-w-2xl type-lead">{children}</div></div></section>;
+  return <section className="pattern-grid -mt-[var(--header-slot)] border-b border-border"><div className="mx-auto site-container px-5 pb-20 pt-[calc(5rem+var(--header-slot))] lg:px-8 lg:pb-28 lg:pt-[calc(7rem+var(--header-slot))]"><p className="eyebrow">{eyebrow}</p><h1 className="mt-6 max-w-5xl type-page">{title}</h1><div className="mt-7 max-w-2xl type-lead">{children}</div></div></section>;
 }
 
 export function CtaBand() {
-  return <section className="bg-secondary"><div className="mx-auto flex max-w-7xl flex-col items-start justify-between gap-8 px-5 py-20 md:flex-row md:items-end lg:px-8"><div><p className="eyebrow">Start a conversation</p><h2 className="mt-5 max-w-3xl type-h2">Looking for a reliable air handling solution?</h2></div><Magnetic intensity={0.2} springOptions={springOptions} actionArea="global" range={200}><Button asChild size="xl" className="rounded-lg"><Link to="/enquiry"><MagneticLabel>Send an enquiry <ArrowUpRight /></MagneticLabel></Link></Button></Magnetic></div></section>;
+  return <section className="bg-secondary"><div className="mx-auto flex site-container flex-col items-start justify-between gap-8 px-5 py-20 md:flex-row md:items-end lg:px-8"><div><p className="eyebrow">Start a conversation</p><h2 className="mt-5 max-w-3xl type-h2">Looking for a reliable air handling solution?</h2></div><Magnetic intensity={0.2} springOptions={springOptions} actionArea="global" range={200}><Button asChild size="xl" className="rounded-lg"><Link to="/enquiry"><MagneticLabel>Send an enquiry <ArrowUpRight /></MagneticLabel></Link></Button></Magnetic></div></section>;
 }

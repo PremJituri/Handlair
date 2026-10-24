@@ -74,6 +74,7 @@
   --glass-radius: 8px;
   /* Header slot height: mt-3 + h-20 bar + 1px top/bottom borders + mb-3 (site-shell Header). Keep in sync if the bar's own sizing changes. */
   --header-slot: calc(0.75rem + 5rem + 2px + 0.75rem);
+  --site-content-width: 80rem;
   --glass-fallback: oklch(0.975 0.015 150 / 94%);
   --glass-gradient: linear-gradient(135deg, oklch(0.965 0.071 137 / 20%) 0%, oklch(0.988 0.003 286 / 10%) 46%, oklch(0.86 0.16 143 / 14%) 100%);
   --glass-reflection: linear-gradient(105deg, oklch(1 0 0 / 28%) 0%, oklch(1 0 0 / 8%) 22%, transparent 48%, oklch(1 0 0 / 10%) 78%, transparent 100%);
@@ -187,6 +188,34 @@
 @utility pattern-grid {
   background-image: linear-gradient(to right, color-mix(in oklab, var(--border) 38%, transparent) 1px, transparent 1px), linear-gradient(to bottom, color-mix(in oklab, var(--border) 38%, transparent) 1px, transparent 1px);
   background-size: 40px 40px;
+}
+
+/* Shared wide containers grow on desktop; narrower reading/form widths stay intact. */
+@utility site-container {
+  max-width: var(--site-content-width);
+}
+
+@media (min-width: 1024px) {
+  :root { --site-content-width: clamp(80rem, 90vw, 100rem); }
+  .home-hero-layout {
+    min-height: calc(100svh - 3rem);
+    grid-template-columns: minmax(0, 1.35fr) minmax(0, 1fr);
+    gap: clamp(2rem, 4vw, 5rem);
+    padding-top: calc(var(--header-slot) + clamp(2rem, 4svh, 3rem));
+    padding-bottom: clamp(3rem, 5svh, 4rem);
+  }
+  .home-hero-copy { min-width: 0; }
+  .home-hero-title {
+    /* Height-aware sizing keeps short laptop screens comfortable. */
+    font-size: clamp(3.25rem, 8svh, 5.5rem);
+  }
+  .home-hero-copy > .type-lead { margin-top: 1.5rem; }
+  .home-hero-actions { margin-top: 1.75rem; }
+  .home-hero-media {
+    min-width: 0;
+    justify-self: end;
+    width: min(100%, calc(clamp(24rem, 60svh, 42rem) * 0.8 + 1.625rem));
+  }
 }
 
 @media (prefers-reduced-motion: no-preference) {

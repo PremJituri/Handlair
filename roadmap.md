@@ -10,3 +10,5 @@
 - [x] Place the clients section before Selected work and renumber the home sections.
 - [x] Verify home section order, logo grid and field section in the preview.
 - [x] Remove the Selected work section from the home page and verify the gallery still opens.
+- [x] Balance desktop hero sizing and shared wide containers without changing mobile layouts.
+- [x] Verify four requested desktop sizes, other pages, and mobile/tablet regressions.
