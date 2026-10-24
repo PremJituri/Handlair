@@ -13,9 +13,7 @@
 
 - Keep mineral glass in shared semantic CSS utilities with non-interactive overlays and opaque fallbacks; preserve positioning and dimensions, and let Lightning CSS generate vendor prefixes so published Chrome retains the standard filter.
 
-- Render homepage showcase photos and glass captions in separate flex rows with contained images so captions never obscure equipment or crop its extremities.
-
 - Extend opening page patterns behind the unchanged header using the shared header-slot offset and equal compensating inner top spacing to preserve content positions.
-- Keep Products-only taxonomy and image associations in `src/data/product-catalogue.ts`, derived from the shared business records; preserve legacy product URLs and do not alter the standalone Gallery for catalogue changes.
+- Keep Products-only taxonomy and image associations in `src/data/product-catalogue.ts`, derived from shared business/photo records; shared installation photos remain required after standalone Gallery removal so product viewers and legacy product URLs stay intact.
 - Use the shared `site-container` width for wide public layouts, retaining narrower reading/form limits; size the desktop home hero against available viewport height so shorter laptops retain visible recovery actions and complete equipment imagery.
 - Keep the homepage slideshow isolated in `HeroSlideshow` with its ordered assets in `src/data/hero-slideshow.ts`; decode images before playback and clean up timers so navigation and reduced-motion preferences remain safe.

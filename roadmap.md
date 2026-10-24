@@ -12,3 +12,6 @@
 - [x] Remove the Selected work section from the home page and verify the gallery still opens.
 - [x] Balance desktop hero sizing and shared wide containers without changing mobile layouts.
 - [x] Verify four requested desktop sizes, other pages, and mobile/tablet regressions.
+- [x] Audit usage, capture a recoverable baseline, and identify existing check failures.
+- [x] Remove standalone Gallery and confirmed dead code while retaining product photo galleries.
+- [x] Verify tests, lint, route resolution, interactions, and desktop/mobile visual preservation (13 tests pass; automatic build/type checks OK; full lint retains pre-existing formatting errors, non-format lint passes).
