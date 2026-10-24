@@ -18,7 +18,14 @@ describe("App routing", () => {
   });
   it("preserves all remaining public and legacy product routes", () => {
     const router = createRouter({ routeTree, context: { queryClient: new QueryClient() } });
-    for (const path of ["/", "/about", "/products", "/contact", "/enquiry", ...[...products, ...catalogueProducts].map((product) => `/products/${product.slug}`)]) {
+    for (const path of [
+      "/",
+      "/about",
+      "/products",
+      "/contact",
+      "/enquiry",
+      ...[...products, ...catalogueProducts].map((product) => `/products/${product.slug}`),
+    ]) {
       expect(router.matchRoutes(path).at(-1)?.routeId).not.toBe(rootRouteId);
     }
   });

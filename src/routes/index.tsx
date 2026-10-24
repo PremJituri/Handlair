@@ -8,23 +8,125 @@ import { systems } from "@/data/handlair";
 import { HeroSlideshow } from "@/components/hero-slideshow";
 
 export const Route = createFileRoute("/")({
-  head: () => ({ meta: [
-    { title: "Handlair — Industrial Air Handling & Pollution Control" },
-    { name: "description", content: "Handlair manufactures air handling equipment, industrial ventilation and air pollution control systems." },
-    { property: "og:title", content: "Handlair — Industrial Air Handling & Pollution Control" },
-    { property: "og:description", content: "Engineered equipment and systems for cleaner, healthier industrial environments." },
-    { property: "og:type", content: "website" }, { name: "twitter:card", content: "summary_large_image" },
-  ] }),
+  head: () => ({
+    meta: [
+      { title: "Handlair — Industrial Air Handling & Pollution Control" },
+      {
+        name: "description",
+        content:
+          "Handlair manufactures air handling equipment, industrial ventilation and air pollution control systems.",
+      },
+      { property: "og:title", content: "Handlair — Industrial Air Handling & Pollution Control" },
+      {
+        property: "og:description",
+        content: "Engineered equipment and systems for cleaner, healthier industrial environments.",
+      },
+      { property: "og:type", content: "website" },
+      { name: "twitter:card", content: "summary_large_image" },
+    ],
+  }),
   component: Index,
 });
 
 function Index() {
-  return <>
-    <section className="pattern-grid -mt-[var(--header-slot)] overflow-hidden border-b border-border"><div className="home-hero-layout mx-auto grid min-h-[calc(100vh-5rem)] site-container items-center gap-12 px-5 pb-16 pt-[calc(4rem+var(--header-slot))] lg:px-8"><div className="home-hero-copy animate-rise"><p className="eyebrow">Air handling & pollution control</p><h1 className="home-hero-title mt-6 font-display font-bold text-4xl uppercase leading-[1.02] sm:text-6xl">Engineering air for <span className="text-primary">industry.</span></h1><p className="mt-8 max-w-2xl type-lead"><strong className="text-foreground">HANDLAIR</strong> is a leading manufacturer of equipment and systems for air handling and industrial air pollution control.</p><div className="home-hero-actions mt-9 flex flex-wrap gap-3"><Button asChild size="xl"><Link to="/products">Explore products <ArrowRight /></Link></Button><Button asChild size="xl" variant="outline"><Link to="/enquiry">Discuss a requirement</Link></Button></div></div><div className="home-hero-media relative"><div className="glass-surface p-3"><HeroSlideshow /></div><div className="absolute -bottom-5 -left-5 hidden size-32 border-b-2 border-l-2 border-primary md:block" /><MoveDown className="absolute -bottom-10 right-3 hidden size-5 text-primary lg:block" /></div></div></section>
-    <section className="bg-secondary/45"><div className="mx-auto grid site-container gap-14 px-5 py-24 lg:grid-cols-2 lg:px-8"><div><p className="eyebrow">01 / Engineering excellence</p><h2 className="mt-6 type-h2">Reliable equipment. Healthier working environments.</h2></div><div><p className="type-lead"><strong className="text-foreground">HANDLAIR</strong> technical excellence ensures <strong className="text-foreground">reliable and cost-effective products</strong> in the air-moving industry. The company provides <strong className="text-foreground">technical and economical consultancy</strong> for choosing appropriate products and systems with <strong className="text-foreground">maximum efficiency</strong>.</p><Button asChild variant="link" className="mt-6 px-0"><Link to="/about">Learn about Handlair <ArrowRight /></Link></Button></div></div></section>
-    <section className="mx-auto site-container px-5 py-24 lg:px-8"><div className="mb-12 flex flex-col justify-between gap-5 md:flex-row md:items-end"><div><p className="eyebrow">02 / Product range</p><h2 className="mt-5 type-h2">Equipment built to move and clean air.</h2></div><Link to="/products" className="flex items-center gap-2 font-bold text-primary">View all products <ArrowRight className="size-4" /></Link></div><ProductGrid limit={6} /></section>
-    <section className="border-y border-border bg-foreground text-background"><div className="mx-auto grid site-container gap-14 px-5 py-24 lg:grid-cols-[1fr_1.4fr] lg:px-8"><div><p className="eyebrow">03 / Integrated systems</p><h2 className="mt-6 type-h2">A complete approach to industrial airflow.</h2><p className="mt-6 max-w-lg text-lg leading-relaxed text-background/70">From <strong className="text-background">cooling and ventilation</strong> to <strong className="text-background">dust collection and fume exhaust</strong>, each system is selected around the application.</p></div><ol className="grid gap-x-10 sm:grid-flow-col sm:grid-cols-2 sm:grid-rows-8">{systems.map((system, index) => <li key={system} className="flex items-baseline gap-4 border-b border-background/15 py-3"><span className="shrink-0 text-sm font-bold text-primary">{String(index + 1).padStart(2, "0")}</span><span className="font-display text-base font-bold uppercase leading-snug sm:text-lg">{system}</span></li>)}</ol></div></section>
-    <ClientLogos />
-    <CtaBand />
-  </>;
+  return (
+    <>
+      <section className="pattern-grid -mt-[var(--header-slot)] overflow-hidden border-b border-border">
+        <div className="home-hero-layout mx-auto grid min-h-[calc(100vh-5rem)] site-container items-center gap-12 px-5 pb-16 pt-[calc(4rem+var(--header-slot))] lg:px-8">
+          <div className="home-hero-copy animate-rise">
+            <p className="eyebrow">Air handling & pollution control</p>
+            <h1 className="home-hero-title mt-6 font-display font-bold text-4xl uppercase leading-[1.02] sm:text-6xl">
+              Engineering air for <span className="text-primary">industry.</span>
+            </h1>
+            <p className="mt-8 max-w-2xl type-lead">
+              <strong className="text-foreground">HANDLAIR</strong> is a leading manufacturer of
+              equipment and systems for air handling and industrial air pollution control.
+            </p>
+            <div className="home-hero-actions mt-9 flex flex-wrap gap-3">
+              <Button asChild size="xl">
+                <Link to="/products">
+                  Explore products <ArrowRight />
+                </Link>
+              </Button>
+              <Button asChild size="xl" variant="outline">
+                <Link to="/enquiry">Discuss a requirement</Link>
+              </Button>
+            </div>
+          </div>
+          <div className="home-hero-media relative">
+            <div className="glass-surface p-3">
+              <HeroSlideshow />
+            </div>
+            <div className="absolute -bottom-5 -left-5 hidden size-32 border-b-2 border-l-2 border-primary md:block" />
+            <MoveDown className="absolute -bottom-10 right-3 hidden size-5 text-primary lg:block" />
+          </div>
+        </div>
+      </section>
+      <section className="bg-secondary/45">
+        <div className="mx-auto grid site-container gap-14 px-5 py-24 lg:grid-cols-2 lg:px-8">
+          <div>
+            <p className="eyebrow">01 / Engineering excellence</p>
+            <h2 className="mt-6 type-h2">Reliable equipment. Healthier working environments.</h2>
+          </div>
+          <div>
+            <p className="type-lead">
+              <strong className="text-foreground">HANDLAIR</strong> technical excellence ensures{" "}
+              <strong className="text-foreground">reliable and cost-effective products</strong> in
+              the air-moving industry. The company provides{" "}
+              <strong className="text-foreground">technical and economical consultancy</strong> for
+              choosing appropriate products and systems with{" "}
+              <strong className="text-foreground">maximum efficiency</strong>.
+            </p>
+            <Button asChild variant="link" className="mt-6 px-0">
+              <Link to="/about">
+                Learn about Handlair <ArrowRight />
+              </Link>
+            </Button>
+          </div>
+        </div>
+      </section>
+      <section className="mx-auto site-container px-5 py-24 lg:px-8">
+        <div className="mb-12 flex flex-col justify-between gap-5 md:flex-row md:items-end">
+          <div>
+            <p className="eyebrow">02 / Product range</p>
+            <h2 className="mt-5 type-h2">Equipment built to move and clean air.</h2>
+          </div>
+          <Link to="/products" className="flex items-center gap-2 font-bold text-primary">
+            View all products <ArrowRight className="size-4" />
+          </Link>
+        </div>
+        <ProductGrid limit={6} />
+      </section>
+      <section className="border-y border-border bg-foreground text-background">
+        <div className="mx-auto grid site-container gap-14 px-5 py-24 lg:grid-cols-[1fr_1.4fr] lg:px-8">
+          <div>
+            <p className="eyebrow">03 / Integrated systems</p>
+            <h2 className="mt-6 type-h2">A complete approach to industrial airflow.</h2>
+            <p className="mt-6 max-w-lg text-lg leading-relaxed text-background/70">
+              From <strong className="text-background">cooling and ventilation</strong> to{" "}
+              <strong className="text-background">dust collection and fume exhaust</strong>, each
+              system is selected around the application.
+            </p>
+          </div>
+          <ol className="grid gap-x-10 sm:grid-flow-col sm:grid-cols-2 sm:grid-rows-8">
+            {systems.map((system, index) => (
+              <li
+                key={system}
+                className="flex items-baseline gap-4 border-b border-background/15 py-3"
+              >
+                <span className="shrink-0 text-sm font-bold text-primary">
+                  {String(index + 1).padStart(2, "0")}
+                </span>
+                <span className="font-display text-base font-bold uppercase leading-snug sm:text-lg">
+                  {system}
+                </span>
+              </li>
+            ))}
+          </ol>
+        </div>
+      </section>
+      <ClientLogos />
+      <CtaBand />
+    </>
+  );
 }

@@ -38,62 +38,94 @@ export const products: Product[] = [
     name: "Centrifugal Blowers",
     image: blower.url,
     summary: "Air-moving equipment for cooling, conveying, exhaust and process applications.",
-    detail: "HANDLAIR manufactures centrifugal blowers for air cooling, flour mills, foundries, fertilizer, fume exhaust, paint booths, paper mills, pneumatic conveying, rice mills and steel plants. Impellers are designed for their application and dynamically balanced for vibration-free operation.",
-    specifications: ["Capacity: 200 to 1,75,000 cu. mtr/hr", "Pressure: up to 1200 mm.wg", "Construction: mild steel, stainless steel or MS with FRP coating"],
+    detail:
+      "HANDLAIR manufactures centrifugal blowers for air cooling, flour mills, foundries, fertilizer, fume exhaust, paint booths, paper mills, pneumatic conveying, rice mills and steel plants. Impellers are designed for their application and dynamically balanced for vibration-free operation.",
+    specifications: [
+      "Capacity: 200 to 1,75,000 cu. mtr/hr",
+      "Pressure: up to 1200 mm.wg",
+      "Construction: mild steel, stainless steel or MS with FRP coating",
+    ],
   },
   {
     slug: "axial-flow-fans",
     name: "Axial Flow Fans",
     image: axial.url,
     summary: "High-volume fans for ventilation, spot cooling and fresh-air applications.",
-    detail: "HANDLAIR axial flow fans serve generator ventilation and sound proofing, air cooling, mining, tunnels, humidification plants, textile mills, driers, fresh-air and exhaust applications. Two-stage fans are manufactured for mining and tunnel ventilation.",
-    specifications: ["Capacity: 1,000 to 1,75,000 cu. mtr/hr", "Pressure: up to 80 mm.wg", "Diameter: 300 to 1600 mm"],
+    detail:
+      "HANDLAIR axial flow fans serve generator ventilation and sound proofing, air cooling, mining, tunnels, humidification plants, textile mills, driers, fresh-air and exhaust applications. Two-stage fans are manufactured for mining and tunnel ventilation.",
+    specifications: [
+      "Capacity: 1,000 to 1,75,000 cu. mtr/hr",
+      "Pressure: up to 80 mm.wg",
+      "Diameter: 300 to 1600 mm",
+    ],
   },
   {
     slug: "air-cooling-units",
     name: "Air Cooling Units",
     image: cooling.url,
     summary: "Filtered evaporative cooling for comfortable industrial working conditions.",
-    detail: "Fresh filtered air passes through water-absorbing cellulose fill media, losing heat before it is supplied to the work area. Units are available with single or multiple blowers and spray-type cooling sections to suit customer requirements.",
-    specifications: ["Capacity: 2,500 to 2,00,000 cu. mtr/hr", "Single-skin or double-skin construction", "Powder-coated G.P. sheet chamber"],
+    detail:
+      "Fresh filtered air passes through water-absorbing cellulose fill media, losing heat before it is supplied to the work area. Units are available with single or multiple blowers and spray-type cooling sections to suit customer requirements.",
+    specifications: [
+      "Capacity: 2,500 to 2,00,000 cu. mtr/hr",
+      "Single-skin or double-skin construction",
+      "Powder-coated G.P. sheet chamber",
+    ],
   },
   {
     slug: "bag-filter-dust-collectors",
     name: "Bag Filter Dust Collectors",
     image: bagfilter.url,
     summary: "High-efficiency dust collection for grinding, mixing and production processes.",
-    detail: "HANDLAIR bag filter dust collectors use efficient polyester or polypropylene needle-felt media in plain or pleated construction. Filter bags may be cleaned by compressed-air pulse, motorized shaking or manual shaking mechanisms.",
-    specifications: ["Capacity: 500 to 50,000 cu. mtr/hr", "Plain or pleated filter media", "Pulse-jet and shaking cleaning options"],
+    detail:
+      "HANDLAIR bag filter dust collectors use efficient polyester or polypropylene needle-felt media in plain or pleated construction. Filter bags may be cleaned by compressed-air pulse, motorized shaking or manual shaking mechanisms.",
+    specifications: [
+      "Capacity: 500 to 50,000 cu. mtr/hr",
+      "Plain or pleated filter media",
+      "Pulse-jet and shaking cleaning options",
+    ],
   },
   {
     slug: "cyclone-dust-collectors",
     name: "Cyclone Dust Collectors",
     image: cyclone.url,
     summary: "Robust pre-collection and dust separation for demanding industrial processes.",
-    detail: "HANDLAIR cyclone dust collectors are used for grinding, polishing, buffing, foundries, pneumatic conveying, cement, food processing, powder coating and transfer points. They can operate singly or in multiple units.",
-    specifications: ["Capacity: 300 to 50,000 cu. mtr/hr", "Single or multiple units", "Mild-steel or stainless-steel construction"],
+    detail:
+      "HANDLAIR cyclone dust collectors are used for grinding, polishing, buffing, foundries, pneumatic conveying, cement, food processing, powder coating and transfer points. They can operate singly or in multiple units.",
+    specifications: [
+      "Capacity: 300 to 50,000 cu. mtr/hr",
+      "Single or multiple units",
+      "Mild-steel or stainless-steel construction",
+    ],
   },
   {
     slug: "wet-scrubbers",
     name: "Wet Scrubbers",
     image: scrubber.url,
     summary: "Venturi and spray-type systems for coarse dust and industrial fume exhaust.",
-    detail: "HANDLAIR wet-type dust collectors suit varied applications. Venturi scrubbers are used for coarse dust in coal handling and ceramic industries, while spray scrubbers serve industrial fume and commercial kitchen exhaust.",
+    detail:
+      "HANDLAIR wet-type dust collectors suit varied applications. Venturi scrubbers are used for coarse dust in coal handling and ceramic industries, while spray scrubbers serve industrial fume and commercial kitchen exhaust.",
   },
   {
     slug: "filters",
     name: "Filters",
     image: filters.url,
     summary: "Washable prefilters and oil-bath filters for ventilation plants.",
-    detail: "HANDLAIR prefilters are washable and available in rod or pleated configurations. Oil-bath filters are developed for ventilation plants where surrounding-air dust concentration is comparatively heavy.",
-    specifications: ["Prefilter efficiency: greater than 90% down to 10 micron", "Micron rating: 5 to 25 micron", "G.I., aluminium or stainless-steel frames"],
+    detail:
+      "HANDLAIR prefilters are washable and available in rod or pleated configurations. Oil-bath filters are developed for ventilation plants where surrounding-air dust concentration is comparatively heavy.",
+    specifications: [
+      "Prefilter efficiency: greater than 90% down to 10 micron",
+      "Micron rating: 5 to 25 micron",
+      "G.I., aluminium or stainless-steel frames",
+    ],
   },
   {
     slug: "industrial-mancoolers",
     name: "Industrial Mancoolers",
     image: mancooler.url,
     summary: "Long-sweep, high-velocity air movement for shop floors and equipment cooling.",
-    detail: "HANDLAIR mancoolers are designed for large air-volume discharge with high velocity and long-distance sweep. Applications include furnaces, electrical equipment, spot cooling and general shop-floor ventilation.",
+    detail:
+      "HANDLAIR mancoolers are designed for large air-volume discharge with high velocity and long-distance sweep. Applications include furnaces, electrical equipment, spot cooling and general shop-floor ventilation.",
     specifications: ["Pedestal type", "Column-mounted type", "Tubular type"],
   },
   {
@@ -101,11 +133,28 @@ export const products: Product[] = [
     name: "Roof Extractors",
     image: roof.url,
     summary: "Roof-level extraction of hot and stale air from large industrial halls.",
-    detail: "HANDLAIR roof extractors are axial flow fans used at roof level in boiler and bunker houses, power plants, steel plants, cement and automobile industries. Exhaust hoods help prevent the entry of rain water and birds.",
+    detail:
+      "HANDLAIR roof extractors are axial flow fans used at roof level in boiler and bunker houses, power plants, steel plants, cement and automobile industries. Exhaust hoods help prevent the entry of rain water and birds.",
   },
 ];
 
-export const systems = ["Centrifugal Blowers", "Axial Flow Fans", "Man Coolers", "Roof Extractors", "Oil Bath Filters", "Bag Type Dust Collectors", "Cyclone Dust Collectors", "Spray Scrubbers", "Venturi Scrubbers", "Pre-Filters, Fine Filters & HEPA Filters", "Air Cooling Systems", "Ventilation Systems", "Pressurisation Systems", "Fume Exhaust Systems", "Dust Collection Systems"];
+export const systems = [
+  "Centrifugal Blowers",
+  "Axial Flow Fans",
+  "Man Coolers",
+  "Roof Extractors",
+  "Oil Bath Filters",
+  "Bag Type Dust Collectors",
+  "Cyclone Dust Collectors",
+  "Spray Scrubbers",
+  "Venturi Scrubbers",
+  "Pre-Filters, Fine Filters & HEPA Filters",
+  "Air Cooling Systems",
+  "Ventilation Systems",
+  "Pressurisation Systems",
+  "Fume Exhaust Systems",
+  "Dust Collection Systems",
+];
 
 // Shared installation photos retained for product-detail image galleries.
 export const gallery: { image: string; name: string; category: string }[] = [
@@ -130,7 +179,8 @@ export const showcase: { image: string; name: string; tag: string }[] = [
 ];
 
 export const contact = {
-  address: "Indira Industrial Complex, Jeevan Nagar, Wazirpur Road, Old Faridabad, Haryana – 121002",
+  address:
+    "Indira Industrial Complex, Jeevan Nagar, Wazirpur Road, Old Faridabad, Haryana – 121002",
   phone: "0129-2229101",
   mobiles: "+91-9811164523 / 9910494523",
   emails: "sales@handlair.co.in / handlairdelhi@gmail.com",

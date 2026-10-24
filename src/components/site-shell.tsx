@@ -19,15 +19,22 @@ const headerNav = [
   ["Contact", "/contact"],
 ] as const;
 
-
 const springOptions = { bounce: 0.1 };
 
 export function Logo({ tagline = "Air systems engineering" }: { tagline?: string }) {
   return (
     <Link to="/" className="flex items-center gap-3" aria-label="Handlair home">
-      <img src={logoAsset.url} alt="Maaria logo: green fan-flower emblem with the word Maaria, inside a red blower outline" width={1280} height={1160} className="h-12 w-auto object-contain sm:h-14" />
-      <span><strong className="block font-display text-xl leading-none uppercase">Handlair</strong><span className="text-[10px] font-semibold uppercase text-muted-foreground">{tagline}</span></span>
-
+      <img
+        src={logoAsset.url}
+        alt="Maaria logo: green fan-flower emblem with the word Maaria, inside a red blower outline"
+        width={1280}
+        height={1160}
+        className="h-12 w-auto object-contain sm:h-14"
+      />
+      <span>
+        <strong className="block font-display text-xl leading-none uppercase">Handlair</strong>
+        <span className="text-[10px] font-semibold uppercase text-muted-foreground">{tagline}</span>
+      </span>
     </Link>
   );
 }
@@ -40,12 +47,73 @@ export function Header() {
         <Logo tagline="Engineering Technologies" />
 
         <nav className="hidden items-center gap-8 lg:flex" aria-label="Main navigation">
-          {headerNav.map(([label, to]) => <Link key={to} to={to} className="text-sm font-semibold uppercase text-muted-foreground transition-colors hover:text-foreground" activeProps={{ className: "text-foreground" }}>{label}</Link>)}
+          {headerNav.map(([label, to]) => (
+            <Link
+              key={to}
+              to={to}
+              className="text-sm font-semibold uppercase text-muted-foreground transition-colors hover:text-foreground"
+              activeProps={{ className: "text-foreground" }}
+            >
+              {label}
+            </Link>
+          ))}
         </nav>
-        <div className="hidden lg:block"><Magnetic intensity={0.2} springOptions={springOptions} actionArea="global" range={200}><Button asChild size="lg" className="rounded-lg"><Link to="/enquiry"><MagneticLabel>Send an enquiry <ArrowUpRight /></MagneticLabel></Link></Button></Magnetic></div>
-        <Button variant="ghost" size="icon" className="shrink-0 lg:hidden" aria-expanded={open} aria-controls="mobile-navigation" onClick={() => setOpen(!open)} aria-label={open ? "Close menu" : "Open menu"}>{open ? <X /> : <Menu />}</Button>
+        <div className="hidden lg:block">
+          <Magnetic intensity={0.2} springOptions={springOptions} actionArea="global" range={200}>
+            <Button asChild size="lg" className="rounded-lg">
+              <Link to="/enquiry">
+                <MagneticLabel>
+                  Send an enquiry <ArrowUpRight />
+                </MagneticLabel>
+              </Link>
+            </Button>
+          </Magnetic>
+        </div>
+        <Button
+          variant="ghost"
+          size="icon"
+          className="shrink-0 lg:hidden"
+          aria-expanded={open}
+          aria-controls="mobile-navigation"
+          onClick={() => setOpen(!open)}
+          aria-label={open ? "Close menu" : "Open menu"}
+        >
+          {open ? <X /> : <Menu />}
+        </Button>
       </div>
-      {open && <nav id="mobile-navigation" className="max-h-[calc(100dvh-7rem)] overflow-y-auto rounded-b-lg border-t border-border bg-background/80 px-5 py-5 lg:hidden" aria-label="Mobile navigation"><div className="flex flex-col gap-1">{headerNav.map(([label, to]) => <Link key={to} to={to} onClick={() => setOpen(false)} className="border-b border-border py-4 font-display text-xl uppercase">{label}</Link>)}<Magnetic intensity={0.2} springOptions={springOptions} actionArea="global" range={200} className="w-full"><Button asChild size="lg" className="mt-4 w-full rounded-lg"><Link to="/enquiry" onClick={() => setOpen(false)}>Send an enquiry</Link></Button></Magnetic></div></nav>}
+      {open && (
+        <nav
+          id="mobile-navigation"
+          className="max-h-[calc(100dvh-7rem)] overflow-y-auto rounded-b-lg border-t border-border bg-background/80 px-5 py-5 lg:hidden"
+          aria-label="Mobile navigation"
+        >
+          <div className="flex flex-col gap-1">
+            {headerNav.map(([label, to]) => (
+              <Link
+                key={to}
+                to={to}
+                onClick={() => setOpen(false)}
+                className="border-b border-border py-4 font-display text-xl uppercase"
+              >
+                {label}
+              </Link>
+            ))}
+            <Magnetic
+              intensity={0.2}
+              springOptions={springOptions}
+              actionArea="global"
+              range={200}
+              className="w-full"
+            >
+              <Button asChild size="lg" className="mt-4 w-full rounded-lg">
+                <Link to="/enquiry" onClick={() => setOpen(false)}>
+                  Send an enquiry
+                </Link>
+              </Button>
+            </Magnetic>
+          </div>
+        </nav>
+      )}
     </header>
   );
 }
@@ -54,21 +122,92 @@ export function Footer() {
   return (
     <footer className="border-t border-border bg-secondary/40">
       <div className="mx-auto grid site-container gap-12 px-5 py-16 md:grid-cols-[1.4fr_1fr_1fr] lg:px-8">
-        <div><Logo /><p className="mt-6 max-w-sm type-body">Equipment and systems for air handling and industrial air pollution control.</p></div>
-        <div><h2 className="eyebrow">Navigate</h2><div className="mt-5 grid gap-3">{nav.map(([label, to]) => <Link key={to} to={to} className="font-semibold hover:text-primary">{label}</Link>)}</div></div>
-        <div><h2 className="eyebrow">Connect</h2><div className="mt-5 space-y-3 type-body"><a className="flex gap-2 hover:text-foreground" href={`tel:${contact.phone}`}><Phone className="size-4" />{contact.phone}</a><a className="flex gap-2 hover:text-foreground" href="mailto:sales@handlair.co.in"><Mail className="size-4" />sales@handlair.co.in</a><p>{contact.address}</p></div></div>
+        <div>
+          <Logo />
+          <p className="mt-6 max-w-sm type-body">
+            Equipment and systems for air handling and industrial air pollution control.
+          </p>
+        </div>
+        <div>
+          <h2 className="eyebrow">Navigate</h2>
+          <div className="mt-5 grid gap-3">
+            {nav.map(([label, to]) => (
+              <Link key={to} to={to} className="font-semibold hover:text-primary">
+                {label}
+              </Link>
+            ))}
+          </div>
+        </div>
+        <div>
+          <h2 className="eyebrow">Connect</h2>
+          <div className="mt-5 space-y-3 type-body">
+            <a className="flex gap-2 hover:text-foreground" href={`tel:${contact.phone}`}>
+              <Phone className="size-4" />
+              {contact.phone}
+            </a>
+            <a className="flex gap-2 hover:text-foreground" href="mailto:sales@handlair.co.in">
+              <Mail className="size-4" />
+              sales@handlair.co.in
+            </a>
+            <p>{contact.address}</p>
+          </div>
+        </div>
       </div>
-      <div className="border-t border-border px-5 py-6 text-center text-xs text-muted-foreground">© Handlair. All rights reserved.</div>
+      <div className="border-t border-border px-5 py-6 text-center text-xs text-muted-foreground">
+        © Handlair. All rights reserved.
+      </div>
     </footer>
   );
 }
 
-export function SiteShell({ children }: { children: ReactNode }) { return <><Header /><main>{children}</main><Footer /></>; }
+export function SiteShell({ children }: { children: ReactNode }) {
+  return (
+    <>
+      <Header />
+      <main>{children}</main>
+      <Footer />
+    </>
+  );
+}
 
-export function PageHero({ eyebrow, title, children }: { eyebrow: string; title: string; children: ReactNode }) {
-  return <section className="pattern-grid -mt-[var(--header-slot)] border-b border-border"><div className="mx-auto site-container px-5 pb-20 pt-[calc(5rem+var(--header-slot))] lg:px-8 lg:pb-28 lg:pt-[calc(7rem+var(--header-slot))]"><p className="eyebrow">{eyebrow}</p><h1 className="mt-6 max-w-5xl type-page">{title}</h1><div className="mt-7 max-w-2xl type-lead">{children}</div></div></section>;
+export function PageHero({
+  eyebrow,
+  title,
+  children,
+}: {
+  eyebrow: string;
+  title: string;
+  children: ReactNode;
+}) {
+  return (
+    <section className="pattern-grid -mt-[var(--header-slot)] border-b border-border">
+      <div className="mx-auto site-container px-5 pb-20 pt-[calc(5rem+var(--header-slot))] lg:px-8 lg:pb-28 lg:pt-[calc(7rem+var(--header-slot))]">
+        <p className="eyebrow">{eyebrow}</p>
+        <h1 className="mt-6 max-w-5xl type-page">{title}</h1>
+        <div className="mt-7 max-w-2xl type-lead">{children}</div>
+      </div>
+    </section>
+  );
 }
 
 export function CtaBand() {
-  return <section className="bg-secondary"><div className="mx-auto flex site-container flex-col items-start justify-between gap-8 px-5 py-20 md:flex-row md:items-end lg:px-8"><div><p className="eyebrow">Start a conversation</p><h2 className="mt-5 max-w-3xl type-h2">Looking for a reliable air handling solution?</h2></div><Magnetic intensity={0.2} springOptions={springOptions} actionArea="global" range={200}><Button asChild size="xl" className="rounded-lg"><Link to="/enquiry"><MagneticLabel>Send an enquiry <ArrowUpRight /></MagneticLabel></Link></Button></Magnetic></div></section>;
+  return (
+    <section className="bg-secondary">
+      <div className="mx-auto flex site-container flex-col items-start justify-between gap-8 px-5 py-20 md:flex-row md:items-end lg:px-8">
+        <div>
+          <p className="eyebrow">Start a conversation</p>
+          <h2 className="mt-5 max-w-3xl type-h2">Looking for a reliable air handling solution?</h2>
+        </div>
+        <Magnetic intensity={0.2} springOptions={springOptions} actionArea="global" range={200}>
+          <Button asChild size="xl" className="rounded-lg">
+            <Link to="/enquiry">
+              <MagneticLabel>
+                Send an enquiry <ArrowUpRight />
+              </MagneticLabel>
+            </Link>
+          </Button>
+        </Magnetic>
+      </div>
+    </section>
+  );
 }
