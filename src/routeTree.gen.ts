@@ -13,7 +13,6 @@ import { Route as IndexRouteImport } from './routes/index'
 import { Route as AboutRouteImport } from './routes/about'
 import { Route as ContactRouteImport } from './routes/contact'
 import { Route as EnquiryRouteImport } from './routes/enquiry'
-import { Route as GalleryRouteImport } from './routes/gallery'
 import { Route as ProductsRouteImport } from './routes/products'
 import { Route as ProductsIndexRouteImport } from './routes/products.index'
 import { Route as ProductsSlugRouteImport } from './routes/products.$slug'
@@ -38,11 +37,6 @@ const EnquiryRoute = EnquiryRouteImport.update({
   path: '/enquiry',
   getParentRoute: () => rootRouteImport,
 } as any)
-const GalleryRoute = GalleryRouteImport.update({
-  id: '/gallery',
-  path: '/gallery',
-  getParentRoute: () => rootRouteImport,
-} as any)
 const ProductsRoute = ProductsRouteImport.update({
   id: '/products',
   path: '/products',
@@ -64,7 +58,6 @@ export interface FileRoutesByFullPath {
   '/about': typeof AboutRoute
   '/contact': typeof ContactRoute
   '/enquiry': typeof EnquiryRoute
-  '/gallery': typeof GalleryRoute
   '/products': typeof ProductsRouteWithChildren
   '/products/$slug': typeof ProductsSlugRoute
   '/products/': typeof ProductsIndexRoute
@@ -74,7 +67,6 @@ export interface FileRoutesByTo {
   '/about': typeof AboutRoute
   '/contact': typeof ContactRoute
   '/enquiry': typeof EnquiryRoute
-  '/gallery': typeof GalleryRoute
   '/products/$slug': typeof ProductsSlugRoute
   '/products': typeof ProductsIndexRoute
 }
@@ -84,7 +76,6 @@ export interface FileRoutesById {
   '/about': typeof AboutRoute
   '/contact': typeof ContactRoute
   '/enquiry': typeof EnquiryRoute
-  '/gallery': typeof GalleryRoute
   '/products': typeof ProductsRouteWithChildren
   '/products/$slug': typeof ProductsSlugRoute
   '/products/': typeof ProductsIndexRoute
@@ -96,26 +87,17 @@ export interface FileRouteTypes {
     | '/about'
     | '/contact'
     | '/enquiry'
-    | '/gallery'
     | '/products'
     | '/products/$slug'
     | '/products/'
   fileRoutesByTo: FileRoutesByTo
-  to:
-    | '/'
-    | '/about'
-    | '/contact'
-    | '/enquiry'
-    | '/gallery'
-    | '/products/$slug'
-    | '/products'
+  to: '/' | '/about' | '/contact' | '/enquiry' | '/products/$slug' | '/products'
   id:
     | '__root__'
     | '/'
     | '/about'
     | '/contact'
     | '/enquiry'
-    | '/gallery'
     | '/products'
     | '/products/$slug'
     | '/products/'
@@ -126,7 +108,6 @@ export interface RootRouteChildren {
   AboutRoute: typeof AboutRoute
   ContactRoute: typeof ContactRoute
   EnquiryRoute: typeof EnquiryRoute
-  GalleryRoute: typeof GalleryRoute
   ProductsRoute: typeof ProductsRouteWithChildren
 }
 
@@ -158,13 +139,6 @@ declare module '@tanstack/react-router' {
       path: '/enquiry'
       fullPath: '/enquiry'
       preLoaderRoute: typeof EnquiryRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/gallery': {
-      id: '/gallery'
-      path: '/gallery'
-      fullPath: '/gallery'
-      preLoaderRoute: typeof GalleryRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/products': {
@@ -210,7 +184,6 @@ const rootRouteChildren: RootRouteChildren = {
   AboutRoute: AboutRoute,
   ContactRoute: ContactRoute,
   EnquiryRoute: EnquiryRoute,
-  GalleryRoute: GalleryRoute,
   ProductsRoute: ProductsRouteWithChildren,
 }
 export const routeTree = rootRouteImport
