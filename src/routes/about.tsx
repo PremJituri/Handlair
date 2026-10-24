@@ -89,14 +89,14 @@ function AboutPage() {
         </p>
       </PageHero>
 
-      <section className="bg-secondary/45">
-        <div className="mx-auto grid site-container gap-8 px-5 py-16 md:py-20 lg:grid-cols-[.7fr_1.3fr] lg:gap-12 lg:px-8">
+      <section className="bg-secondary/35">
+        <div className="mx-auto site-container px-5 py-20 md:py-24 lg:px-8">
           <div>
             <p className="eyebrow">01 / Company history</p>
             <h2 className="mt-5 type-h2">Three decades of air handling experience.</h2>
           </div>
-          <div className="space-y-6">
-            <p className="type-lead">
+          <div className="mt-6">
+            <p className="max-w-3xl type-lead">
               Founded in <strong className="text-foreground">1995 by A. D. Augustine</strong>,
               Handlair brings over three decades of experience in industrial air handling,
               ventilation and air pollution control. Its journey includes the incorporation of{" "}
@@ -108,19 +108,19 @@ function AboutPage() {
               carries forward the Handlair name with a focus on practical engineering, quality
               workmanship and customer service.
             </p>
-            <div className="grid grid-cols-1 border-t border-border sm:grid-cols-2">
-              <div className="h-full py-5 sm:pr-6">
+            <div className="mt-10 grid auto-rows-fr gap-6 sm:grid-cols-2 lg:gap-10">
+              <div className="h-full border-t border-border py-6">
                 <span className="text-base font-bold text-primary">1995</span>
                 <h3 className="mt-3 type-h3">Founded</h3>
-                <p className="mt-2 type-body">
+                <p className="mt-2 max-w-xl type-body">
                   Handlair is founded by A. D. Augustine, beginning its work in industrial air
                   handling.
                 </p>
               </div>
-              <div className="h-full border-t border-border py-5 sm:border-l sm:border-t-0 sm:pl-6">
+              <div className="h-full border-t border-border py-6">
                 <span className="text-base font-bold text-primary">16 May 2013</span>
                 <h3 className="mt-3 type-h3">Incorporated</h3>
-                <p className="mt-2 type-body">
+                <p className="mt-2 max-w-xl type-body">
                   Handlair Engineers Private Limited is incorporated — a milestone in the
                   company&rsquo;s business history.
                 </p>
@@ -130,65 +130,61 @@ function AboutPage() {
         </div>
       </section>
 
-      <section className="mx-auto site-container px-5 py-16 md:py-20 lg:px-8">
-        <div className="mb-8 grid gap-6 lg:grid-cols-[.7fr_1.3fr] lg:items-end lg:gap-12">
+      <section className="mx-auto site-container px-5 py-20 md:py-24 lg:px-8">
+        <div className="mb-10">
           <div>
             <p className="eyebrow">02 / Products and capabilities</p>
             <h2 className="mt-5 type-h2">Equipment for moving and cleaning air.</h2>
           </div>
-          <p className="type-body">
+          <p className="mt-6 max-w-3xl type-body">
             These solutions support industrial <strong>ventilation, cooling, pressurisation, dust
             collection and fume extraction</strong>.
           </p>
         </div>
-        <ul className="grid auto-rows-fr border-l border-t border-border sm:grid-cols-2">
+        <ul className="grid auto-rows-fr grid-cols-2 gap-3 lg:grid-cols-5 lg:gap-4">
           {capabilities.map((item, i) => (
-            <li key={item} className="flex min-w-0 items-center gap-4 border-b border-r border-border px-5 py-4">
+            <li key={item} className="flex h-full min-w-0 items-center gap-3 border border-border/60 px-3 py-4 sm:px-5">
               <span className="shrink-0 text-xs font-bold text-primary">
                 {String(i + 1).padStart(2, "0")}
               </span>
-              <h3 className="font-display text-base font-bold uppercase leading-snug">{item}</h3>
+              <h3 className="min-w-0 break-words font-display text-base font-bold uppercase leading-snug">{item}</h3>
             </li>
           ))}
         </ul>
       </section>
 
-      <section className="border-y border-border bg-secondary/45">
-        <div className="mx-auto grid site-container gap-8 px-5 py-16 md:py-20 lg:grid-cols-[.7fr_1.3fr] lg:gap-12 lg:px-8">
+      <section className="border-y border-border bg-secondary/35">
+        <div className="mx-auto site-container px-5 py-20 md:py-24 lg:px-8">
           <div>
             <p className="eyebrow">03 / Industries and applications</p>
             <h2 className="mt-5 type-h2">Where Handlair equipment works.</h2>
-            <p className="mt-6 type-body">
+            <p className="mt-6 max-w-3xl type-body">
               Technical guidance and equipment selection form part of the approach, helping
               customers identify solutions suited to their operating requirements.
             </p>
           </div>
-          <div className="grid content-start gap-x-6 sm:grid-cols-2">
-            {[applications.slice(0, 4), applications.slice(4)].map((column, columnIndex) => (
-              <ul key={columnIndex} className="border-t border-border">
-                {column.map((item, i) => (
-                  <li key={item} className="flex min-h-20 items-center gap-4 border-b border-border px-4 py-4">
-                    <span className="shrink-0 text-xs font-bold text-primary">
-                      {String(columnIndex * 4 + i + 1).padStart(2, "0")}
-                    </span>
-                    <h3 className="min-w-0 font-display text-base font-bold uppercase leading-snug">{item}</h3>
-                  </li>
-                ))}
-              </ul>
+          <ul className="mt-10 grid auto-rows-fr grid-cols-4 gap-3 lg:grid-cols-8 lg:gap-4">
+            {applications.map((item, i) => (
+              <li key={item} className={`col-span-2 flex h-full min-w-0 items-center gap-3 border border-border/60 px-3 py-4 sm:px-5 ${i === 4 ? "lg:col-start-2" : i === 5 ? "lg:col-start-4" : i === 6 ? "col-start-2 lg:col-start-6" : ""}`}>
+                <span className="shrink-0 text-xs font-bold text-primary">
+                  {String(i + 1).padStart(2, "0")}
+                </span>
+                <h3 className="min-w-0 break-words font-display text-base font-bold uppercase leading-snug">{item}</h3>
+              </li>
             ))}
-          </div>
+          </ul>
         </div>
       </section>
 
-      <section className="mx-auto site-container px-5 py-16 md:py-20 lg:px-8">
-        <div className="grid gap-8 lg:grid-cols-[.7fr_1.3fr] lg:items-center lg:gap-12">
+      <section className="mx-auto site-container px-5 py-20 md:py-24 lg:px-8">
+        <div>
           <div>
             <p className="eyebrow">04 / Export experience</p>
             <h2 className="mt-5 type-h2">Reaching Southeast Asia.</h2>
           </div>
-          <div className="grid grid-cols-[auto_minmax(0,1fr)] items-start gap-5 border-y border-border py-6">
+          <div className="mt-10 grid grid-cols-[auto_minmax(0,1fr)] items-start gap-5 border-y border-border py-8">
             <Globe2 className="size-8 shrink-0 text-primary" aria-hidden />
-            <p className="type-body">
+            <p className="max-w-3xl type-lead">
               Beyond its domestic business, Handlair&rsquo;s export experience extends to{" "}
               <strong>Southeast Asia, including Vietnam</strong>, adding an international dimension
               to its engineering and supply capabilities.
@@ -197,14 +193,14 @@ function AboutPage() {
         </div>
       </section>
 
-      <section className="border-t border-border bg-secondary/45">
-        <div className="mx-auto site-container px-5 py-16 md:py-20 lg:px-8">
-          <div className="grid gap-8 lg:grid-cols-[.7fr_1.3fr] lg:gap-12">
+      <section className="border-t border-border bg-secondary/35">
+        <div className="mx-auto site-container px-5 py-20 md:py-24 lg:px-8">
+          <div>
             <div>
               <p className="eyebrow">05 / Customer commitment</p>
               <h2 className="mt-5 type-h2">Built on lasting relationships.</h2>
             </div>
-            <p className="type-lead self-end">
+            <p className="mt-6 max-w-3xl type-lead">
               With an emphasis on <strong className="text-foreground">dependable performance</strong>
               , <strong className="text-foreground">competitive pricing</strong>,{" "}
               <strong className="text-foreground">timely delivery</strong> and{" "}
@@ -222,7 +218,7 @@ function AboutPage() {
               </div>
             ))}
           </div>
-          <p className="mt-12 border-t border-border pt-10 text-center font-display text-2xl font-bold uppercase tracking-wide text-primary md:text-3xl">
+          <p className="mt-16 border-t border-border pb-4 pt-12 text-center font-display text-2xl font-bold uppercase tracking-wide text-primary md:text-3xl">
             Engineering Air Solutions Since 1996.
           </p>
         </div>

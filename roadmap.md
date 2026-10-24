@@ -17,3 +17,5 @@
 - [x] Verify tests, lint, route resolution, interactions, and desktop/mobile visual preservation (13 tests pass; automatic build/type checks OK; full lint retains pre-existing formatting errors, non-format lint passes).
 - [x] Replace About-page floating cards with aligned editorial sections without changing copy.
 - [x] Verify exact wording, desktop/tablet/mobile layouts, and the existing enquiry action (five widths, 13 tests, automatic build OK).
+- [ ] Unify all About section headers and balance full-width content grids while preserving exact copy.
+- [ ] Verify section alignment, responsive grids, original wording, and enquiry navigation.
