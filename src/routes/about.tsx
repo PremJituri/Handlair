@@ -143,11 +143,11 @@ function AboutPage() {
         </div>
         <ul className="grid auto-rows-fr grid-cols-2 gap-3 lg:grid-cols-5 lg:gap-4">
           {capabilities.map((item, i) => (
-            <li key={item} className="flex h-full min-w-0 items-center gap-3 border border-border/60 px-3 py-4 sm:px-5">
+            <li key={item} className="flex h-full min-w-0 flex-col items-start justify-center gap-2 border border-border/60 px-3 py-4 sm:flex-row sm:items-center sm:justify-start sm:gap-3 sm:px-5">
               <span className="shrink-0 text-xs font-bold text-primary">
                 {String(i + 1).padStart(2, "0")}
               </span>
-              <h3 className="min-w-0 break-words font-display text-base font-bold uppercase leading-snug">{item}</h3>
+              <h3 className="min-w-0 break-words font-display text-sm font-bold uppercase leading-snug sm:text-base">{item}</h3>
             </li>
           ))}
         </ul>
