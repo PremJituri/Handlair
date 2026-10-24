@@ -9,9 +9,9 @@ import bagTall from "@/assets/hero-slideshow/Bag_Filter_Dust_Collectors_3.jpg.as
 import bagOutdoor from "@/assets/hero-slideshow/Bag_Filter_Dust_Collectors_5.jpg.asset.json";
 import bagPlant from "@/assets/hero-slideshow/Bag_Filter_Dust_Collectors_8.jpg.asset.json";
 
-// Owner's settings: one image every 5 seconds. The crossfade must stay well
+// Owner's settings: one image every 6 seconds. The crossfade must stay well
 // inside that window so the timer and the dissolve never overlap.
-export const HERO_SLIDE_INTERVAL_MS = 5000;
+export const HERO_SLIDE_INTERVAL_MS = 6000;
 export const HERO_SLIDE_CROSSFADE_MS = 1200;
 
 // Keep this list in the owner's upload order.
