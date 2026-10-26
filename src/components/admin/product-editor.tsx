@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { Link,useNavigate,useRouter } from "@tanstack/react-router";
 import { Save,Plus,Trash2,ArrowUp,ArrowDown,Upload,Image as ImageIcon,LoaderCircle } from "lucide-react";
 import { Button } from "@/components/ui/button";
@@ -12,9 +12,9 @@ const area="min-h-28 w-full rounded-md border border-input bg-background px-3 py
 export function ProductEditor({data,id}:{data:AdminData;id?:string}){
   const product=data.products.find(p=>p.id===id);const navigate=useNavigate();const router=useRouter();
   const [value,setValue]=useState<ProductInput>(()=>productSchema.parse(product?{...product,body_json:product.body_json,specs_json:product.specs_json,sections_json:product.sections_json}:{category_id:data.categories[0]?.id,name:"New product",slug:"new-product",summary:"",detail:"",subcategory:"",body_json:[],specs_json:[],sections_json:[],thumbnail_url:"",missing:null,display_order:data.products.length,is_published:true,catalogue_visible:true}));
-  const [manualSlug,setManualSlug]=useState(!!id);const [busy,setBusy]=useState(false);const [error,setError]=useState("");const [notice,setNotice]=useState("");const [previews,setPreviews]=useState<string[]>([]);const [remove,setRemove]=useState<AdminData['images'][number]|null>(null);
+  const [manualSlug,setManualSlug]=useState(!!id);const [busy,setBusy]=useState(false);const [error,setError]=useState("");const [notice,setNotice]=useState("");const [previews,setPreviews]=useState<string[]>([]);const [remove,setRemove]=useState<AdminData['images'][number]|null>(null);const [dirty,setDirty]=useState(false);const formRef=useRef<HTMLFormElement>(null);
   useEffect(()=>()=>{previews.forEach(url=>URL.revokeObjectURL(url));},[previews]);
-  function update<K extends keyof ProductInput>(key:K,next:ProductInput[K]){setValue(v=>({...v,[key]:next}));setNotice("");}
+  function update<K extends keyof ProductInput>(key:K,next:ProductInput[K]){setValue(v=>({...v,[key]:next}));setNotice("");setDirty(true);}
   function moveSpec(index:number,direction:number){const rows=[...value.specs_json];const next=index+direction;const current=rows[index];const target=rows[next];if(next<0||next>=rows.length||current===undefined||target===undefined)return;rows[index]=target;rows[next]=current;update("specs_json",rows);}
   async function upload(files:FileList|File[]){if(!id){setError("Save the product before adding photos.");return;}setBusy(true);setError("");setPreviews(Array.from(files).map(f=>URL.createObjectURL(f)));try{for(const file of Array.from(files)){const optimized=await optimizeImage(file);const form=new FormData();form.set("product_id",id);form.set("file",optimized);form.set("alt_text",value.name);form.set("display_order",String(data.images.filter(i=>i.product_id===id).length));const image=await uploadImage({data:form});if(!value.thumbnail_url){const next={...value,thumbnail_url:image.image_url};await saveProduct({data:productSchema.parse(next)});setValue(next);}}await router.invalidate();setNotice("Photos uploaded.");}catch(e){setError(e instanceof Error?e.message:"Upload failed.");}finally{setBusy(false);setPreviews([]);}}
   if(id&&!product)return <div><h1 className="type-h2">Product not found</h1><Link to="/admin/products" className="text-primary">Back to products</Link></div>;
