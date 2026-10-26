@@ -1,10 +1,9 @@
-import { createServerFn } from "@tanstack/react-start";
 import { createClient } from "@supabase/supabase-js";
 import type { Database } from "@/integrations/supabase/types";
 import { catalogueCategories, catalogueProducts, findCatalogueProduct, type CatalogueProduct } from "@/data/product-catalogue";
 import { z } from "zod";
 
-export const getPublicCatalogue = createServerFn({ method: "GET" }).handler(async () => {
+export async function readPublicCatalogue() {
   try {
     const key = process.env['SUPABASE_ANON_KEY'] ?? process.env['SUPABASE_PUBLISHABLE_KEY'];
     const url = process.env['SUPABASE_URL'];
@@ -29,8 +28,4 @@ export const getPublicCatalogue = createServerFn({ method: "GET" }).handler(asyn
     const expand = (p: CatalogueProduct) => ({ ...p, body: [] as string[], sections: [] as { title: string; body: string[]; list?: string[] }[], visible: catalogueProducts.some((item) => item.slug === p.slug) });
     return { categories: [...catalogueCategories], products: catalogueProducts.map(expand), all: all.map(expand), fallback: true };
   }
-});
-export const getPublicProductBySlug = createServerFn({ method: "GET" }).inputValidator(z.object({ slug: z.string().max(120) })).handler(async ({ data }) => {
-  // Use the shared server implementation via its handler-independent public read at the route call site instead.
-  return { slug: data.slug };
-});
+});}
