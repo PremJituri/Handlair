@@ -4,7 +4,7 @@ export const Route = createFileRoute("/api/public/hero-photo/$filename")({ serve
   if (!/^[a-f0-9-]{36}\.jpg$/.test(params.filename)) return new Response("Not found", { status: 404 });
   try {
     const { heroPublicClient } = await import("@/lib/hero-slides.server");
-    const db = heroPublicClient();
+    const db = await heroPublicClient();
     const { data: slide, error: readError } = await db.from("hero_slides").select("id").eq("image_url", `/api/public/hero-photo/${params.filename}`).limit(1);
     if (readError || !slide?.length) return new Response("Not found", { status: 404 });
     const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
