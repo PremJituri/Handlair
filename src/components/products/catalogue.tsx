@@ -21,28 +21,21 @@ export function ProductCatalogue({ products = catalogueProducts, categories = ca
   const shownCategories = categories.filter((item) => products.some((p) => p.category === item.id));
   const filtered = category !== "all" || subcategory !== "all" || query.trim() !== "";
 
-  const revealResults = () => requestAnimationFrame(() => {
-    const el = resultsRef.current;
-    if (!el) return;
-    const top = el.getBoundingClientRect().top;
-    if (window.innerWidth < 1024 || top > window.innerHeight * 0.6 || top < 0) {
-      const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-      el.scrollIntoView({ behavior: reduce ? "auto" : "smooth", block: "start" });
-    }
-  });
-  const pickCategory = (id: string) => { setCategory(id); setSubcategory("all"); revealResults(); };
-  const pickSubcategory = (slug: string) => { setSubcategory(slug); revealResults(); };
+  const pickCategory = (id: string) => { setCategory(id); setSubcategory("all"); };
+  const pickSubcategory = (slug: string) => { setSubcategory(slug); };
   const reset = () => { setCategory("all"); setSubcategory("all"); setQuery(""); };
 
   const activeLabel = subcategory !== "all" ? categoryProducts.find((p) => p.slug === subcategory)?.subcategory : category === "all" ? "All Products" : categories.find((item) => item.id === category)?.name;
 
   return <section className="mx-auto site-container px-5 py-12 lg:px-8 lg:py-16">
-    <div className="flex flex-col gap-4 border-b border-border pb-5 lg:flex-row-reverse lg:items-center lg:justify-between lg:gap-8">
+    <div className="flex flex-col gap-4 border-b border-border pb-5 lg:flex-row-reverse lg:items-end lg:justify-between lg:gap-8">
       <div className="relative w-full lg:max-w-sm lg:shrink-0"><Search className="pointer-events-none absolute left-3 top-3.5 size-4 text-muted-foreground" /><Input aria-label="Search products" placeholder="Search products" value={query} onChange={(event) => setQuery(event.target.value)} className="h-11 pl-10 pr-11 text-base" />{query && <Button size="icon" variant="ghost" onClick={() => setQuery("")} aria-label="Clear search" className="absolute right-0.5 top-0.5 size-10"><X /></Button>}</div>
-      <nav aria-label="Product categories" className="-mx-5 flex min-w-0 gap-2 overflow-x-auto px-5 pb-1 [scrollbar-width:none] lg:mx-0 lg:flex-wrap lg:px-0 [&::-webkit-scrollbar]:hidden">
-        <Button variant="ghost" aria-pressed={category === "all"} onClick={() => pickCategory("all")} className={cn(pillBase, pillState(category === "all"))}>All Products <span className="opacity-80">({products.length})</span></Button>
-        {shownCategories.map((item) => { const active = category === item.id; return <Button key={item.id} variant="ghost" aria-pressed={active} onClick={() => pickCategory(item.id)} className={cn(pillBase, pillState(active))}>{item.name} <span className="opacity-80">({filterCatalogue(item.id).length})</span></Button>; })}
-      </nav>
+      <div className="min-w-0">
+        <p id="catalogue-filters-label" className="mb-3 flex items-center gap-2 text-base font-bold uppercase"><SlidersHorizontal className="size-4 text-primary" aria-hidden="true" />Filters</p>
+        <nav aria-labelledby="catalogue-filters-label" className="grid grid-cols-2 gap-2 lg:flex lg:flex-wrap">
+          {[{ id: "all", name: "All Products", count: products.length }, ...shownCategories.map((item) => ({ ...item, count: filterCatalogue(item.id).length }))].map((item) => { const active = category === item.id; return <Button key={item.id} variant="ghost" aria-pressed={active} onClick={() => pickCategory(item.id)} className={cn("h-auto min-h-11 min-w-0 justify-center whitespace-normal rounded-lg border px-3 py-2 text-center text-base leading-snug lg:rounded-full lg:px-4 lg:whitespace-nowrap", pillState(active))}><span className="min-w-0 [overflow-wrap:anywhere]">{item.name} <span className="opacity-80">({item.count})</span></span></Button>; })}
+        </nav>
+      </div>
     </div>
     {category !== "all" && categoryProducts.length > 1 && <nav aria-label="Product subcategories" className="-mx-5 mt-4 flex gap-2 overflow-x-auto px-5 pb-1 [scrollbar-width:none] lg:mx-0 lg:flex-wrap lg:px-0 [&::-webkit-scrollbar]:hidden">
       <Button variant="ghost" aria-pressed={subcategory === "all"} onClick={() => pickSubcategory("all")} className={cn("h-11 shrink-0 whitespace-nowrap rounded-full border px-4 text-base", chipState(subcategory === "all"))}>All in category</Button>
