@@ -22,6 +22,13 @@
       "when": 1793021173955,
       "tag": "0002_hero_slides_explicit_read_only",
       "breakpoints": true
+    },
+    {
+      "idx": 3,
+      "version": "7",
+      "when": 1793024504265,
+      "tag": "0003_drop_public_storage_reads",
+      "breakpoints": true
     }
   ]
 }
