@@ -26,6 +26,6 @@
 - [x] Verify signed-in create/edit/upload/delete, public specification updates, 38,894-byte photo, draft-photo privacy, category safeguards and logout; Cloud records persist across requests. Server restart not performed; automatic checks and 17 tests pass.
 - [x] Fix admin session persistence; saved credentials, cross-site HTTPS iframe sign-in, refresh, and logout verified; 20 tests pass.
 - [x] Remove blank space below the admin footer with admin-only viewport fill; desktop footer reaches viewport bottom and mobile has no horizontal overflow.
-- [ ] Add seeded hero photos, secure management, atomic ordering and last-photo protection.
-- [ ] Connect homepage and admin preview while preserving six-second timing and existing framing.
-- [ ] Verify authenticated uploads, edits, ordering, deletion safeguards, public security and responsive views.
+- [x] Add ten seeded hero photos, secure management, atomic ordering and last-photo protection.
+- [x] Connect homepage and admin preview while preserving six-second timing and existing framing.
+- [x] Verify authenticated upload/edit/reorder/delete, session refresh/logout, public image access removal, desktop/mobile layouts, 1.2-second dissolve, and denied public mutation grants. All 23 tests pass, including last-photo and single-photo safeguards; automatic build OK. Transactional database last-photo simulation was unavailable to the restricted verification connection; no original photos were deleted for that check.
