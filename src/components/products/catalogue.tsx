@@ -28,7 +28,7 @@ export function ProductCatalogue({ products = catalogueProducts, categories = ca
 
   return <section className="mx-auto site-container px-5 py-12 lg:px-8 lg:py-16">
     <div className="flex flex-col gap-4 border-b border-border pb-5 lg:flex-row-reverse lg:items-end lg:justify-between lg:gap-8">
-      <div className="relative w-full lg:max-w-sm lg:shrink-0"><Search className="pointer-events-none absolute left-3 top-3.5 size-4 text-muted-foreground" /><Input aria-label="Search products" placeholder="Search products" value={query} onChange={(event) => setQuery(event.target.value)} className="h-11 pl-10 pr-11 text-base" />{query && <Button size="icon" variant="ghost" onClick={() => setQuery("")} aria-label="Clear search" className="absolute right-0.5 top-0.5 size-10"><X /></Button>}</div>
+      <div className="relative w-full lg:max-w-xs lg:shrink-0"><Search className="pointer-events-none absolute left-3 top-3.5 size-4 text-muted-foreground" /><Input aria-label="Search products" placeholder="Search products" value={query} onChange={(event) => setQuery(event.target.value)} className="h-11 pl-10 pr-11 text-base" />{query && <Button size="icon" variant="ghost" onClick={() => setQuery("")} aria-label="Clear search" className="absolute right-0.5 top-0.5 size-10"><X /></Button>}</div>
       <div className="min-w-0">
         <p id="catalogue-filters-label" className="mb-3 flex items-center gap-2 text-base font-bold uppercase"><SlidersHorizontal className="size-4 text-primary" aria-hidden="true" />Filters</p>
         <nav aria-labelledby="catalogue-filters-label" className="grid grid-cols-2 gap-2 lg:flex lg:flex-wrap">
