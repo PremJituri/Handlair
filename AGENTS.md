@@ -17,3 +17,8 @@
 - Keep Products-only taxonomy and image associations in `src/data/product-catalogue.ts`, derived from shared business/photo records; shared installation photos remain required after standalone Gallery removal so product viewers and legacy product URLs stay intact.
 - Use the shared `site-container` width for wide public layouts, retaining narrower reading/form limits; size the desktop home hero against available viewport height so shorter laptops retain visible recovery actions and complete equipment imagery.
 - Keep the homepage slideshow isolated in `HeroSlideshow` with its ordered assets in `src/data/hero-slideshow.ts`; decode images before playback and clean up timers so navigation and reduced-motion preferences remain safe.
+- Catalogue CMS uses Cloud PostgreSQL and private image storage, not persistent local files or native Sharp, because the published runtime has no durable disk or native binaries.
+- CMS authentication uses bcrypt-verified configured admin credentials and encrypted HttpOnly sessions; every admin server operation revalidates the account, and no browser-controlled role grants access.
+- Public Products reads use a server publishable client and published-row policies with static fallback only on service failure; keep static business records for unrelated pages and legacy fallback.
+- Uploaded images are resized in-browser, then decoded and JPEG re-encoded server-side with strict dimension and byte limits; only published product photos are served publicly.
+- Existing product slugs are immutable in the CMS to preserve legacy links; drafts and legacy-only records remain independently managed.
