@@ -6,8 +6,10 @@ export const Route=createFileRoute("/api/public/product-photo/$filename")({serve
   const url=process.env['SUPABASE_URL']; const key=process.env['SUPABASE_ANON_KEY']??process.env['SUPABASE_PUBLISHABLE_KEY'];
   if(!url||!key) return new Response("Unavailable",{status:503});
   const db=createClient<Database>(url,key,{auth:{persistSession:false},global:{fetch:(input,init)=>{const h=new Headers(init?.headers);if(key.startsWith("sb_"))h.delete("Authorization");h.set("apikey",key);return fetch(input,{...init,headers:h});}}});
-  const {data,error}=await db.storage.from("product-images").download(params.filename);
-  if(error||!data){
+  const {data:rows}=await db.from("product_images").select("id,products!inner(is_published)").eq("filename",params.filename).eq("products.is_published",true).limit(1);
+  let data:Blob|null=null;
+  if(rows?.length){const {supabaseAdmin}=await import("@/integrations/supabase/client.server");data=(await supabaseAdmin.storage.from("product-images").download(params.filename)).data;}
+  if(!data){
     try {
       const { requireAdmin } = await import("@/lib/cms-auth.server");
       await requireAdmin();
