@@ -1,0 +1,1 @@
+DROP POLICY IF EXISTS hero_storage_read ON storage.objects; DROP POLICY IF EXISTS published_storage_read ON storage.objects;
