@@ -15,6 +15,13 @@
       "when": 1793020789156,
       "tag": "0001_hero_slides_manager",
       "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "7",
+      "when": 1793021173955,
+      "tag": "0002_hero_slides_explicit_read_only",
+      "breakpoints": true
     }
   ]
 }
