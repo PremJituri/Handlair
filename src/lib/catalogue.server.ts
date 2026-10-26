@@ -28,4 +28,4 @@ export async function readPublicCatalogue() {
     const expand = (p: CatalogueProduct) => ({ ...p, body: [] as string[], sections: [] as { title: string; body: string[]; list?: string[] }[], visible: catalogueProducts.some((item) => item.slug === p.slug) });
     return { categories: [...catalogueCategories], products: catalogueProducts.map(expand), all: all.map(expand), fallback: true };
   }
-});}
+}
