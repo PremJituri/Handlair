@@ -1,4 +1,4 @@
-import { useSession, getRequest, getRequestHeader, setResponseHeader } from "@tanstack/react-start/server";
+import { useSession as createEncryptedSession, getRequest, getRequestHeader, setResponseHeader } from "@tanstack/react-start/server";
 import { compare, hash } from "bcryptjs";
 import { createHash } from "node:crypto";
 import { supabaseAdmin } from "@/integrations/supabase/client.server";
@@ -7,7 +7,7 @@ type AdminSession = { adminId?: string; username?: string };
 export function adminSession() {
   const password = process.env['SESSION_SECRET'];
   if (!password) throw new Error("Admin access is not configured.");
-  return useSession<AdminSession>({ password, name: "handlair-admin", maxAge: 60 * 60 * 24 * 7, cookie: { httpOnly: true, secure: new URL(getRequest().url).protocol === "https:", sameSite: "strict", path: "/" } });
+  return createEncryptedSession<AdminSession>({ password, name: "handlair-admin", maxAge: 60 * 60 * 24 * 7, cookie: { httpOnly: true, secure: new URL(getRequest().url).protocol === "https:", sameSite: "strict", path: "/" } });
 }
 export async function requireAdmin() {
   setResponseHeader("Cache-Control", "private, no-store");
