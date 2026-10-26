@@ -20,6 +20,7 @@ import { Route as ProductsIndexRouteImport } from './routes/products.index'
 import { Route as ProductsSlugRouteImport } from './routes/products.$slug'
 import { Route as AdminAdminIndexRouteImport } from './routes/_admin.admin.index'
 import { Route as AdminAdminCategoriesRouteImport } from './routes/_admin.admin.categories'
+import { Route as AdminAdminHeroSlidesRouteImport } from './routes/_admin.admin.hero-slides'
 import { Route as AdminAdminProductsIndexRouteImport } from './routes/_admin.admin.products.index'
 import { Route as AdminAdminProductsIdRouteImport } from './routes/_admin.admin.products.$id'
 import { Route as AdminAdminProductsNewRouteImport } from './routes/_admin.admin.products.new'
@@ -80,6 +81,11 @@ const AdminAdminCategoriesRoute = AdminAdminCategoriesRouteImport.update({
   path: '/admin/categories',
   getParentRoute: () => AdminRoute,
 } as any)
+const AdminAdminHeroSlidesRoute = AdminAdminHeroSlidesRouteImport.update({
+  id: '/admin/hero-slides',
+  path: '/admin/hero-slides',
+  getParentRoute: () => AdminRoute,
+} as any)
 const AdminAdminProductsIndexRoute = AdminAdminProductsIndexRouteImport.update({
   id: '/admin/products/',
   path: '/admin/products/',
@@ -118,6 +124,7 @@ export interface FileRoutesByFullPath {
   '/products/$slug': typeof ProductsSlugRoute
   '/products/': typeof ProductsIndexRoute
   '/admin/categories': typeof AdminAdminCategoriesRoute
+  '/admin/hero-slides': typeof AdminAdminHeroSlidesRoute
   '/admin/': typeof AdminAdminIndexRoute
   '/admin/products/$id': typeof AdminAdminProductsIdRoute
   '/admin/products/new': typeof AdminAdminProductsNewRoute
@@ -134,6 +141,7 @@ export interface FileRoutesByTo {
   '/products/$slug': typeof ProductsSlugRoute
   '/products': typeof ProductsIndexRoute
   '/admin/categories': typeof AdminAdminCategoriesRoute
+  '/admin/hero-slides': typeof AdminAdminHeroSlidesRoute
   '/admin': typeof AdminAdminIndexRoute
   '/admin/products/$id': typeof AdminAdminProductsIdRoute
   '/admin/products/new': typeof AdminAdminProductsNewRoute
@@ -153,6 +161,7 @@ export interface FileRoutesById {
   '/products/$slug': typeof ProductsSlugRoute
   '/products/': typeof ProductsIndexRoute
   '/_admin/admin/categories': typeof AdminAdminCategoriesRoute
+  '/_admin/admin/hero-slides': typeof AdminAdminHeroSlidesRoute
   '/_admin/admin/': typeof AdminAdminIndexRoute
   '/_admin/admin/products/$id': typeof AdminAdminProductsIdRoute
   '/_admin/admin/products/new': typeof AdminAdminProductsNewRoute
@@ -172,6 +181,7 @@ export interface FileRouteTypes {
     | '/products/$slug'
     | '/products/'
     | '/admin/categories'
+    | '/admin/hero-slides'
     | '/admin/'
     | '/admin/products/$id'
     | '/admin/products/new'
@@ -188,6 +198,7 @@ export interface FileRouteTypes {
     | '/products/$slug'
     | '/products'
     | '/admin/categories'
+    | '/admin/hero-slides'
     | '/admin'
     | '/admin/products/$id'
     | '/admin/products/new'
@@ -206,6 +217,7 @@ export interface FileRouteTypes {
     | '/products/$slug'
     | '/products/'
     | '/_admin/admin/categories'
+    | '/_admin/admin/hero-slides'
     | '/_admin/admin/'
     | '/_admin/admin/products/$id'
     | '/_admin/admin/products/new'
@@ -305,6 +317,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AdminAdminCategoriesRouteImport
       parentRoute: typeof AdminRoute
     }
+    '/_admin/admin/hero-slides': {
+      id: '/_admin/admin/hero-slides'
+      path: '/admin/hero-slides'
+      fullPath: '/admin/hero-slides'
+      preLoaderRoute: typeof AdminAdminHeroSlidesRouteImport
+      parentRoute: typeof AdminRoute
+    }
     '/_admin/admin/products/': {
       id: '/_admin/admin/products/'
       path: '/admin/products'
@@ -345,6 +364,7 @@ declare module '@tanstack/react-router' {
 
 interface AdminRouteChildren {
   AdminAdminCategoriesRoute: typeof AdminAdminCategoriesRoute
+  AdminAdminHeroSlidesRoute: typeof AdminAdminHeroSlidesRoute
   AdminAdminIndexRoute: typeof AdminAdminIndexRoute
   AdminAdminProductsIdRoute: typeof AdminAdminProductsIdRoute
   AdminAdminProductsNewRoute: typeof AdminAdminProductsNewRoute
@@ -353,6 +373,7 @@ interface AdminRouteChildren {
 
 const AdminRouteChildren: AdminRouteChildren = {
   AdminAdminCategoriesRoute: AdminAdminCategoriesRoute,
+  AdminAdminHeroSlidesRoute: AdminAdminHeroSlidesRoute,
   AdminAdminIndexRoute: AdminAdminIndexRoute,
   AdminAdminProductsIdRoute: AdminAdminProductsIdRoute,
   AdminAdminProductsNewRoute: AdminAdminProductsNewRoute,
