@@ -1,6 +1,6 @@
 import { Link } from "@tanstack/react-router";
-import { ArrowRight, Search, X, ImageOff, RotateCcw, SlidersHorizontal } from "lucide-react";
-import { useRef, useState } from "react";
+import { ArrowRight, Search, X, ImageOff, RotateCcw, SlidersHorizontal, ChevronDown } from "lucide-react";
+import { useEffect, useRef, useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { catalogueCategories, catalogueProducts } from "@/data/product-catalogue";
@@ -14,6 +14,15 @@ export function ProductCatalogue({ products = catalogueProducts, categories = ca
   const [subcategory, setSubcategory] = useState("all");
   const [query, setQuery] = useState("");
   const resultsRef = useRef<HTMLDivElement>(null);
+  const [menuOpen, setMenuOpen] = useState(false);
+  const menuRef = useRef<HTMLDivElement>(null);
+  const triggerRef = useRef<HTMLButtonElement>(null);
+  useEffect(() => {
+    if (!menuOpen) return;
+    const close = (event: PointerEvent) => { if (!menuRef.current?.contains(event.target as Node)) setMenuOpen(false); };
+    document.addEventListener("pointerdown", close);
+    return () => document.removeEventListener("pointerdown", close);
+  }, [menuOpen]);
   const filterCatalogue = (category: string, subcategory = "all") => products.filter((p) => (category === "all" || p.category === category) && (subcategory === "all" || p.slug === subcategory));
   const categoryProducts = filterCatalogue(category);
   const items = filterCatalogue(category, subcategory).filter((product) => `${product.name} ${product.subcategory} ${product.summary}`.toLowerCase().includes(query.trim().toLowerCase()));
@@ -25,14 +34,25 @@ export function ProductCatalogue({ products = catalogueProducts, categories = ca
   const reset = () => { setCategory("all"); setSubcategory("all"); setQuery(""); };
 
   const activeLabel = subcategory !== "all" ? categoryProducts.find((p) => p.slug === subcategory)?.subcategory : category === "all" ? "All Products" : categories.find((item) => item.id === category)?.name;
+  const filterOptions = [{ id: "all", name: "All Products", count: products.length }, ...shownCategories.map((item) => ({ ...item, count: filterCatalogue(item.id).length }))];
+  const activeOption = filterOptions.find((item) => item.id === category) ?? filterOptions[0]!;
 
   return <section className="mx-auto site-container px-5 py-12 lg:px-8 lg:py-16">
     <div className="flex flex-col gap-4 border-b border-border pb-5 lg:flex-row-reverse lg:items-end lg:justify-between lg:gap-8">
       <div className="relative w-full lg:max-w-xs lg:shrink-0"><Search className="pointer-events-none absolute left-3 top-3.5 size-4 text-muted-foreground" /><Input aria-label="Search products" placeholder="Search products" value={query} onChange={(event) => setQuery(event.target.value)} className="h-11 pl-10 pr-11 text-base" />{query && <Button size="icon" variant="ghost" onClick={() => setQuery("")} aria-label="Clear search" className="absolute right-0.5 top-0.5 size-10"><X /></Button>}</div>
       <div className="min-w-0">
-        <p id="catalogue-filters-label" className="mb-3 flex items-center gap-2 text-base font-bold uppercase"><SlidersHorizontal className="size-4 text-primary" aria-hidden="true" />Filters</p>
-        <nav aria-labelledby="catalogue-filters-label" className="grid grid-cols-2 gap-2 lg:flex lg:flex-wrap">
-          {[{ id: "all", name: "All Products", count: products.length }, ...shownCategories.map((item) => ({ ...item, count: filterCatalogue(item.id).length }))].map((item) => { const active = category === item.id; return <Button key={item.id} variant="ghost" aria-pressed={active} onClick={() => pickCategory(item.id)} className={cn("h-auto min-h-11 min-w-0 justify-center whitespace-normal rounded-lg border px-3 py-2 text-center text-base leading-snug lg:rounded-full lg:px-4 lg:whitespace-nowrap", pillState(active))}><span className="min-w-0 [overflow-wrap:anywhere]">{item.name} <span className="opacity-80">({item.count})</span></span></Button>; })}
+        <p id="catalogue-filters-label" className="mb-3 hidden items-center gap-2 text-base font-bold uppercase lg:flex"><SlidersHorizontal className="size-4 text-primary" aria-hidden="true" />Filters</p>
+        <div ref={menuRef} className="relative lg:hidden" onKeyDown={(e) => { if (e.key === "Escape" && menuOpen) { setMenuOpen(false); triggerRef.current?.focus(); } }}>
+          <Button ref={triggerRef} type="button" variant="ghost" aria-haspopup="true" aria-expanded={menuOpen} aria-controls="catalogue-filter-menu" onClick={() => setMenuOpen((open) => !open)} className="h-11 w-full justify-between gap-2 rounded-full border border-border bg-background px-4 text-base hover:border-primary/60 hover:bg-secondary/40 hover:text-foreground">
+            <span className="flex min-w-0 items-center gap-2"><SlidersHorizontal className="size-4 shrink-0 text-primary" aria-hidden="true" /><span className="font-bold uppercase">Filters:</span><span className="truncate">{activeOption.name} <span className="opacity-80">({activeOption.count})</span></span></span>
+            <ChevronDown className={cn("size-4 shrink-0 transition-transform", menuOpen && "rotate-180")} aria-hidden="true" />
+          </Button>
+          {menuOpen && <div id="catalogue-filter-menu" role="group" aria-label="Product categories" className="absolute inset-x-0 top-full z-30 mt-2 flex flex-wrap gap-2 rounded-2xl border border-border bg-popover p-3 text-popover-foreground shadow-lg motion-safe:animate-in motion-safe:fade-in motion-safe:zoom-in-95">
+            {filterOptions.map((item) => { const active = category === item.id; return <Button key={item.id} type="button" variant="ghost" aria-pressed={active} onClick={() => { pickCategory(item.id); setMenuOpen(false); }} className={cn("h-auto min-h-11 max-w-full whitespace-normal rounded-full border px-4 py-2 text-left text-base leading-snug", pillState(active))}><span>{item.name} <span className="opacity-80">({item.count})</span></span></Button>; })}
+          </div>}
+        </div>
+        <nav aria-labelledby="catalogue-filters-label" className="hidden lg:flex lg:flex-wrap lg:gap-2">
+          {filterOptions.map((item) => { const active = category === item.id; return <Button key={item.id} variant="ghost" aria-pressed={active} onClick={() => pickCategory(item.id)} className={cn("h-auto min-h-11 min-w-0 justify-center rounded-full border px-4 py-2 text-center text-base leading-snug whitespace-nowrap", pillState(active))}><span className="min-w-0">{item.name} <span className="opacity-80">({item.count})</span></span></Button>; })}
         </nav>
       </div>
     </div>
