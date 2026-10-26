@@ -21,6 +21,8 @@ import { Route as ProductsSlugRouteImport } from './routes/products.$slug'
 import { Route as AdminAdminIndexRouteImport } from './routes/_admin.admin.index'
 import { Route as AdminAdminCategoriesRouteImport } from './routes/_admin.admin.categories'
 import { Route as AdminAdminProductsIndexRouteImport } from './routes/_admin.admin.products.index'
+import { Route as AdminAdminProductsIdRouteImport } from './routes/_admin.admin.products.$id'
+import { Route as AdminAdminProductsNewRouteImport } from './routes/_admin.admin.products.new'
 import { Route as ApiPublicProductPhotoFilenameRouteImport } from './routes/api/public/product-photo/$filename'
 
 const IndexRoute = IndexRouteImport.update({
@@ -82,6 +84,16 @@ const AdminAdminProductsIndexRoute = AdminAdminProductsIndexRouteImport.update({
   path: '/admin/products/',
   getParentRoute: () => AdminRoute,
 } as any)
+const AdminAdminProductsIdRoute = AdminAdminProductsIdRouteImport.update({
+  id: '/admin/products/$id',
+  path: '/admin/products/$id',
+  getParentRoute: () => AdminRoute,
+} as any)
+const AdminAdminProductsNewRoute = AdminAdminProductsNewRouteImport.update({
+  id: '/admin/products/new',
+  path: '/admin/products/new',
+  getParentRoute: () => AdminRoute,
+} as any)
 const ApiPublicProductPhotoFilenameRoute =
   ApiPublicProductPhotoFilenameRouteImport.update({
     id: '/api/public/product-photo/$filename',
@@ -100,6 +112,8 @@ export interface FileRoutesByFullPath {
   '/products/': typeof ProductsIndexRoute
   '/admin/categories': typeof AdminAdminCategoriesRoute
   '/admin/': typeof AdminAdminIndexRoute
+  '/admin/products/$id': typeof AdminAdminProductsIdRoute
+  '/admin/products/new': typeof AdminAdminProductsNewRoute
   '/api/public/product-photo/$filename': typeof ApiPublicProductPhotoFilenameRoute
   '/admin/products/': typeof AdminAdminProductsIndexRoute
 }
@@ -113,6 +127,8 @@ export interface FileRoutesByTo {
   '/products': typeof ProductsIndexRoute
   '/admin/categories': typeof AdminAdminCategoriesRoute
   '/admin': typeof AdminAdminIndexRoute
+  '/admin/products/$id': typeof AdminAdminProductsIdRoute
+  '/admin/products/new': typeof AdminAdminProductsNewRoute
   '/api/public/product-photo/$filename': typeof ApiPublicProductPhotoFilenameRoute
   '/admin/products': typeof AdminAdminProductsIndexRoute
 }
@@ -129,6 +145,8 @@ export interface FileRoutesById {
   '/products/': typeof ProductsIndexRoute
   '/_admin/admin/categories': typeof AdminAdminCategoriesRoute
   '/_admin/admin/': typeof AdminAdminIndexRoute
+  '/_admin/admin/products/$id': typeof AdminAdminProductsIdRoute
+  '/_admin/admin/products/new': typeof AdminAdminProductsNewRoute
   '/api/public/product-photo/$filename': typeof ApiPublicProductPhotoFilenameRoute
   '/_admin/admin/products/': typeof AdminAdminProductsIndexRoute
 }
@@ -145,6 +163,8 @@ export interface FileRouteTypes {
     | '/products/'
     | '/admin/categories'
     | '/admin/'
+    | '/admin/products/$id'
+    | '/admin/products/new'
     | '/api/public/product-photo/$filename'
     | '/admin/products/'
   fileRoutesByTo: FileRoutesByTo
@@ -158,6 +178,8 @@ export interface FileRouteTypes {
     | '/products'
     | '/admin/categories'
     | '/admin'
+    | '/admin/products/$id'
+    | '/admin/products/new'
     | '/api/public/product-photo/$filename'
     | '/admin/products'
   id:
@@ -173,6 +195,8 @@ export interface FileRouteTypes {
     | '/products/'
     | '/_admin/admin/categories'
     | '/_admin/admin/'
+    | '/_admin/admin/products/$id'
+    | '/_admin/admin/products/new'
     | '/api/public/product-photo/$filename'
     | '/_admin/admin/products/'
   fileRoutesById: FileRoutesById
@@ -274,6 +298,20 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AdminAdminProductsIndexRouteImport
       parentRoute: typeof AdminRoute
     }
+    '/_admin/admin/products/$id': {
+      id: '/_admin/admin/products/$id'
+      path: '/admin/products/$id'
+      fullPath: '/admin/products/$id'
+      preLoaderRoute: typeof AdminAdminProductsIdRouteImport
+      parentRoute: typeof AdminRoute
+    }
+    '/_admin/admin/products/new': {
+      id: '/_admin/admin/products/new'
+      path: '/admin/products/new'
+      fullPath: '/admin/products/new'
+      preLoaderRoute: typeof AdminAdminProductsNewRouteImport
+      parentRoute: typeof AdminRoute
+    }
     '/api/public/product-photo/$filename': {
       id: '/api/public/product-photo/$filename'
       path: '/api/public/product-photo/$filename'
@@ -287,12 +325,16 @@ declare module '@tanstack/react-router' {
 interface AdminRouteChildren {
   AdminAdminCategoriesRoute: typeof AdminAdminCategoriesRoute
   AdminAdminIndexRoute: typeof AdminAdminIndexRoute
+  AdminAdminProductsIdRoute: typeof AdminAdminProductsIdRoute
+  AdminAdminProductsNewRoute: typeof AdminAdminProductsNewRoute
   AdminAdminProductsIndexRoute: typeof AdminAdminProductsIndexRoute
 }
 
 const AdminRouteChildren: AdminRouteChildren = {
   AdminAdminCategoriesRoute: AdminAdminCategoriesRoute,
   AdminAdminIndexRoute: AdminAdminIndexRoute,
+  AdminAdminProductsIdRoute: AdminAdminProductsIdRoute,
+  AdminAdminProductsNewRoute: AdminAdminProductsNewRoute,
   AdminAdminProductsIndexRoute: AdminAdminProductsIndexRoute,
 }
 
