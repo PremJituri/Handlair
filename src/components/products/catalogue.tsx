@@ -48,7 +48,7 @@ export function ProductCatalogue({ products = catalogueProducts, categories = ca
             <ChevronDown className={cn("size-4 shrink-0 transition-transform", menuOpen && "rotate-180")} aria-hidden="true" />
           </Button>
           {menuOpen && <div id="catalogue-filter-menu" role="group" aria-label="Product categories" className="absolute inset-x-0 top-full z-30 mt-2 flex flex-wrap gap-2 rounded-2xl border border-border bg-popover p-3 text-popover-foreground shadow-lg motion-safe:animate-in motion-safe:fade-in motion-safe:zoom-in-95">
-            {filterOptions.map((item) => { const active = category === item.id; return <Button key={item.id} type="button" variant="ghost" aria-pressed={active} onClick={() => { pickCategory(item.id); setMenuOpen(false); }} className={cn("h-auto min-h-11 max-w-full whitespace-normal rounded-full border px-4 py-2 text-left text-base leading-snug", pillState(active))}>{item.name} <span className="opacity-80">({item.count})</span></Button>; })}
+            {filterOptions.map((item) => { const active = category === item.id; return <Button key={item.id} type="button" variant="ghost" aria-pressed={active} onClick={() => { pickCategory(item.id); setMenuOpen(false); }} className={cn("h-auto min-h-11 max-w-full whitespace-normal rounded-full border px-4 py-2 text-left text-base leading-snug", pillState(active))}><span>{item.name} <span className="opacity-80">({item.count})</span></span></Button>; })}
           </div>}
         </div>
         <nav aria-labelledby="catalogue-filters-label" className="hidden lg:flex lg:flex-wrap lg:gap-2">
