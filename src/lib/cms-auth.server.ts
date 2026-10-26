@@ -1,4 +1,4 @@
-import { useSession, getRequest, getRequestHeader } from "@tanstack/react-start/server";
+import { useSession, getRequest, getRequestHeader, setResponseHeader } from "@tanstack/react-start/server";
 import { compare, hash } from "bcryptjs";
 import { createHash } from "node:crypto";
 import { supabaseAdmin } from "@/integrations/supabase/client.server";
@@ -10,6 +10,7 @@ export function adminSession() {
   return useSession<AdminSession>({ password, name: "handlair-admin", maxAge: 60 * 60 * 24 * 7, cookie: { httpOnly: true, secure: new URL(getRequest().url).protocol === "https:", sameSite: "strict", path: "/" } });
 }
 export async function requireAdmin() {
+  setResponseHeader("Cache-Control", "private, no-store");
   const session = await adminSession();
   if (!session.data.adminId) throw new Error("Please sign in to the admin area.");
   const { data, error } = await supabaseAdmin.from("admin_users").select("id,username").eq("id", session.data.adminId).maybeSingle();

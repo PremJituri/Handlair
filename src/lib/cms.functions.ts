@@ -52,7 +52,8 @@ export const uploadImage = createServerFn({method:"POST"}).inputValidator((input
   if(clean.length>MAX_UPLOAD_BYTES) throw new Error("Photo is too detailed. Please choose a smaller image.");
   const filename=`${crypto.randomUUID()}.jpg`; const url=`/api/public/product-photo/${filename}`;
   const stored=await db.storage.from("product-images").upload(filename,clean,{contentType:"image/jpeg"}); if(stored.error) throw new Error("Image upload failed.");
-  const result=await db.from("product_images").insert({product_id:productId,image_url:url,filename,alt_text:String(data.get("alt_text")??"").slice(0,180),display_order:Number(data.get("display_order")??0)}).select().single();
+  const order=z.number().int().min(0).max(10000).parse(Number(data.get("display_order")??0));
+  const result=await db.from("product_images").insert({product_id:productId,image_url:url,filename,alt_text:String(data.get("alt_text")??"").slice(0,180),display_order:order}).select().single();
   if(result.error){ await db.storage.from("product-images").remove([filename]); throw new Error("Unable to attach photo."); } return result.data;
 });
 export const deleteImage = createServerFn({method:"POST"}).inputValidator(idSchema).handler(async({data})=>{
