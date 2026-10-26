@@ -2,12 +2,13 @@ import { useSession as createEncryptedSession, getRequest, getRequestHeader, set
 import { compare, hash } from "bcryptjs";
 import { createHash } from "node:crypto";
 import { supabaseAdmin } from "@/integrations/supabase/client.server";
+import { adminSessionCookie } from "./admin-session-cookie";
 
 type AdminSession = { adminId?: string; username?: string };
 export function adminSession() {
   const password = process.env['SESSION_SECRET'];
   if (!password) throw new Error("Admin access is not configured.");
-  return createEncryptedSession<AdminSession>({ password, name: "handlair-admin", maxAge: 60 * 60 * 24 * 7, cookie: { httpOnly: true, secure: new URL(getRequest().url).protocol === "https:", sameSite: "strict", path: "/" } });
+  return createEncryptedSession<AdminSession>({ password, name: "handlair-admin", maxAge: 60 * 60 * 24 * 7, sessionHeader: false, cookie: adminSessionCookie(getRequest().url, getRequestHeader("x-forwarded-proto")) });
 }
 export async function requireAdmin() {
   setResponseHeader("Cache-Control", "private, no-store");
