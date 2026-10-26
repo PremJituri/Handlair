@@ -19,3 +19,8 @@
 - [x] Verify exact wording, desktop/tablet/mobile layouts, and the existing enquiry action (five widths, 13 tests, automatic build OK).
 - [x] Unify all About section headers and balance full-width content grids while preserving exact copy.
 - [x] Verify section alignment, responsive grids, original wording, and enquiry navigation (five widths, equal-height grids, 13 tests pass).
+- [ ] Confirm catalogue taxonomy and account profile requirements for the dynamic CMS (awaiting owner answers).
+- [ ] Enable supported durable catalogue storage, seed existing records and preserve legacy URLs.
+- [ ] Implement server-authorized admin product/category editing and image management without public admin links.
+- [ ] Connect public catalogue reads with static failure fallback and verify visual preservation.
+- [ ] Verify signed-in create/edit/upload/delete flows, permissions, category deletion safeguards and persistence.
