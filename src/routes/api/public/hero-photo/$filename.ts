@@ -1,0 +1,14 @@
+import { createFileRoute } from "@tanstack/react-router";
+import { heroPublicClient } from "@/lib/hero-slides.server";
+
+export const Route = createFileRoute("/api/public/hero-photo/$filename")({ server: { handlers: { GET: async ({ params }) => {
+  if (!/^[a-f0-9-]{36}\.jpg$/.test(params.filename)) return new Response("Not found", { status: 404 });
+  try {
+    const db = heroPublicClient();
+    const { data: slide, error: readError } = await db.from("hero_slides").select("id").eq("image_url", `/api/public/hero-photo/${params.filename}`).limit(1);
+    if (readError || !slide?.length) return new Response("Not found", { status: 404 });
+    const { data, error } = await db.storage.from("product-images").download(params.filename);
+    if (error || !data) return new Response("Not found", { status: 404 });
+    return new Response(data, { headers: { "Content-Type": "image/jpeg", "Cache-Control": "no-store", "X-Content-Type-Options": "nosniff" } });
+  } catch { return new Response("Unavailable", { status: 503 }); }
+} } } });

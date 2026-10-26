@@ -2,6 +2,9 @@ import { createServerFn } from "@tanstack/react-start";
 import { z } from "zod";
 import { requireAdmin } from "./cms-auth.server";
 import { categorySchema, productSchema, idSchema, MAX_UPLOAD_BYTES } from "./cms-schema";
+import { cleanAdminImage } from "./cms-image.server";
+import { readHeroSlides } from "./hero-slides.server";
+import { assertCanDeleteHeroSlide, heroAltSchema, heroImageUrlSchema } from "./hero-slides";
 
 export const getAdminData = createServerFn({ method: "GET" }).handler(async () => {
   await requireAdmin();
@@ -42,14 +45,7 @@ export const uploadImage = createServerFn({method:"POST"}).inputValidator((input
   const productId=idSchema.parse(data.get("product_id")); const file=data.get("file");
   if(!(file instanceof File) || file.type!=="image/jpeg" || file.size>MAX_UPLOAD_BYTES) throw new Error("Please upload an optimized JPEG under 200 KB.");
   const product=await db.from("products").select("id").eq("id",productId).single(); if(!product.data) throw new Error("Save the product first.");
-  const bytes=new Uint8Array(await file.arrayBuffer());
-  if(bytes[0]!==255 || bytes[1]!==216) throw new Error("Invalid JPEG file.");
-  const jpeg=await import("jpeg-js");
-  const decoded=jpeg.decode(bytes,{useTArray:true,maxResolutionInMP:4,maxMemoryUsageInMB:64});
-  if(decoded.width>1920 || decoded.height>3840) throw new Error("Image dimensions exceed the upload limit.");
-  // Re-encoding on the server strips EXIF/GPS even for manipulated client uploads.
-  const clean=jpeg.encode(decoded,85).data;
-  if(clean.length>MAX_UPLOAD_BYTES) throw new Error("Photo is too detailed. Please choose a smaller image.");
+   const clean=await cleanAdminImage(file);
   const filename=`${crypto.randomUUID()}.jpg`; const url=`/api/public/product-photo/${filename}`;
   const stored=await db.storage.from("product-images").upload(filename,clean,{contentType:"image/jpeg"}); if(stored.error) throw new Error("Image upload failed.");
   const order=z.number().int().min(0).max(10000).parse(Number(data.get("display_order")??0));
@@ -62,4 +58,66 @@ export const deleteImage = createServerFn({method:"POST"}).inputValidator(idSche
   if(image.data.filename){ const removed=await db.storage.from("product-images").remove([image.data.filename]); if(removed.error) throw new Error("Could not delete photo."); }
   await db.from("products").update({thumbnail_url:""}).eq("id",image.data.product_id).eq("thumbnail_url",image.data.image_url);
   const result=await db.from("product_images").delete().eq("id",data); if(result.error) throw new Error("Could not delete photo."); return {ok:true};
+});
+
+export const getHeroSlides = createServerFn({ method: "GET" }).handler(() => readHeroSlides());
+export const getAdminHeroSlides = createServerFn({ method: "GET" }).handler(async () => {
+  await requireAdmin();
+  const { supabaseAdmin: db } = await import("@/integrations/supabase/client.server");
+  const { data, error } = await db.from("hero_slides").select("*").order("sort_order").order("created_at");
+  if (error) throw new Error("Unable to load hero photos.");
+  return data ?? [];
+});
+export const uploadHeroPhoto = createServerFn({ method: "POST" }).inputValidator((data: FormData) => {
+  if (!(data instanceof FormData)) throw new Error("Invalid upload.");
+  return data;
+}).handler(async ({ data }) => {
+  await requireAdmin();
+  const { supabaseAdmin: db } = await import("@/integrations/supabase/client.server");
+  const clean = await cleanAdminImage(data.get("file"));
+  const alt = heroAltSchema.parse(data.get("alt_text") ?? undefined);
+  const filename = `${crypto.randomUUID()}.jpg`;
+  const stored = await db.storage.from("product-images").upload(filename, clean, { contentType: "image/jpeg" });
+  if (stored.error) throw new Error("Photo upload failed.");
+  const added = await db.rpc("append_hero_slide", { photo_url: `/api/public/hero-photo/${filename}`, photo_alt: alt });
+  if (added.error) { await db.storage.from("product-images").remove([filename]); throw new Error("Unable to add hero photo."); }
+  return added.data;
+});
+export const addHeroSlide = createServerFn({ method: "POST" }).inputValidator(z.object({ image_url: heroImageUrlSchema, alt_text: heroAltSchema })).handler(async ({ data }) => {
+  await requireAdmin();
+  const { supabaseAdmin: db } = await import("@/integrations/supabase/client.server");
+  const filename = data.image_url.split("/").pop();
+  if (!filename) throw new Error("Photo not found.");
+  const { data: existing } = await db.from("hero_slides").select("id").eq("image_url", data.image_url).limit(1);
+  if (!existing?.length) throw new Error("Choose an existing hero photo or upload a new photo.");
+  const result = await db.rpc("append_hero_slide", { photo_url: data.image_url, photo_alt: data.alt_text });
+  if (result.error) throw new Error("Unable to add hero photo.");
+  return result.data;
+});
+export const updateHeroSlideAlt = createServerFn({ method: "POST" }).inputValidator(z.object({ id: idSchema, alt_text: heroAltSchema })).handler(async ({ data }) => {
+  await requireAdmin();
+  const { supabaseAdmin: db } = await import("@/integrations/supabase/client.server");
+  const result = await db.from("hero_slides").update({ alt_text: data.alt_text }).eq("id", data.id).select("id").single();
+  if (result.error) throw new Error("Unable to save photo description.");
+  return { ok: true };
+});
+export const updateHeroSlidesOrder = createServerFn({ method: "POST" }).inputValidator(z.object({ ordered_ids: z.array(idSchema).min(1).refine(ids => new Set(ids).size === ids.length) })).handler(async ({ data }) => {
+  await requireAdmin();
+  const { supabaseAdmin: db } = await import("@/integrations/supabase/client.server");
+  const result = await db.rpc("reorder_hero_slides", data);
+  if (result.error) throw new Error("Photo list changed. Refresh and try again.");
+  return { ok: true };
+});
+export const deleteHeroSlide = createServerFn({ method: "POST" }).inputValidator(z.object({ id: idSchema })).handler(async ({ data }) => {
+  await requireAdmin();
+  const { supabaseAdmin: db } = await import("@/integrations/supabase/client.server");
+  const { count, error } = await db.from("hero_slides").select("id", { count: "exact", head: true });
+  if (error || count === null) throw new Error("Unable to read hero photos.");
+  assertCanDeleteHeroSlide(count);
+  // Database locking repeats the safeguard atomically for concurrent requests.
+  const result = await db.rpc("remove_hero_slide", { slide_id: data.id });
+  if (result.error) throw new Error(result.error.message.includes("Minimum 1") ? "Cannot delete the last photo. Minimum 1 photo required." : "Unable to remove photo.");
+  // Retain the private object: it may be shared or being appended concurrently.
+  // Public storage access is revoked automatically when its last slide is removed.
+  return { ok: true };
 });
