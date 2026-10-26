@@ -160,13 +160,13 @@ export function Footer() {
   );
 }
 
-export function SiteShell({ children }: { children: ReactNode }) {
+export function SiteShell({ children, fillViewport = false }: { children: ReactNode; fillViewport?: boolean }) {
   return (
-    <>
+    <div className={fillViewport ? "flex min-h-svh flex-col" : "contents"}>
       <Header />
-      <main>{children}</main>
+      <main className={fillViewport ? "flex-1" : undefined}>{children}</main>
       <Footer />
-    </>
+    </div>
   );
 }
 
