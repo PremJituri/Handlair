@@ -24,3 +24,5 @@
 - [x] Implement server-authorized admin product/category editing and image management without public admin links.
 - [x] Connect public catalogue reads with static service-failure fallback; preserve all 14 product URLs and verify four screen sizes.
 - [x] Verify signed-in create/edit/upload/delete, public specification updates, 38,894-byte photo, draft-photo privacy, category safeguards and logout; Cloud records persist across requests. Server restart not performed; automatic checks and 17 tests pass.
+- [ ] Fix admin sign-in session persistence in the embedded preview and verify sign-in, refresh, and logout.
+- [ ] Remove the blank area below the admin login footer without changing public page layout.
