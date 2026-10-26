@@ -14,6 +14,15 @@ export function ProductCatalogue({ products = catalogueProducts, categories = ca
   const [subcategory, setSubcategory] = useState("all");
   const [query, setQuery] = useState("");
   const resultsRef = useRef<HTMLDivElement>(null);
+  const [menuOpen, setMenuOpen] = useState(false);
+  const menuRef = useRef<HTMLDivElement>(null);
+  const triggerRef = useRef<HTMLButtonElement>(null);
+  useEffect(() => {
+    if (!menuOpen) return;
+    const close = (event: PointerEvent) => { if (!menuRef.current?.contains(event.target as Node)) setMenuOpen(false); };
+    document.addEventListener("pointerdown", close);
+    return () => document.removeEventListener("pointerdown", close);
+  }, [menuOpen]);
   const filterCatalogue = (category: string, subcategory = "all") => products.filter((p) => (category === "all" || p.category === category) && (subcategory === "all" || p.slug === subcategory));
   const categoryProducts = filterCatalogue(category);
   const items = filterCatalogue(category, subcategory).filter((product) => `${product.name} ${product.subcategory} ${product.summary}`.toLowerCase().includes(query.trim().toLowerCase()));
