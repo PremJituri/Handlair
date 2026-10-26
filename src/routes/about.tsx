@@ -11,7 +11,7 @@ export const Route = createFileRoute("/about")({
       {
         name: "description",
         content:
-          "Handlair Engineering Technologies, founded in 1995 and based in Faridabad, Haryana, brings over three decades of experience in industrial air handling, ventilation and air pollution control.",
+          "Handlair Engineering Technologies, founded in 1996 and based in Faridabad, Haryana, brings over three decades of experience in industrial air handling, ventilation and air pollution control.",
       },
       {
         property: "og:title",
@@ -96,7 +96,7 @@ function AboutPage() {
             <h2 className="mt-5 type-h2">Three decades of air handling experience.</h2>
           </div>
           <p className="mt-6 max-w-3xl type-lead">
-            Founded in <strong className="text-foreground">1995 by A. D. Augustine</strong>,
+            Founded in <strong className="text-foreground">1996 by A. D. Augustine</strong>,
             Handlair brings over three decades of experience in industrial air handling,
             ventilation and air pollution control. Its journey includes the incorporation of{" "}
             <strong className="text-foreground">
