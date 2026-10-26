@@ -1,12 +1,11 @@
 import { Link } from "@tanstack/react-router";
-import { ArrowRight, Search, X, ImageOff, RotateCcw } from "lucide-react";
+import { ArrowRight, Search, X, ImageOff, RotateCcw, SlidersHorizontal } from "lucide-react";
 import { useRef, useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { catalogueCategories, catalogueProducts } from "@/data/product-catalogue";
 import { cn } from "@/lib/utils";
 
-const pillBase = "h-11 shrink-0 whitespace-nowrap rounded-full border px-4 text-base";
 const pillState = (active: boolean) => active ? "border-primary bg-primary font-bold text-primary-foreground hover:bg-primary hover:text-primary-foreground" : "border-border bg-background hover:border-primary/60 hover:bg-secondary/40 hover:text-foreground";
 const chipState = (active: boolean) => active ? "border-primary bg-secondary font-semibold text-foreground ring-1 ring-primary" : "border-border bg-background hover:border-primary/60 hover:bg-secondary/40 hover:text-foreground";
 
