@@ -1,6 +1,10 @@
 import { QueryClient } from "@tanstack/react-query";
 import { createRouter, rootRouteId } from "@tanstack/react-router";
-import { describe, expect, it } from "vitest";
+import { describe, expect, it, vi } from "vitest";
+
+vi.mock("@/lib/catalogue.functions", () => ({ getPublicCatalogue: vi.fn(), getPublicProductBySlug: vi.fn() }));
+vi.mock("@/lib/cms.functions", () => ({ getAdminData: vi.fn(), saveProduct: vi.fn(), saveCategory: vi.fn(), deleteCategory: vi.fn(), deleteProduct: vi.fn(), uploadImage: vi.fn(), deleteImage: vi.fn() }));
+vi.mock("@/lib/cms-auth.functions", () => ({ login: vi.fn(), verifyAuth: vi.fn(), logout: vi.fn() }));
 
 import { routeTree } from "@/routeTree.gen";
 import { catalogueProducts } from "@/data/product-catalogue";
