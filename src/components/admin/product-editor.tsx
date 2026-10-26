@@ -11,7 +11,7 @@ type AdminData=Awaited<ReturnType<typeof getAdminData>>;
 const area="min-h-28 w-full rounded-md border border-input bg-background px-3 py-2 text-base focus-visible:outline-2 focus-visible:outline-ring";
 export function ProductEditor({data,id}:{data:AdminData;id?:string}){
   const product=data.products.find(p=>p.id===id);const navigate=useNavigate();const router=useRouter();
-  const [value,setValue]=useState<ProductInput>(()=>productSchema.parse(product?{...product,body_json:product.body_json,specs_json:product.specs_json,sections_json:product.sections_json}:{category_id:data.categories[0]?.id,name:"",slug:"new-product",summary:"",detail:"",subcategory:"",body_json:[],specs_json:[],sections_json:[],thumbnail_url:"",missing:null,display_order:data.products.length,is_published:true,catalogue_visible:true}));
+  const [value,setValue]=useState<ProductInput>(()=>productSchema.parse(product?{...product,body_json:product.body_json,specs_json:product.specs_json,sections_json:product.sections_json}:{category_id:data.categories[0]?.id,name:"New product",slug:"new-product",summary:"",detail:"",subcategory:"",body_json:[],specs_json:[],sections_json:[],thumbnail_url:"",missing:null,display_order:data.products.length,is_published:true,catalogue_visible:true}));
   const [manualSlug,setManualSlug]=useState(!!id);const [busy,setBusy]=useState(false);const [error,setError]=useState("");const [notice,setNotice]=useState("");const [previews,setPreviews]=useState<string[]>([]);const [remove,setRemove]=useState<AdminData['images'][number]|null>(null);
   useEffect(()=>()=>{previews.forEach(url=>URL.revokeObjectURL(url));},[previews]);
   function update<K extends keyof ProductInput>(key:K,next:ProductInput[K]){setValue(v=>({...v,[key]:next}));setNotice("");}
