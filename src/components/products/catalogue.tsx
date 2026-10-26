@@ -35,7 +35,7 @@ export function ProductCatalogue({ products = catalogueProducts, categories = ca
 
   const activeLabel = subcategory !== "all" ? categoryProducts.find((p) => p.slug === subcategory)?.subcategory : category === "all" ? "All Products" : categories.find((item) => item.id === category)?.name;
   const filterOptions = [{ id: "all", name: "All Products", count: products.length }, ...shownCategories.map((item) => ({ ...item, count: filterCatalogue(item.id).length }))];
-  const activeOption = filterOptions.find((item) => item.id === category) ?? filterOptions[0];
+  const activeOption = filterOptions.find((item) => item.id === category) ?? filterOptions[0]!;
 
   return <section className="mx-auto site-container px-5 py-12 lg:px-8 lg:py-16">
     <div className="flex flex-col gap-4 border-b border-border pb-5 lg:flex-row-reverse lg:items-end lg:justify-between lg:gap-8">
