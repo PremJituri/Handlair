@@ -14,13 +14,187 @@ export type Database = {
   }
   public: {
     Tables: {
-      [_ in never]: never
+      admin_login_limits: {
+        Row: {
+          attempts: number
+          key: string
+          window_start: string
+        }
+        Insert: {
+          attempts?: number
+          key: string
+          window_start?: string
+        }
+        Update: {
+          attempts?: number
+          key?: string
+          window_start?: string
+        }
+        Relationships: []
+      }
+      admin_users: {
+        Row: {
+          created_at: string
+          id: string
+          password_hash: string
+          username: string
+        }
+        Insert: {
+          created_at?: string
+          id?: string
+          password_hash: string
+          username: string
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          password_hash?: string
+          username?: string
+        }
+        Relationships: []
+      }
+      categories: {
+        Row: {
+          created_at: string
+          description: string
+          display_order: number
+          id: string
+          name: string
+          slug: string
+        }
+        Insert: {
+          created_at?: string
+          description?: string
+          display_order?: number
+          id?: string
+          name: string
+          slug: string
+        }
+        Update: {
+          created_at?: string
+          description?: string
+          display_order?: number
+          id?: string
+          name?: string
+          slug?: string
+        }
+        Relationships: []
+      }
+      product_images: {
+        Row: {
+          alt_text: string
+          created_at: string
+          display_order: number
+          filename: string
+          id: string
+          image_url: string
+          product_id: string
+        }
+        Insert: {
+          alt_text?: string
+          created_at?: string
+          display_order?: number
+          filename?: string
+          id?: string
+          image_url: string
+          product_id: string
+        }
+        Update: {
+          alt_text?: string
+          created_at?: string
+          display_order?: number
+          filename?: string
+          id?: string
+          image_url?: string
+          product_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "product_images_product_id_fkey"
+            columns: ["product_id"]
+            isOneToOne: false
+            referencedRelation: "products"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      products: {
+        Row: {
+          body_json: Json
+          catalogue_visible: boolean
+          category_id: string
+          created_at: string
+          detail: string
+          display_order: number
+          id: string
+          is_published: boolean
+          missing: string | null
+          name: string
+          sections_json: Json
+          slug: string
+          source_slug: string
+          specs_json: Json
+          subcategory: string
+          summary: string
+          thumbnail_url: string
+          updated_at: string
+        }
+        Insert: {
+          body_json?: Json
+          catalogue_visible?: boolean
+          category_id: string
+          created_at?: string
+          detail?: string
+          display_order?: number
+          id?: string
+          is_published?: boolean
+          missing?: string | null
+          name: string
+          sections_json?: Json
+          slug: string
+          source_slug?: string
+          specs_json?: Json
+          subcategory?: string
+          summary?: string
+          thumbnail_url?: string
+          updated_at?: string
+        }
+        Update: {
+          body_json?: Json
+          catalogue_visible?: boolean
+          category_id?: string
+          created_at?: string
+          detail?: string
+          display_order?: number
+          id?: string
+          is_published?: boolean
+          missing?: string | null
+          name?: string
+          sections_json?: Json
+          slug?: string
+          source_slug?: string
+          specs_json?: Json
+          subcategory?: string
+          summary?: string
+          thumbnail_url?: string
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "products_category_id_fkey"
+            columns: ["category_id"]
+            isOneToOne: false
+            referencedRelation: "categories"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
     }
     Views: {
       [_ in never]: never
     }
     Functions: {
-      [_ in never]: never
+      check_admin_login_limit: { Args: { login_key: string }; Returns: boolean }
     }
     Enums: {
       [_ in never]: never
