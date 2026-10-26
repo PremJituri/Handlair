@@ -20,9 +20,11 @@ import { Route as ProductsIndexRouteImport } from './routes/products.index'
 import { Route as ProductsSlugRouteImport } from './routes/products.$slug'
 import { Route as AdminAdminIndexRouteImport } from './routes/_admin.admin.index'
 import { Route as AdminAdminCategoriesRouteImport } from './routes/_admin.admin.categories'
+import { Route as AdminAdminHeroSlidesRouteImport } from './routes/_admin.admin.hero-slides'
 import { Route as AdminAdminProductsIndexRouteImport } from './routes/_admin.admin.products.index'
 import { Route as AdminAdminProductsIdRouteImport } from './routes/_admin.admin.products.$id'
 import { Route as AdminAdminProductsNewRouteImport } from './routes/_admin.admin.products.new'
+import { Route as ApiPublicHeroPhotoFilenameRouteImport } from './routes/api/public/hero-photo/$filename'
 import { Route as ApiPublicProductPhotoFilenameRouteImport } from './routes/api/public/product-photo/$filename'
 
 const IndexRoute = IndexRouteImport.update({
@@ -79,6 +81,11 @@ const AdminAdminCategoriesRoute = AdminAdminCategoriesRouteImport.update({
   path: '/admin/categories',
   getParentRoute: () => AdminRoute,
 } as any)
+const AdminAdminHeroSlidesRoute = AdminAdminHeroSlidesRouteImport.update({
+  id: '/admin/hero-slides',
+  path: '/admin/hero-slides',
+  getParentRoute: () => AdminRoute,
+} as any)
 const AdminAdminProductsIndexRoute = AdminAdminProductsIndexRouteImport.update({
   id: '/admin/products/',
   path: '/admin/products/',
@@ -94,6 +101,12 @@ const AdminAdminProductsNewRoute = AdminAdminProductsNewRouteImport.update({
   path: '/admin/products/new',
   getParentRoute: () => AdminRoute,
 } as any)
+const ApiPublicHeroPhotoFilenameRoute =
+  ApiPublicHeroPhotoFilenameRouteImport.update({
+    id: '/api/public/hero-photo/$filename',
+    path: '/api/public/hero-photo/$filename',
+    getParentRoute: () => rootRouteImport,
+  } as any)
 const ApiPublicProductPhotoFilenameRoute =
   ApiPublicProductPhotoFilenameRouteImport.update({
     id: '/api/public/product-photo/$filename',
@@ -111,9 +124,11 @@ export interface FileRoutesByFullPath {
   '/products/$slug': typeof ProductsSlugRoute
   '/products/': typeof ProductsIndexRoute
   '/admin/categories': typeof AdminAdminCategoriesRoute
+  '/admin/hero-slides': typeof AdminAdminHeroSlidesRoute
   '/admin/': typeof AdminAdminIndexRoute
   '/admin/products/$id': typeof AdminAdminProductsIdRoute
   '/admin/products/new': typeof AdminAdminProductsNewRoute
+  '/api/public/hero-photo/$filename': typeof ApiPublicHeroPhotoFilenameRoute
   '/api/public/product-photo/$filename': typeof ApiPublicProductPhotoFilenameRoute
   '/admin/products/': typeof AdminAdminProductsIndexRoute
 }
@@ -126,9 +141,11 @@ export interface FileRoutesByTo {
   '/products/$slug': typeof ProductsSlugRoute
   '/products': typeof ProductsIndexRoute
   '/admin/categories': typeof AdminAdminCategoriesRoute
+  '/admin/hero-slides': typeof AdminAdminHeroSlidesRoute
   '/admin': typeof AdminAdminIndexRoute
   '/admin/products/$id': typeof AdminAdminProductsIdRoute
   '/admin/products/new': typeof AdminAdminProductsNewRoute
+  '/api/public/hero-photo/$filename': typeof ApiPublicHeroPhotoFilenameRoute
   '/api/public/product-photo/$filename': typeof ApiPublicProductPhotoFilenameRoute
   '/admin/products': typeof AdminAdminProductsIndexRoute
 }
@@ -144,9 +161,11 @@ export interface FileRoutesById {
   '/products/$slug': typeof ProductsSlugRoute
   '/products/': typeof ProductsIndexRoute
   '/_admin/admin/categories': typeof AdminAdminCategoriesRoute
+  '/_admin/admin/hero-slides': typeof AdminAdminHeroSlidesRoute
   '/_admin/admin/': typeof AdminAdminIndexRoute
   '/_admin/admin/products/$id': typeof AdminAdminProductsIdRoute
   '/_admin/admin/products/new': typeof AdminAdminProductsNewRoute
+  '/api/public/hero-photo/$filename': typeof ApiPublicHeroPhotoFilenameRoute
   '/api/public/product-photo/$filename': typeof ApiPublicProductPhotoFilenameRoute
   '/_admin/admin/products/': typeof AdminAdminProductsIndexRoute
 }
@@ -162,9 +181,11 @@ export interface FileRouteTypes {
     | '/products/$slug'
     | '/products/'
     | '/admin/categories'
+    | '/admin/hero-slides'
     | '/admin/'
     | '/admin/products/$id'
     | '/admin/products/new'
+    | '/api/public/hero-photo/$filename'
     | '/api/public/product-photo/$filename'
     | '/admin/products/'
   fileRoutesByTo: FileRoutesByTo
@@ -177,9 +198,11 @@ export interface FileRouteTypes {
     | '/products/$slug'
     | '/products'
     | '/admin/categories'
+    | '/admin/hero-slides'
     | '/admin'
     | '/admin/products/$id'
     | '/admin/products/new'
+    | '/api/public/hero-photo/$filename'
     | '/api/public/product-photo/$filename'
     | '/admin/products'
   id:
@@ -194,9 +217,11 @@ export interface FileRouteTypes {
     | '/products/$slug'
     | '/products/'
     | '/_admin/admin/categories'
+    | '/_admin/admin/hero-slides'
     | '/_admin/admin/'
     | '/_admin/admin/products/$id'
     | '/_admin/admin/products/new'
+    | '/api/public/hero-photo/$filename'
     | '/api/public/product-photo/$filename'
     | '/_admin/admin/products/'
   fileRoutesById: FileRoutesById
@@ -209,6 +234,7 @@ export interface RootRouteChildren {
   EnquiryRoute: typeof EnquiryRoute
   ProductsRoute: typeof ProductsRouteWithChildren
   AdminLoginRoute: typeof AdminLoginRoute
+  ApiPublicHeroPhotoFilenameRoute: typeof ApiPublicHeroPhotoFilenameRoute
   ApiPublicProductPhotoFilenameRoute: typeof ApiPublicProductPhotoFilenameRoute
 }
 
@@ -291,6 +317,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AdminAdminCategoriesRouteImport
       parentRoute: typeof AdminRoute
     }
+    '/_admin/admin/hero-slides': {
+      id: '/_admin/admin/hero-slides'
+      path: '/admin/hero-slides'
+      fullPath: '/admin/hero-slides'
+      preLoaderRoute: typeof AdminAdminHeroSlidesRouteImport
+      parentRoute: typeof AdminRoute
+    }
     '/_admin/admin/products/': {
       id: '/_admin/admin/products/'
       path: '/admin/products'
@@ -312,6 +345,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AdminAdminProductsNewRouteImport
       parentRoute: typeof AdminRoute
     }
+    '/api/public/hero-photo/$filename': {
+      id: '/api/public/hero-photo/$filename'
+      path: '/api/public/hero-photo/$filename'
+      fullPath: '/api/public/hero-photo/$filename'
+      preLoaderRoute: typeof ApiPublicHeroPhotoFilenameRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/api/public/product-photo/$filename': {
       id: '/api/public/product-photo/$filename'
       path: '/api/public/product-photo/$filename'
@@ -324,6 +364,7 @@ declare module '@tanstack/react-router' {
 
 interface AdminRouteChildren {
   AdminAdminCategoriesRoute: typeof AdminAdminCategoriesRoute
+  AdminAdminHeroSlidesRoute: typeof AdminAdminHeroSlidesRoute
   AdminAdminIndexRoute: typeof AdminAdminIndexRoute
   AdminAdminProductsIdRoute: typeof AdminAdminProductsIdRoute
   AdminAdminProductsNewRoute: typeof AdminAdminProductsNewRoute
@@ -332,6 +373,7 @@ interface AdminRouteChildren {
 
 const AdminRouteChildren: AdminRouteChildren = {
   AdminAdminCategoriesRoute: AdminAdminCategoriesRoute,
+  AdminAdminHeroSlidesRoute: AdminAdminHeroSlidesRoute,
   AdminAdminIndexRoute: AdminAdminIndexRoute,
   AdminAdminProductsIdRoute: AdminAdminProductsIdRoute,
   AdminAdminProductsNewRoute: AdminAdminProductsNewRoute,
@@ -362,6 +404,7 @@ const rootRouteChildren: RootRouteChildren = {
   EnquiryRoute: EnquiryRoute,
   ProductsRoute: ProductsRouteWithChildren,
   AdminLoginRoute: AdminLoginRoute,
+  ApiPublicHeroPhotoFilenameRoute: ApiPublicHeroPhotoFilenameRoute,
   ApiPublicProductPhotoFilenameRoute: ApiPublicProductPhotoFilenameRoute,
 }
 export const routeTree = rootRouteImport

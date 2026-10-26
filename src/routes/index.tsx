@@ -6,8 +6,11 @@ import { CtaBand } from "@/components/site-shell";
 import { ClientLogos } from "@/components/client-logos";
 import { systems } from "@/data/handlair";
 import { HeroSlideshow } from "@/components/hero-slideshow";
+import { useSuspenseQuery } from "@tanstack/react-query";
+import { heroSlidesQuery } from "@/lib/hero-slides-query";
 
 export const Route = createFileRoute("/")({
+  loader: ({ context }) => context.queryClient.ensureQueryData(heroSlidesQuery),
   head: () => ({
     meta: [
       { title: "Handlair — Industrial Air Handling & Pollution Control" },
@@ -29,6 +32,7 @@ export const Route = createFileRoute("/")({
 });
 
 function Index() {
+  const { data: slides } = useSuspenseQuery(heroSlidesQuery);
   return (
     <>
       <section className="pattern-grid -mt-[var(--header-slot)] overflow-hidden border-b border-border">
@@ -55,7 +59,7 @@ function Index() {
           </div>
           <div className="home-hero-media relative">
             <div className="glass-surface p-3">
-              <HeroSlideshow />
+              <HeroSlideshow slides={slides.map(slide => ({ src: slide.image_url, alt: slide.alt_text }))} />
             </div>
             <div className="absolute -bottom-5 -left-5 hidden size-32 border-b-2 border-l-2 border-primary md:block" />
             <MoveDown className="absolute -bottom-10 right-3 hidden size-5 text-primary lg:block" />

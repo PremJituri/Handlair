@@ -80,6 +80,30 @@ export type Database = {
         }
         Relationships: []
       }
+      hero_slides: {
+        Row: {
+          alt_text: string
+          created_at: string
+          id: string
+          image_url: string
+          sort_order: number
+        }
+        Insert: {
+          alt_text?: string
+          created_at?: string
+          id?: string
+          image_url: string
+          sort_order?: number
+        }
+        Update: {
+          alt_text?: string
+          created_at?: string
+          id?: string
+          image_url?: string
+          sort_order?: number
+        }
+        Relationships: []
+      }
       product_images: {
         Row: {
           alt_text: string
@@ -194,7 +218,28 @@ export type Database = {
       [_ in never]: never
     }
     Functions: {
+      append_hero_slide: {
+        Args: { photo_alt: string; photo_url: string }
+        Returns: {
+          alt_text: string
+          created_at: string
+          id: string
+          image_url: string
+          sort_order: number
+        }
+        SetofOptions: {
+          from: "*"
+          to: "hero_slides"
+          isOneToOne: true
+          isSetofReturn: false
+        }
+      }
       check_admin_login_limit: { Args: { login_key: string }; Returns: boolean }
+      remove_hero_slide: { Args: { slide_id: string }; Returns: string }
+      reorder_hero_slides: {
+        Args: { ordered_ids: string[] }
+        Returns: undefined
+      }
     }
     Enums: {
       [_ in never]: never

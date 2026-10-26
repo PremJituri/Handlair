@@ -6,6 +6,18 @@ import { heroSlides } from "@/data/hero-slideshow";
 afterEach(() => { cleanup(); vi.useRealTimers(); vi.restoreAllMocks(); });
 
 describe("Hero slideshow", () => {
+  it("keeps a single supplied photo static without scheduling a timer", async () => {
+    vi.useFakeTimers();
+    vi.spyOn(window, "Image").mockImplementation(function () {
+      return { src: "", decode: () => Promise.resolve() } as unknown as HTMLImageElement;
+    });
+    const { container } = render(<HeroSlideshow slides={[{ src: "/one.jpg", alt: "One photo" }]} />);
+    await act(async () => { await Promise.resolve(); });
+    expect(vi.getTimerCount()).toBe(0);
+    act(() => vi.advanceTimersByTime(18000));
+    expect(container.querySelector('img[aria-hidden="false"]')?.getAttribute("src")).toBe("/one.jpg");
+  });
+
   it("advances every 6000 ms through all ten supplied images in order and loops", async () => {
     vi.useFakeTimers();
     vi.spyOn(window, "Image").mockImplementation(function () {
