@@ -1,6 +1,7 @@
 import { z } from "zod";
 
-export const slugSchema = z.string().min(1).max(120).regex(/^[a-z0-9]+(?:-[a-z0-9]+)*$/);
+export const slugSchema = z.string().min(1, "Slug is required").max(120).regex(/^[a-z0-9]+(?:-[a-z0-9]+)*$/, "Slug may only use lowercase letters, numbers and single hyphens (e.g. heat-exchangers)");
+export function slugify(value: string) { return value.toLowerCase().normalize("NFKD").replace(/[\u0300-\u036f]/g, "").replace(/&/g, " and ").replace(/[^a-z0-9]+/g, "-").replace(/^-+|-+$/g, "").slice(0, 120).replace(/-+$/, ""); }
 export const idSchema = z.string().uuid();
 export const categorySchema = z.object({ id: idSchema.optional(), name: z.string().trim().min(1).max(150), slug: slugSchema, description: z.string().max(2000).default(""), display_order: z.number().int().min(0).default(0) });
 export const productSchema = z.object({
