@@ -1,14 +1,20 @@
 import { useEffect, useState } from "react";
 import { HERO_SLIDE_CROSSFADE_MS, HERO_SLIDE_INTERVAL_MS, heroSlides } from "@/data/hero-slideshow";
+import type { HeroPhoto } from "@/lib/hero-slides";
 
-export function HeroSlideshow() {
+export function HeroSlideshow({ slides = heroSlides }: { slides?: readonly HeroPhoto[] }) {
+  const photos = slides.length ? slides : heroSlides;
+  return <SlideshowPlayback key={photos.map(photo => photo.src).join("|")} slides={photos} />;
+}
+
+function SlideshowPlayback({ slides }: { slides: readonly HeroPhoto[] }) {
   const [active, setActive] = useState(0);
 
   useEffect(() => {
     let cancelled = false;
     let timer: ReturnType<typeof setInterval> | undefined;
     const motion = window.matchMedia("(prefers-reduced-motion: reduce)");
-    const images = heroSlides.map((slide) => {
+    const images = slides.map((slide) => {
       const image = new Image();
       image.src = slide.src;
       return image;
@@ -17,9 +23,9 @@ export function HeroSlideshow() {
     const updatePlayback = () => {
       clearInterval(timer);
       timer = undefined;
-      if (cancelled || !ready || motion.matches) return;
+      if (cancelled || !ready || motion.matches || slides.length <= 1) return;
       timer = setInterval(() => {
-        setActive((current) => (current + 1) % heroSlides.length);
+        setActive((current) => (current + 1) % slides.length);
       }, HERO_SLIDE_INTERVAL_MS);
     };
     // Decode before starting the loop so a new slide never reveals an empty frame.
@@ -33,11 +39,11 @@ export function HeroSlideshow() {
       clearInterval(timer);
       motion.removeEventListener("change", updatePlayback);
     };
-  }, []);
+  }, [slides]);
 
   return <div className="relative aspect-[4/5] w-full">
-    {heroSlides.map((slide, index) => <img
-      key={slide.src}
+    {slides.map((slide, index) => <img
+      key={`${slide.src}-${index}`}
       src={slide.src}
       alt={slide.alt}
       aria-hidden={index !== active}
