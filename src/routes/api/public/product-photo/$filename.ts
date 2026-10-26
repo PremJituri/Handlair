@@ -1,7 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { createClient } from "@supabase/supabase-js";
 import type { Database } from "@/integrations/supabase/types";
-import { requireAdmin } from "@/lib/cms-auth.server";
 export const Route=createFileRoute("/api/public/product-photo/$filename")({server:{handlers:{GET:async({params})=>{
   if(!/^[a-f0-9-]{36}\.jpg$/.test(params.filename)) return new Response("Not found",{status:404});
   const url=process.env['SUPABASE_URL']; const key=process.env['SUPABASE_ANON_KEY']??process.env['SUPABASE_PUBLISHABLE_KEY'];
@@ -10,6 +9,7 @@ export const Route=createFileRoute("/api/public/product-photo/$filename")({serve
   const {data,error}=await db.storage.from("product-images").download(params.filename);
   if(error||!data){
     try {
+      const { requireAdmin } = await import("@/lib/cms-auth.server");
       await requireAdmin();
       const {supabaseAdmin}=await import("@/integrations/supabase/client.server");
       const photo=await supabaseAdmin.storage.from("product-images").download(params.filename);
