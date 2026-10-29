@@ -178,7 +178,7 @@ export const showcase: { image: string; name: string; tag: string }[] = [
   { image: fieldCyclone.url, name: "Cyclone Dust Collector", tag: "Dust & fume control" },
 ];
 
-export type ContactLink = { label: string; href: string };
+type ContactLink = { label: string; href: string };
 
 export const contact = {
   company: "Handlair Engineering Technologies",

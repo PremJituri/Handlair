@@ -37,8 +37,10 @@ export const deleteProduct = createServerFn({method:"POST"}).inputValidator(idSc
   const {data:images,error:readError}=await db.from("product_images").select("filename").eq("product_id",data);
   if(readError) throw new Error("Unable to read product photos.");
   const files=(images??[]).map(i=>i.filename).filter(Boolean);
-  if(files.length){ const removed=await db.storage.from("product-images").remove(files); if(removed.error) throw new Error("Photo deletion failed. Product has been retained."); }
-  const result=await db.from("products").delete().eq("id",data); if(result.error) throw new Error("Unable to delete product."); return {ok:true};
+  const result=await db.from("products").delete().eq("id",data); if(result.error) throw new Error("Unable to delete product.");
+  // Record is gone first, so a storage hiccup can only leave orphaned files, never broken images.
+  if(files.length) await db.storage.from("product-images").remove(files);
+  return {ok:true};
 });
 export const uploadImage = createServerFn({method:"POST"}).inputValidator((input: FormData)=>{ if(!(input instanceof FormData)) throw new Error("Invalid upload"); return input; }).handler(async({data})=>{
   await requireAdmin(); const {supabaseAdmin:db}=await import("@/integrations/supabase/client.server");
@@ -55,9 +57,10 @@ export const uploadImage = createServerFn({method:"POST"}).inputValidator((input
 export const deleteImage = createServerFn({method:"POST"}).inputValidator(idSchema).handler(async({data})=>{
   await requireAdmin(); const {supabaseAdmin:db}=await import("@/integrations/supabase/client.server");
   const image=await db.from("product_images").select("*").eq("id",data).single(); if(!image.data) throw new Error("Photo not found.");
-  if(image.data.filename){ const removed=await db.storage.from("product-images").remove([image.data.filename]); if(removed.error) throw new Error("Could not delete photo."); }
+  const result=await db.from("product_images").delete().eq("id",data); if(result.error) throw new Error("Could not delete photo.");
   await db.from("products").update({thumbnail_url:""}).eq("id",image.data.product_id).eq("thumbnail_url",image.data.image_url);
-  const result=await db.from("product_images").delete().eq("id",data); if(result.error) throw new Error("Could not delete photo."); return {ok:true};
+  if(image.data.filename) await db.storage.from("product-images").remove([image.data.filename]);
+  return {ok:true};
 });
 
 export const getHeroSlides = createServerFn({ method: "GET" }).handler(() => readHeroSlides());
@@ -82,17 +85,6 @@ export const uploadHeroPhoto = createServerFn({ method: "POST" }).inputValidator
   const added = await db.rpc("append_hero_slide", { photo_url: `/api/public/hero-photo/${filename}`, photo_alt: alt });
   if (added.error) { await db.storage.from("product-images").remove([filename]); throw new Error("Unable to add hero photo."); }
   return added.data;
-});
-export const addHeroSlide = createServerFn({ method: "POST" }).inputValidator(z.object({ image_url: heroImageUrlSchema, alt_text: heroAltSchema })).handler(async ({ data }) => {
-  await requireAdmin();
-  const { supabaseAdmin: db } = await import("@/integrations/supabase/client.server");
-  const filename = data.image_url.split("/").pop();
-  if (!filename) throw new Error("Photo not found.");
-  const { data: existing } = await db.from("hero_slides").select("id").eq("image_url", data.image_url).limit(1);
-  if (!existing?.length) throw new Error("Choose an existing hero photo or upload a new photo.");
-  const result = await db.rpc("append_hero_slide", { photo_url: data.image_url, photo_alt: data.alt_text });
-  if (result.error) throw new Error("Unable to add hero photo.");
-  return result.data;
 });
 export const updateHeroSlideAlt = createServerFn({ method: "POST" }).inputValidator(z.object({ id: idSchema, alt_text: heroAltSchema })).handler(async ({ data }) => {
   await requireAdmin();

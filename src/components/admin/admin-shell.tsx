@@ -1,11 +1,11 @@
 import { Link, useNavigate, useRouter, useRouterState } from "@tanstack/react-router";
 import { useQueryClient } from "@tanstack/react-query";
-import { LogOut, Package, Folder, Images } from "lucide-react";
+import { LogOut, Package, Folder, Images, Inbox } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { logout } from "@/lib/cms-auth.functions";
 import { cn } from "@/lib/utils";
 import type { ReactNode } from "react";
-const tabs=[{to:"/admin/products",label:"Products",icon:Package},{to:"/admin/categories",label:"Categories",icon:Folder},{to:"/admin/hero-slides",label:"Hero Photos",icon:Images}] as const;
+const tabs=[{to:"/admin/products",label:"Products",icon:Package},{to:"/admin/categories",label:"Categories",icon:Folder},{to:"/admin/hero-slides",label:"Hero Photos",icon:Images},{to:"/admin/enquiries",label:"Enquiries",icon:Inbox}] as const;
 export function AdminShell({children}:{children:ReactNode}){
   const navigate=useNavigate();const router=useRouter();const queries=useQueryClient();
   const pathname=useRouterState({select:(s)=>s.location.pathname});

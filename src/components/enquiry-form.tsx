@@ -1,22 +1,23 @@
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { z } from "zod";
+import { enquirySchema, type EnquiryInput } from "@/lib/enquiry-schema";
+import { submitEnquiry } from "@/lib/enquiry.functions";
 import { Button } from "@/components/ui/button";
 import { Magnetic, MagneticLabel } from "@/components/core/magnetic";
 import { CheckCircle2 } from "lucide-react";
 
-const schema = z.object({ firstName: z.string().min(2, "Please enter your first name"), lastName: z.string().optional(), company: z.string().optional(), email: z.string().email("Enter a valid email"), mobile: z.string().min(7, "Enter a valid mobile number"), city: z.string().optional(), country: z.string().optional(), message: z.string().min(10, "Please tell us a little more") });
-type FormData = z.infer<typeof schema>;
+type FormData = EnquiryInput;
 
 const springOptions = { bounce: 0.1 };
 
 export function EnquiryForm({ compact = false }: { compact?: boolean }) {
   const [sent, setSent] = useState(false);
-  const { register, handleSubmit, formState: { errors, isSubmitting } } = useForm<FormData>({ resolver: zodResolver(schema) });
-  if (sent) return <div className="border border-primary bg-secondary p-8"><CheckCircle2 className="size-9 text-primary" /><h2 className="mt-5 type-h3">Enquiry prepared</h2><p className="mt-2 type-body">Thank you. Email delivery is not connected in this preview; please contact sales@handlair.co.in.</p></div>;
+  const [failure, setFailure] = useState("");
+  const { register, handleSubmit, formState: { errors, isSubmitting } } = useForm<FormData>({ resolver: zodResolver(enquirySchema) });
+  if (sent) return <div className="border border-primary bg-secondary p-8"><CheckCircle2 className="size-9 text-primary" /><h2 className="mt-5 type-h3">Enquiry sent</h2><p className="mt-2 type-body">Thank you. Our team will get back to you shortly. For urgent requirements, call 0129-2229101.</p></div>;
   const field = "w-full rounded-lg border border-input bg-background px-4 py-3 outline-none transition focus:border-primary focus:ring-2 focus:ring-primary/20";
-  return <form onSubmit={handleSubmit(async () => { await new Promise((r) => setTimeout(r, 500)); setSent(true); })} className="grid gap-5 sm:grid-cols-2" noValidate>
+  return <form onSubmit={handleSubmit(async (values) => { setFailure(""); try { await submitEnquiry({ data: values }); setSent(true); } catch { setFailure("We could not send your enquiry. Please try again or email sales@handlair.co.in."); } })} className="grid gap-5 sm:grid-cols-2" noValidate>
     <Field label="First name" error={errors.firstName?.message}><input className={field} {...register("firstName")} /></Field>
     <Field label="Last name" error={errors.lastName?.message}><input className={field} {...register("lastName")} /></Field>
     <Field label="Company" error={errors.company?.message}><input className={field} {...register("company")} /></Field>
@@ -25,7 +26,9 @@ export function EnquiryForm({ compact = false }: { compact?: boolean }) {
     {!compact && <Field label="City" error={errors.city?.message}><input className={field} {...register("city")} /></Field>}
     {!compact && <Field label="Country" error={errors.country?.message}><input className={field} {...register("country")} /></Field>}
     <div className="sm:col-span-2"><Field label="Requirement" error={errors.message?.message}><textarea rows={5} className={field} {...register("message")} /></Field></div>
-    <div className="sm:col-span-2"><Magnetic intensity={0.2} springOptions={springOptions} actionArea="global" range={200}><Button type="submit" size="xl" disabled={isSubmitting} className="rounded-lg"><MagneticLabel>{isSubmitting ? "Preparing…" : "Submit enquiry"}</MagneticLabel></Button></Magnetic></div>
+    <input type="text" tabIndex={-1} autoComplete="off" aria-hidden="true" className="hidden" {...register("website")} />
+    {failure && <p role="alert" className="sm:col-span-2 text-destructive">{failure}</p>}
+    <div className="sm:col-span-2"><Magnetic intensity={0.2} springOptions={springOptions} actionArea="global" range={200}><Button type="submit" size="xl" disabled={isSubmitting} className="rounded-lg"><MagneticLabel>{isSubmitting ? "Sending…" : "Submit enquiry"}</MagneticLabel></Button></Magnetic></div>
   </form>;
 }
 
