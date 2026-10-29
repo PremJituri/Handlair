@@ -113,6 +113,11 @@
   --ring: oklch(0.52 0.14 151);
 }
 
+/* On the dark band, the bright brand green is the readable one. */
+:where(.bg-foreground) {
+  --primary-text: var(--primary);
+}
+
 .dark {
   --glass: oklch(0.208 0.042 265.755 / 64%);
   --glass-navigation: oklch(0.208 0.042 265.755 / 65%);
