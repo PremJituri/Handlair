@@ -192,17 +192,11 @@ export function Footer() {
   );
 }
 
-export function SiteShell({
-  children,
-  fillViewport = false,
-}: {
-  children: ReactNode;
-  fillViewport?: boolean;
-}) {
+export function SiteShell({ children }: { children: ReactNode }) {
   return (
-    <div className={fillViewport ? "flex min-h-svh flex-col" : "contents"}>
+    <div className="flex min-h-svh flex-col">
       <Header />
-      <main className={fillViewport ? "flex-1" : undefined}>{children}</main>
+      <main className="flex flex-1 flex-col">{children}</main>
       <Footer />
     </div>
   );

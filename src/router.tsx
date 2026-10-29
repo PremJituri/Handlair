@@ -11,14 +11,22 @@ export const getRouter = () => {
     context: { queryClient },
     scrollRestoration: true,
     defaultPreloadStaleTime: 0,
-    defaultPendingMs: 300,
+    defaultPendingMs: 250,
     defaultPendingComponent: () => (
       <div
         role="status"
         aria-label="Loading"
-        className="fixed inset-x-0 top-0 z-[100] h-1 overflow-hidden bg-secondary"
+        className="mx-auto w-full site-container px-5 pb-20 pt-[calc(2rem+var(--header-slot))] lg:px-8"
       >
-        <div className="h-full w-1/3 animate-pulse bg-primary" />
+        <div className="animate-pulse">
+          <div className="h-4 w-32 rounded bg-muted" />
+          <div className="mt-4 h-10 w-72 rounded bg-muted md:w-96" />
+          <div className="mt-8 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+            <div className="h-48 rounded-lg bg-muted/60" />
+            <div className="h-48 rounded-lg bg-muted/60" />
+            <div className="h-48 rounded-lg bg-muted/60" />
+          </div>
+        </div>
       </div>
     ),
   });
