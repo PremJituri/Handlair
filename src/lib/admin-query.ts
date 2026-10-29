@@ -25,11 +25,12 @@ export const adminEnquiriesQuery = (page: number) =>
 // still verifies its own encrypted session before returning any private data.
 export function preloadAdminPage(queries: QueryClient, href: string) {
   const url = new URL(href, "https://handlair.local");
-  if (url.pathname.startsWith("/admin/hero-slides"))
-    return queries.prefetchQuery(adminHeroQuery);
+  if (url.pathname.startsWith("/admin/hero-slides")) return queries.prefetchQuery(adminHeroQuery);
   if (url.pathname.startsWith("/admin/enquiries")) {
     const page = Number(url.searchParams.get("page"));
-    return queries.prefetchQuery(adminEnquiriesQuery(Number.isInteger(page) && page > 0 ? page : 1));
+    return queries.prefetchQuery(
+      adminEnquiriesQuery(Number.isInteger(page) && page > 0 ? page : 1),
+    );
   }
   return queries.prefetchQuery(adminCatalogueQuery);
 }

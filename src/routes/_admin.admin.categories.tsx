@@ -120,7 +120,7 @@ function Categories() {
                   await saveCategory({ data: parsed.data });
                   setEdit(null);
                   await invalidateContent(queries, "catalogue");
-            await router.invalidate();
+                  await router.invalidate();
                 } catch (e) {
                   setError(e instanceof Error ? e.message : "Save failed.");
                 } finally {

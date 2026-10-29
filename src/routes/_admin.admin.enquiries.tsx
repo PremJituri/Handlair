@@ -8,7 +8,8 @@ import { adminHead } from "@/lib/admin-head";
 export const Route = createFileRoute("/_admin/admin/enquiries")({
   validateSearch: z.object({ page: z.number().int().min(1).optional().catch(undefined) }),
   loaderDeps: ({ search }) => ({ page: search.page ?? 1 }),
-  loader: ({ deps, context }) => context.queryClient.ensureQueryData(adminEnquiriesQuery(deps.page)),
+  loader: ({ deps, context }) =>
+    context.queryClient.ensureQueryData(adminEnquiriesQuery(deps.page)),
   errorComponent: () => <p role="alert">This page could not load. Please try again.</p>,
   notFoundComponent: () => <p>Enquiries not found.</p>,
   head: () => adminHead("Enquiries"),
@@ -17,7 +18,9 @@ export const Route = createFileRoute("/_admin/admin/enquiries")({
 
 function Enquiries() {
   const search = Route.useSearch();
-  const { data: { items, total, page, pages } } = useSuspenseQuery(adminEnquiriesQuery(search.page ?? 1));
+  const {
+    data: { items, total, page, pages },
+  } = useSuspenseQuery(adminEnquiriesQuery(search.page ?? 1));
   return (
     <>
       <h1 className="type-h2">Enquiries</h1>

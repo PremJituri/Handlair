@@ -4,7 +4,9 @@ import { describe, expect, it, vi, afterEach } from "vitest";
 vi.mock("@/lib/catalogue.functions", () => ({
   getPublicCatalogue: vi.fn(async () => ({ products: [], categories: [] })),
   getPublicProductBySlug: vi.fn(async ({ data }: { data: { slug: string } }) => ({
-    product: { slug: data.slug }, related: [], categories: [],
+    product: { slug: data.slug },
+    related: [],
+    categories: [],
   })),
 }));
 import { publicCatalogueQuery, publicProductQuery } from "@/lib/catalogue-query";
