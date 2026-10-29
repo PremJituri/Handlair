@@ -27,7 +27,7 @@ function EnquiryPage() {
           <EnquiryForm />
         </div>
         <p className="mt-5 type-body">
-          Form delivery is not connected in this preview. For an immediate enquiry, email{" "}
+          For an urgent requirement, call <strong>0129-2229101</strong> or email{" "}
           <strong>sales@handlair.co.in</strong>.
         </p>
       </section>
