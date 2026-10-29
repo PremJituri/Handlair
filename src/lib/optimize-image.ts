@@ -11,7 +11,12 @@ async function decode(file: File): Promise<Source> {
   if (typeof createImageBitmap === "function") {
     try {
       const bitmap = await createImageBitmap(file, { imageOrientation: "from-image" });
-      return { image: bitmap, width: bitmap.width, height: bitmap.height, close: () => bitmap.close() };
+      return {
+        image: bitmap,
+        width: bitmap.width,
+        height: bitmap.height,
+        close: () => bitmap.close(),
+      };
     } catch {
       // Fall through to <img> decoding for older mobile browsers.
     }
