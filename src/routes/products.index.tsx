@@ -1,11 +1,14 @@
 import { createFileRoute } from "@tanstack/react-router";
+import { useSuspenseQuery } from "@tanstack/react-query";
 import { pageSeo, breadcrumbLd } from "@/lib/seo";
 import { ProductCatalogue } from "@/components/products/catalogue";
 import { CtaBand, PageHero } from "@/components/site-shell";
-import { getPublicCatalogue } from "@/lib/catalogue.functions";
+import { publicCatalogueQuery } from "@/lib/catalogue-query";
 
 export const Route = createFileRoute("/products/")({
-  loader: () => getPublicCatalogue(),
+  loader: ({ context }) => context.queryClient.ensureQueryData(publicCatalogueQuery),
+  errorComponent: ({ error }) => <p role="alert">{error.message}</p>,
+  notFoundComponent: () => <p>Catalogue not found.</p>,
   head: () => ({
     ...pageSeo(
       "/products",
@@ -23,7 +26,7 @@ export const Route = createFileRoute("/products/")({
 });
 
 function ProductsPage() {
-  const data = Route.useLoaderData();
+  const { data } = useSuspenseQuery(publicCatalogueQuery);
   return (
     <>
       <PageHero eyebrow="Product catalogue" title="Industrial air handling products.">

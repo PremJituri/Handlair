@@ -1,18 +1,21 @@
 import { createFileRoute, Link, notFound } from "@tanstack/react-router";
+import { useSuspenseQuery } from "@tanstack/react-query";
 import { pageSeo, ldScript, breadcrumbLd, absoluteUrl, metaDescription, ORG_NAME } from "@/lib/seo";
 import { ArrowLeft, ArrowRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { CtaBand } from "@/components/site-shell";
 import { ProductGallery } from "@/components/products/product-gallery";
-import { getPublicProductBySlug } from "@/lib/catalogue.functions";
+import { publicProductQuery } from "@/lib/catalogue-query";
 import { emphasize } from "@/lib/emphasize";
 
 export const Route = createFileRoute("/products/$slug")({
-  loader: async ({ params }) => {
-    const data = await getPublicProductBySlug({ data: { slug: params.slug } });
+  loader: async ({ params, context }) => {
+    const data = await context.queryClient.ensureQueryData(publicProductQuery(params.slug));
     if (!data.product) throw notFound();
     return { ...data.product, relatedProducts: data.related, categories: data.categories };
   },
+  errorComponent: ({ error }) => <p role="alert">{error.message}</p>,
+  notFoundComponent: () => <p>Product not found.</p>,
   head: ({ loaderData, params }) => {
     if (!loaderData)
       return {
@@ -72,7 +75,10 @@ export const Route = createFileRoute("/products/$slug")({
 });
 
 function ProductPage() {
-  const product = Route.useLoaderData();
+  const { slug } = Route.useParams();
+  const { data } = useSuspenseQuery(publicProductQuery(slug));
+  if (!data.product) throw notFound();
+  const product = { ...data.product, relatedProducts: data.related, categories: data.categories };
   const related = product.relatedProducts.filter(
     (item) => item.category === product.category && item.slug !== product.slug,
   );

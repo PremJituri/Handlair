@@ -1,37 +1,5 @@
-- [x] Optimize existing homepage photos without changing CMS data, slideshow timing, or framing (hero downloads reduced from 2.21 MB to 1.31 MB).
-- [x] Clear editable-file formatting failures and retain checks on generated integration code (lint exits 0; two pre-existing development warnings remain).
-- [x] Preserve future custom-domain SEO and verify preview functionality and automatic build evidence (35 tests passed; automatic build OK; desktop/mobile browsing and slideshow verified).
-- [ ] Put approved launch fixes live and verify published headers, metadata and sitemap — waits for explicit publish authorization; custom domain connection remains external.
-- [x] Float and frost the shared navigation.
-- [x] Add selective glass details across public pages.
-- [x] Verify page rendering, navigation and mobile menu.
-- [x] Refine existing glass surfaces with mineral gradients, bevels and inset rims without resizing elements.
-- [x] Verify dimensions, navigation, gallery controls and transparency fallbacks.
-- [x] Extend opening patterns behind the unchanged navigation on every page and verify desktop/mobile positions.
-- [x] Organize the Products-only catalogue using the supplied categories and subcategories.
-- [x] Add accurate product-specific detail galleries and missing-information states.
-- [x] Verify filtering, detail images, mobile layouts, and unchanged Gallery behavior.
-- [x] Place the clients section before Selected work and renumber the home sections.
-- [x] Verify home section order, logo grid and field section in the preview.
-- [x] Remove the Selected work section from the home page and verify the gallery still opens.
-- [x] Balance desktop hero sizing and shared wide containers without changing mobile layouts.
-- [x] Verify four requested desktop sizes, other pages, and mobile/tablet regressions.
-- [x] Audit usage, capture a recoverable baseline, and identify existing check failures.
-- [x] Remove standalone Gallery and confirmed dead code while retaining product photo galleries.
-- [x] Verify tests, lint, route resolution, interactions, and desktop/mobile visual preservation (13 tests pass; automatic build/type checks OK; full lint retains pre-existing formatting errors, non-format lint passes).
-- [x] Replace About-page floating cards with aligned editorial sections without changing copy.
-- [x] Verify exact wording, desktop/tablet/mobile layouts, and the existing enquiry action (five widths, 13 tests, automatic build OK).
-- [x] Unify all About section headers and balance full-width content grids while preserving exact copy.
-- [x] Verify section alignment, responsive grids, original wording, and enquiry navigation (five widths, equal-height grids, 13 tests pass).
-- [x] Confirm catalogue taxonomy and account profile requirements: preserve three categories/12 entries; no profiles.
-- [x] Enable durable Cloud database/private storage, seed 14 records (12 catalogue + 2 legacy) and 24 existing photos; retain reusable seed SQL.
-- [x] Implement server-authorized admin product/category editing and image management without public admin links.
-- [x] Connect public catalogue reads with static service-failure fallback; preserve all 14 product URLs and verify four screen sizes.
-- [x] Verify signed-in create/edit/upload/delete, public specification updates, 38,894-byte photo, draft-photo privacy, category safeguards and logout; Cloud records persist across requests. Server restart not performed; automatic checks and 17 tests pass.
-- [x] Fix admin session persistence; saved credentials, cross-site HTTPS iframe sign-in, refresh, and logout verified; 20 tests pass.
-- [x] Remove blank space below the admin footer with admin-only viewport fill; desktop footer reaches viewport bottom and mobile has no horizontal overflow.
-- [x] Add ten seeded hero photos, secure management, atomic ordering and last-photo protection.
-- [x] Connect homepage and admin preview while preserving six-second timing and existing framing.
-- [x] Verify authenticated upload/edit/reorder/delete, session refresh/logout, public image access removal, desktop/mobile layouts, 1.2-second dissolve, and denied public mutation grants. All 23 tests pass, including last-photo and single-photo safeguards; automatic build OK. Transactional database last-photo simulation was unavailable to the restricted verification connection; no original photos were deleted for that check.
-- [x] Make the shared container always fill available width so admin pages stop shrink-wrapping; admin shell explicitly full width and the products table spans its container with balanced columns.
-- [x] Verify admin alignment at 1920x1080, 2560x1440 and 3840x2160, phone/tablet fluidity, public-page overflow, 38 tests, lint and automatic build OK.
+# Navigation performance
+- [ ] Enable intent preloading and five-minute public catalogue/product queries.
+- [ ] Start admin data reads alongside session verification and share cached tab data.
+- [ ] Invalidate affected public and admin queries after every content mutation.
+- [ ] Verify caching, navigation, and existing tests without changing live content.
