@@ -1,3 +1,4 @@
+import { featuredFirst } from "@/lib/product-images";
 import { useQueryClient } from "@tanstack/react-query";
 import { invalidateContent } from "@/lib/invalidate-content";
 import { useState, useEffect, useRef } from "react";
@@ -496,9 +497,11 @@ export function ProductEditor({ data, id }: { data: AdminData; id?: string }) {
             />
           </label>
           <div className="mt-5 grid grid-cols-2 gap-4 md:grid-cols-4">
-            {data.images
-              .filter((i) => i.product_id === id)
-              .map((image) => (
+            {featuredFirst(
+              data.images.filter((i) => i.product_id === id),
+              value.thumbnail_url,
+              (image) => image.image_url,
+            ).map((image) => (
                 <div key={image.id} className="overflow-hidden rounded-md border border-border">
                   <img
                     src={image.image_url}
