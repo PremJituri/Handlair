@@ -24,7 +24,7 @@ export const Route = createFileRoute("/api/public/hero-photo/$filename")({
             headers: {
               "Content-Type": "image/jpeg",
               // Short public cache: unpublished or removed photos stop serving within 5 minutes.
-            "Cache-Control": "public, max-age=300, stale-while-revalidate=60",
+              "Cache-Control": "public, max-age=300, stale-while-revalidate=60",
               "X-Content-Type-Options": "nosniff",
             },
           });
