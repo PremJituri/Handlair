@@ -178,10 +178,21 @@ export const showcase: { image: string; name: string; tag: string }[] = [
   { image: fieldCyclone.url, name: "Cyclone Dust Collector", tag: "Dust & fume control" },
 ];
 
+export type ContactLink = { label: string; href: string };
+
 export const contact = {
+  company: "Handlair Engineering Technologies",
   address:
     "Indira Industrial Complex, Jeevan Nagar, Wazirpur Road, Old Faridabad, Haryana – 121002",
   phone: "0129-2229101",
-  mobiles: "+91-9811164523 / 9910494523",
-  emails: "sales@handlair.co.in / handlairdelhi@gmail.com",
+  phoneHref: "tel:01292229101",
+  mobiles: [
+    { label: "+91-9811164523", href: "tel:+919811164523" },
+    { label: "9910494523", href: "tel:+919910494523" },
+  ] satisfies ContactLink[],
+  emails: [
+    { label: "sales@handlair.co.in", href: "mailto:sales@handlair.co.in" },
+    { label: "handlairdelhi@gmail.com", href: "mailto:handlairdelhi@gmail.com" },
+  ] satisfies ContactLink[],
 };
+

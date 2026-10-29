@@ -1,16 +1,19 @@
 import { Link } from "@tanstack/react-router";
-import { ArrowUpRight, Mail, Menu, Phone, X } from "lucide-react";
+import { ArrowUpRight, Mail, MapPin, Menu, Phone, Smartphone, X } from "lucide-react";
 import { useState, type ReactNode } from "react";
 import { Button } from "@/components/ui/button";
 import { Magnetic, MagneticLabel } from "@/components/core/magnetic";
 import { contact } from "@/data/handlair";
 import logoAsset from "@/assets/maaria-logo.jpg.asset.json";
 
-const nav = [
+export const footerNav = [
+  ["Home", "/"],
   ["About", "/about"],
   ["Products", "/products"],
   ["Contact", "/contact"],
+  ["Enquiry", "/enquiry"],
 ] as const;
+
 
 const headerNav = [
   ["Home", "/"],
@@ -131,7 +134,7 @@ export function Footer() {
         <div>
           <h2 className="eyebrow">Navigate</h2>
           <div className="mt-5 grid gap-3">
-            {nav.map(([label, to]) => (
+            {footerNav.map(([label, to]) => (
               <Link key={to} to={to} className="font-semibold hover:text-primary">
                 {label}
               </Link>
@@ -141,17 +144,44 @@ export function Footer() {
         <div>
           <h2 className="eyebrow">Connect</h2>
           <div className="mt-5 space-y-3 type-body">
-            <a className="flex gap-2 hover:text-foreground" href={`tel:${contact.phone}`}>
-              <Phone className="size-4" />
+            <p className="font-semibold uppercase tracking-wide">{contact.company}</p>
+            <p className="flex gap-2">
+              <MapPin className="size-4 shrink-0" aria-hidden="true" />
+              <span className="min-w-0 break-words">{contact.address}</span>
+            </p>
+            <a
+              className="flex gap-2 hover:text-foreground"
+              href={contact.phoneHref}
+              aria-label={`Call Handlair on landline ${contact.phone}`}
+            >
+              <Phone className="size-4 shrink-0" aria-hidden="true" />
               {contact.phone}
             </a>
-            <a className="flex gap-2 hover:text-foreground" href="mailto:sales@handlair.co.in">
-              <Mail className="size-4" />
-              sales@handlair.co.in
-            </a>
-            <p>{contact.address}</p>
+            {contact.mobiles.map((mobile) => (
+              <a
+                key={mobile.href}
+                className="flex gap-2 hover:text-foreground"
+                href={mobile.href}
+                aria-label={`Call Handlair on mobile ${mobile.label}`}
+              >
+                <Smartphone className="size-4 shrink-0" aria-hidden="true" />
+                {mobile.label}
+              </a>
+            ))}
+            {contact.emails.map((email) => (
+              <a
+                key={email.href}
+                className="flex gap-2 hover:text-foreground"
+                href={email.href}
+                aria-label={`Email Handlair at ${email.label}`}
+              >
+                <Mail className="size-4 shrink-0" aria-hidden="true" />
+                <span className="min-w-0 break-all">{email.label}</span>
+              </a>
+            ))}
           </div>
         </div>
+
       </div>
       <div className="border-t border-border px-5 py-6 text-center text-xs text-muted-foreground">
         © Handlair. All rights reserved.
