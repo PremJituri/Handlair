@@ -25,3 +25,4 @@
 - Existing product slugs are immutable in the CMS to preserve legacy links; drafts and legacy-only records remain independently managed.
 - Hero management shares validated image optimization and private storage with the CMS; serialize append/reorder/delete through database locks and deny mutation RPCs to public roles so concurrent edits cannot empty the slideshow. Retain removed private files to avoid breaking concurrent or shared photo references; public serving requires an active slide.
 - Database tooling packages (drizzle-orm, postgres) are required by migrations even though app code never imports them; do not remove them as unused.
+- Keep semantic lint checks on generated integration files while excluding their externally managed formatting; never manually reformat generated clients or types.

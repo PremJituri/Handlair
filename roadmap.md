@@ -1,3 +1,7 @@
+- [ ] Optimize existing homepage photos without changing CMS data, slideshow timing, or framing.
+- [ ] Clear editable-file formatting failures and retain checks on generated integration code.
+- [ ] Preserve future custom-domain SEO and verify preview functionality and automatic build evidence.
+- [ ] Put approved launch fixes live and verify published headers, metadata and sitemap.
 - [x] Float and frost the shared navigation.
 - [x] Add selective glass details across public pages.
 - [x] Verify page rendering, navigation and mobile menu.
