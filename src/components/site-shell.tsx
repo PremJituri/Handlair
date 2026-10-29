@@ -6,7 +6,7 @@ import { Magnetic, MagneticLabel } from "@/components/core/magnetic";
 import { contact } from "@/data/handlair";
 import logoAsset from "@/assets/maaria-logo.jpg.asset.json";
 
-const footerNav = [
+export const footerNav = [
   ["Home", "/"],
   ["About", "/about"],
   ["Products", "/products"],
