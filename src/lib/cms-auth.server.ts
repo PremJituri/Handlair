@@ -8,6 +8,7 @@ import { compare, hash } from "bcryptjs";
 import { createHash } from "node:crypto";
 import { supabaseAdmin } from "@/integrations/supabase/client.server";
 import { adminSessionCookie } from "./admin-session-cookie";
+import { requestVerification } from "./request-verification";
 
 type AdminSession = { adminId?: string; username?: string };
 export function adminSession() {
@@ -21,8 +22,7 @@ export function adminSession() {
     cookie: adminSessionCookie(getRequest().url, getRequestHeader("x-forwarded-proto")),
   });
 }
-export async function requireAdmin() {
-  setResponseHeader("Cache-Control", "private, no-store");
+const verifyAdminRequest = requestVerification(async () => {
   const session = await adminSession();
   if (!session.data.adminId) throw new Error("Please sign in to the admin area.");
   const { data, error } = await supabaseAdmin
@@ -32,6 +32,10 @@ export async function requireAdmin() {
     .maybeSingle();
   if (error || !data) throw new Error("Please sign in to the admin area.");
   return data;
+});
+export async function requireAdmin() {
+  setResponseHeader("Cache-Control", "private, no-store");
+  return verifyAdminRequest(getRequest());
 }
 export async function signInAdmin(username: string, password: string) {
   const ip =
