@@ -1,6 +1,6 @@
 import { Link, useNavigate, useRouter, useRouterState } from "@tanstack/react-router";
 import { useQueryClient } from "@tanstack/react-query";
-import { LogOut, Package, Folder, Images, Inbox } from "lucide-react";
+import { LogOut, Package, Folder, Images, Inbox, LayoutGrid } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { logout } from "@/lib/cms-auth.functions";
 import { cn } from "@/lib/utils";
@@ -8,6 +8,7 @@ import type { ReactNode } from "react";
 const tabs = [
   { to: "/admin/products", label: "Products", icon: Package },
   { to: "/admin/categories", label: "Categories", icon: Folder },
+  { to: "/admin/featured-products", label: "Featured Range", icon: LayoutGrid },
   { to: "/admin/hero-slides", label: "Hero Photos", icon: Images },
   { to: "/admin/enquiries", label: "Enquiries", icon: Inbox },
 ] as const;

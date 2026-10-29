@@ -9,9 +9,15 @@ import { systems } from "@/data/handlair";
 import { HeroSlideshow } from "@/components/hero-slideshow";
 import { useSuspenseQuery } from "@tanstack/react-query";
 import { heroSlidesQuery } from "@/lib/hero-slides-query";
+import { featuredProductsQuery } from "@/lib/featured-products-query";
 
 export const Route = createFileRoute("/")({
-  loader: ({ context }) => context.queryClient.ensureQueryData(heroSlidesQuery),
+  loader: async ({ context }) => {
+    await Promise.all([
+      context.queryClient.ensureQueryData(heroSlidesQuery),
+      context.queryClient.ensureQueryData(featuredProductsQuery),
+    ]);
+  },
   head: () => ({
     ...pageSeo(
       "/",
@@ -25,6 +31,7 @@ export const Route = createFileRoute("/")({
 
 function Index() {
   const { data: slides } = useSuspenseQuery(heroSlidesQuery);
+  const { data: featured } = useSuspenseQuery(featuredProductsQuery);
   return (
     <>
       <section className="pattern-grid -mt-[var(--header-slot)] overflow-hidden border-b border-border">
@@ -93,7 +100,7 @@ function Index() {
             View all products <ArrowRight className="size-4" />
           </Link>
         </div>
-        <ProductGrid limit={6} />
+        <ProductGrid products={featured} />
       </section>
       <section className="border-y border-border bg-foreground text-background">
         <div className="mx-auto grid site-container gap-14 px-5 py-24 lg:grid-cols-[1fr_1.4fr] lg:px-8">
