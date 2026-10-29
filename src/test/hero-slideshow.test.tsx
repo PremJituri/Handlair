@@ -2,6 +2,7 @@ import { act, cleanup, render } from "@testing-library/react";
 import { afterEach, describe, expect, it, vi } from "vitest";
 import { HeroSlideshow } from "@/components/hero-slideshow";
 import { heroSlides } from "@/data/hero-slideshow";
+import { optimizedPhotoUrl } from "@/data/image-renditions";
 
 afterEach(() => {
   cleanup();
@@ -40,17 +41,17 @@ describe("Hero slideshow", () => {
     const currentSrc = () =>
       container.querySelector('img[aria-hidden="false"]')?.getAttribute("src");
     expect(heroSlides).toHaveLength(10);
-    expect(currentSrc()).toBe(heroSlides[0].src);
+    expect(currentSrc()).toBe(optimizedPhotoUrl(heroSlides[0].src));
     act(() => vi.advanceTimersByTime(5999));
-    expect(currentSrc()).toBe(heroSlides[0].src);
+    expect(currentSrc()).toBe(optimizedPhotoUrl(heroSlides[0].src));
     act(() => vi.advanceTimersByTime(1));
-    expect(currentSrc()).toBe(heroSlides[1].src);
+    expect(currentSrc()).toBe(optimizedPhotoUrl(heroSlides[1].src));
     for (const slide of heroSlides.slice(2)) {
       act(() => vi.advanceTimersByTime(6000));
-      expect(currentSrc()).toBe(slide.src);
+      expect(currentSrc()).toBe(optimizedPhotoUrl(slide.src));
     }
     act(() => vi.advanceTimersByTime(6000));
-    expect(currentSrc()).toBe(heroSlides[0].src);
+    expect(currentSrc()).toBe(optimizedPhotoUrl(heroSlides[0].src));
     unmount();
     expect(vi.getTimerCount()).toBe(0);
   });
@@ -71,7 +72,7 @@ describe("Hero slideshow", () => {
     });
     act(() => vi.advanceTimersByTime(30000));
     expect(container.querySelector('img[aria-hidden="false"]')?.getAttribute("src")).toBe(
-      heroSlides[0].src,
+      optimizedPhotoUrl(heroSlides[0].src),
     );
     expect(vi.getTimerCount()).toBe(0);
   });

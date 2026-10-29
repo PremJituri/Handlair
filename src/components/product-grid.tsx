@@ -1,10 +1,10 @@
 import { Link } from "@tanstack/react-router";
 import { ArrowUpRight } from "lucide-react";
 import { products } from "@/data/handlair";
-import airCoolingUnit from "@/assets/product-air-cooling-unit.jpg.asset.json";
-import bagFilterDustCollectors from "@/assets/product-bag-filter-dust-collectors.jpg.asset.json";
-import cycloneDustCollectors from "@/assets/product-cyclone-dust-collectors.jpg.asset.json";
-import wetScrubbers from "@/assets/product-wet-scrubbers.jpg.asset.json";
+import airCoolingUnit from "@/assets/optimized/product-air-cooling-unit.webp.asset.json";
+import bagFilterDustCollectors from "@/assets/optimized/product-bag-filter-dust-collectors.webp.asset.json";
+import cycloneDustCollectors from "@/assets/optimized/product-cyclone-dust-collectors.webp.asset.json";
+import wetScrubbers from "@/assets/optimized/product-wet-scrubbers.webp.asset.json";
 
 // Home-page range cards use the dedicated product photography supplied by the owner.
 const rangeImages: Record<string, string> = {
@@ -29,6 +29,7 @@ export function ProductGrid({ limit }: { limit?: number }) {
               src={rangeImages[product.slug] ?? product.image}
               alt={product.name}
               loading="lazy"
+              decoding="async"
               className="h-full w-full object-contain p-4 transition-transform duration-500 group-hover:scale-105"
             />
           </div>
