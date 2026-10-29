@@ -56,18 +56,37 @@
   --radius: 0.5rem;
   --glass: oklch(0.988 0.003 286 / 56%);
   --glass-navigation: oklch(0.988 0.003 286 / 55%);
-  --glass-navigation-gradient: linear-gradient(135deg, oklch(0.965 0.071 137 / 18%), oklch(0.988 0.003 286 / 12%) 46%, oklch(0.86 0.16 143 / 16%));
+  --glass-navigation-gradient: linear-gradient(
+    135deg,
+    oklch(0.965 0.071 137 / 18%),
+    oklch(0.988 0.003 286 / 12%) 46%,
+    oklch(0.86 0.16 143 / 16%)
+  );
   --glass-border: oklch(1 0 0 / 45%);
   --glass-radius: 8px;
   /* Header slot height: mt-3 + h-20 bar + 1px top/bottom borders + mb-3 (site-shell Header). Keep in sync if the bar's own sizing changes. */
   --header-slot: calc(0.75rem + 5rem + 2px + 0.75rem);
   --site-content-width: 80rem;
   --glass-fallback: oklch(0.975 0.015 150 / 94%);
-  --glass-gradient: linear-gradient(135deg, oklch(0.965 0.071 137 / 20%) 0%, oklch(0.988 0.003 286 / 10%) 46%, oklch(0.86 0.16 143 / 14%) 100%);
-  --glass-reflection: linear-gradient(105deg, oklch(1 0 0 / 28%) 0%, oklch(1 0 0 / 8%) 22%, transparent 48%, oklch(1 0 0 / 10%) 78%, transparent 100%);
+  --glass-gradient: linear-gradient(
+    135deg,
+    oklch(0.965 0.071 137 / 20%) 0%,
+    oklch(0.988 0.003 286 / 10%) 46%,
+    oklch(0.86 0.16 143 / 14%) 100%
+  );
+  --glass-reflection: linear-gradient(
+    105deg,
+    oklch(1 0 0 / 28%) 0%,
+    oklch(1 0 0 / 8%) 22%,
+    transparent 48%,
+    oklch(1 0 0 / 10%) 78%,
+    transparent 100%
+  );
   --glass-rim: oklch(1 0 0 / 16%);
   --glass-glow: oklch(1 0 0 / 20%);
-  --glass-shadow: inset 0 1px 0 oklch(1 0 0 / 72%), inset 0 -1px 0 oklch(0 0 0 / 12%), 0 10px 25px oklch(0 0 0 / 8%), 0 24px 50px oklch(0 0 0 / 10%);
+  --glass-shadow:
+    inset 0 1px 0 oklch(1 0 0 / 72%), inset 0 -1px 0 oklch(0 0 0 / 12%),
+    0 10px 25px oklch(0 0 0 / 8%), 0 24px 50px oklch(0 0 0 / 10%);
   --glass-control-shadow: inset 0 1px 0 var(--glass-glow);
   --glass-control-hover-shadow: inset 0 1px 0 var(--glass-glow), 0 6px 16px oklch(0 0 0 / 12%);
   --background: oklch(0.988 0.003 286);
@@ -94,11 +113,27 @@
 .dark {
   --glass: oklch(0.208 0.042 265.755 / 64%);
   --glass-navigation: oklch(0.208 0.042 265.755 / 65%);
-  --glass-navigation-gradient: linear-gradient(135deg, oklch(0.279 0.041 260 / 18%), oklch(0.208 0.042 265 / 12%) 46%, oklch(0.279 0.041 260 / 16%));
+  --glass-navigation-gradient: linear-gradient(
+    135deg,
+    oklch(0.279 0.041 260 / 18%),
+    oklch(0.208 0.042 265 / 12%) 46%,
+    oklch(0.279 0.041 260 / 16%)
+  );
   --glass-border: oklch(1 0 0 / 16%);
   --glass-fallback: oklch(0.208 0.042 265.755 / 98%);
-  --glass-gradient: linear-gradient(135deg, oklch(0.279 0.041 260 / 20%), oklch(0.208 0.042 265 / 12%) 46%, oklch(0.279 0.041 260 / 16%));
-  --glass-reflection: linear-gradient(105deg, oklch(1 0 0 / 8%), transparent 48%, oklch(1 0 0 / 4%) 78%, transparent);
+  --glass-gradient: linear-gradient(
+    135deg,
+    oklch(0.279 0.041 260 / 20%),
+    oklch(0.208 0.042 265 / 12%) 46%,
+    oklch(0.279 0.041 260 / 16%)
+  );
+  --glass-reflection: linear-gradient(
+    105deg,
+    oklch(1 0 0 / 8%),
+    transparent 48%,
+    oklch(1 0 0 / 4%) 78%,
+    transparent
+  );
   --glass-shadow: 0 12px 36px oklch(0.08 0.02 265 / 25%), inset 0 1px 0 oklch(1 0 0 / 12%);
   --background: oklch(0.129 0.042 264.695);
   --foreground: oklch(0.984 0.003 247.858);
@@ -134,8 +169,18 @@
     line-height: 1.55;
   }
 
-  h1, h2, h3, h4, h5, h6 { letter-spacing: 0.015em; }
-  ::selection { background: var(--accent); color: var(--foreground); }
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    letter-spacing: 0.015em;
+  }
+  ::selection {
+    background: var(--accent);
+    color: var(--foreground);
+  }
 }
 
 @utility eyebrow {
@@ -147,7 +192,17 @@
 }
 
 @utility pattern-grid {
-  background-image: linear-gradient(to right, color-mix(in oklab, var(--border) 38%, transparent) 1px, transparent 1px), linear-gradient(to bottom, color-mix(in oklab, var(--border) 38%, transparent) 1px, transparent 1px);
+  background-image:
+    linear-gradient(
+      to right,
+      color-mix(in oklab, var(--border) 38%, transparent) 1px,
+      transparent 1px
+    ),
+    linear-gradient(
+      to bottom,
+      color-mix(in oklab, var(--border) 38%, transparent) 1px,
+      transparent 1px
+    );
   background-size: 40px 40px;
 }
 
@@ -157,7 +212,9 @@
 }
 
 @media (min-width: 1024px) {
-  :root { --site-content-width: clamp(80rem, 90vw, 100rem); }
+  :root {
+    --site-content-width: clamp(80rem, 90vw, 100rem);
+  }
   .home-hero-layout {
     min-height: calc(100svh - 3rem);
     grid-template-columns: minmax(0, 1.35fr) minmax(0, 1fr);
@@ -165,13 +222,19 @@
     padding-top: calc(var(--header-slot) + clamp(2rem, 4svh, 3rem));
     padding-bottom: clamp(3rem, 5svh, 4rem);
   }
-  .home-hero-copy { min-width: 0; }
+  .home-hero-copy {
+    min-width: 0;
+  }
   .home-hero-title {
     /* Height-aware sizing keeps short laptop screens comfortable. */
     font-size: clamp(3.25rem, 8svh, 5.5rem);
   }
-  .home-hero-copy > .type-lead { margin-top: 1.5rem; }
-  .home-hero-actions { margin-top: 1.75rem; }
+  .home-hero-copy > .type-lead {
+    margin-top: 1.5rem;
+  }
+  .home-hero-actions {
+    margin-top: 1.75rem;
+  }
   .home-hero-media {
     min-width: 0;
     justify-self: end;
@@ -180,8 +243,19 @@
 }
 
 @media (prefers-reduced-motion: no-preference) {
-  @keyframes rise { from { opacity: 0; transform: translateY(18px); } to { opacity: 1; transform: translateY(0); } }
-  .animate-rise { animation: rise .7s ease-out both; }
+  @keyframes rise {
+    from {
+      opacity: 0;
+      transform: translateY(18px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+  .animate-rise {
+    animation: rise 0.7s ease-out both;
+  }
 }
 
 /* Typography scale — one source of truth for headings and copy */
@@ -199,12 +273,16 @@
 }
 @utility type-body {
   @apply text-base leading-relaxed text-muted-foreground;
-  & strong { @apply font-bold text-foreground; }
+  & strong {
+    @apply font-bold text-foreground;
+  }
 }
 
 /* Mineral glass: no sizing changes. Lightning CSS supplies Safari prefixes. */
 @layer base {
-  :where(.glass-surface) { position: relative; }
+  :where(.glass-surface) {
+    position: relative;
+  }
 }
 @utility glass-surface {
   isolation: isolate;
@@ -219,7 +297,8 @@
     border-color: var(--glass-border);
     backdrop-filter: blur(20px) saturate(135%);
   }
-  &::before, &::after {
+  &::before,
+  &::after {
     content: "";
     position: absolute;
     pointer-events: none;
@@ -247,7 +326,9 @@ header.glass-surface {
   --glass: var(--glass-navigation);
   --glass-gradient: var(--glass-navigation-gradient);
 }
-header.glass-surface::before { opacity: 0.4; }
+header.glass-surface::before {
+  opacity: 0.4;
+}
 header.glass-surface a[data-slot="button"] {
   position: relative;
   isolation: isolate;
@@ -264,7 +345,9 @@ header.glass-surface a[data-slot="button"]::before {
 }
 @media (hover: hover) and (pointer: fine) and (prefers-reduced-motion: no-preference) {
   header.glass-surface a[data-slot="button"] {
-    transition: transform 0.3s cubic-bezier(0.2, 0.8, 0.2, 1), box-shadow 0.3s ease;
+    transition:
+      transform 0.3s cubic-bezier(0.2, 0.8, 0.2, 1),
+      box-shadow 0.3s ease;
   }
   header.glass-surface a[data-slot="button"]:hover {
     transform: translateY(-2px);
@@ -278,30 +361,64 @@ header.glass-surface a[data-slot="button"]::before {
   }
 }
 @media (max-width: 639px) {
-  .glass-surface { --glass-radius: 6px; }
+  .glass-surface {
+    --glass-radius: 6px;
+  }
   @supports (backdrop-filter: blur(1px)) {
-    .glass-surface { backdrop-filter: blur(12px) saturate(135%); }
+    .glass-surface {
+      backdrop-filter: blur(12px) saturate(135%);
+    }
   }
 }
 @supports not (backdrop-filter: blur(1px)) {
-  .glass-surface { background: var(--glass-fallback); }
+  .glass-surface {
+    background: var(--glass-fallback);
+  }
 }
 @media (prefers-reduced-transparency: reduce) {
   .glass-surface {
     background: var(--background);
     backdrop-filter: none;
   }
-  .glass-surface::before { opacity: 0; }
+  .glass-surface::before {
+    opacity: 0;
+  }
 }
 
 /* Homepage client logo marquee (mobile/small tablet) */
-.client-marquee { overflow: hidden; mask-image: linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent); }
-.client-marquee-track { display: flex; width: max-content; gap: 0.75rem; padding-inline: 0.375rem; animation: client-marquee 120s linear infinite; }
-.client-marquee:hover .client-marquee-track, .client-marquee:focus-within .client-marquee-track { animation-play-state: paused; }
-.client-marquee:focus-visible { outline: 2px solid var(--ring); outline-offset: 2px; }
-@keyframes client-marquee { to { transform: translate3d(-50%, 0, 0); } }
+.client-marquee {
+  overflow: hidden;
+  mask-image: linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent);
+}
+.client-marquee-track {
+  display: flex;
+  width: max-content;
+  gap: 0.75rem;
+  padding-inline: 0.375rem;
+  animation: client-marquee 120s linear infinite;
+}
+.client-marquee:hover .client-marquee-track,
+.client-marquee:focus-within .client-marquee-track {
+  animation-play-state: paused;
+}
+.client-marquee:focus-visible {
+  outline: 2px solid var(--ring);
+  outline-offset: 2px;
+}
+@keyframes client-marquee {
+  to {
+    transform: translate3d(-50%, 0, 0);
+  }
+}
 @media (prefers-reduced-motion: reduce) {
-  .client-marquee { overflow-x: auto; mask-image: none; }
-  .client-marquee-track { animation: none; }
-  .client-marquee-dup { display: none; }
+  .client-marquee {
+    overflow-x: auto;
+    mask-image: none;
+  }
+  .client-marquee-track {
+    animation: none;
+  }
+  .client-marquee-dup {
+    display: none;
+  }
 }

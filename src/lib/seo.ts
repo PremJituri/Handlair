@@ -2,7 +2,8 @@
 export const SITE_URL = "https://www.handlair.co.in";
 export const ORG_NAME = "Handlair Engineering Technologies";
 
-export const absoluteUrl = (path: string) => (/^https?:\/\//.test(path) ? path : `${SITE_URL}${path.startsWith("/") ? "" : "/"}${path}`);
+export const absoluteUrl = (path: string) =>
+  /^https?:\/\//.test(path) ? path : `${SITE_URL}${path.startsWith("/") ? "" : "/"}${path}`;
 
 export function pageSeo(path: string, title: string, description: string, type = "website") {
   const url = absoluteUrl(path);
@@ -22,13 +23,21 @@ export function pageSeo(path: string, title: string, description: string, type =
   };
 }
 
-export const ldScript = (data: unknown) => ({ type: "application/ld+json", children: JSON.stringify(data) });
+export const ldScript = (data: unknown) => ({
+  type: "application/ld+json",
+  children: JSON.stringify(data),
+});
 
 export function breadcrumbLd(items: { name: string; path: string }[]) {
   return ldScript({
     "@context": "https://schema.org",
     "@type": "BreadcrumbList",
-    itemListElement: items.map((item, i) => ({ "@type": "ListItem", position: i + 1, name: item.name, item: absoluteUrl(item.path) })),
+    itemListElement: items.map((item, i) => ({
+      "@type": "ListItem",
+      position: i + 1,
+      name: item.name,
+      item: absoluteUrl(item.path),
+    })),
   });
 }
 
@@ -41,7 +50,8 @@ export const organizationLd = {
   logo: `${SITE_URL}/favicon.png`,
   image: `${SITE_URL}/favicon.png`,
   foundingDate: "1996",
-  description: "Manufacturer of industrial air handling equipment, centrifugal blowers, axial flow fans, and air pollution control systems.",
+  description:
+    "Manufacturer of industrial air handling equipment, centrifugal blowers, axial flow fans, and air pollution control systems.",
   address: {
     "@type": "PostalAddress",
     streetAddress: "Indira Industrial Complex, Jeevan Nagar, Wazirpur Road, Old Faridabad",

@@ -1,23 +1,207 @@
-import { createFileRoute,Link,useRouter } from "@tanstack/react-router";
+import { createFileRoute, Link, useRouter } from "@tanstack/react-router";
 import { useState } from "react";
 import { Plus, Pencil, Trash2 } from "lucide-react";
-import { getAdminData,deleteProduct } from "@/lib/cms.functions";
+import { getAdminData, deleteProduct } from "@/lib/cms.functions";
 import { adminHead } from "@/lib/admin-head";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { ConfirmDelete } from "@/components/admin/confirm-delete";
-export const Route=createFileRoute("/_admin/admin/products/")({loader:()=>getAdminData(),head:()=>adminHead("Products"),component:AdminProducts});
-function AdminProducts(){const data=Route.useLoaderData();const router=useRouter();const [query,setQuery]=useState("");const [category,setCategory]=useState("");const [remove,setRemove]=useState<{id:string;name:string}|null>(null);const [error,setError]=useState("");const [busy,setBusy]=useState(false);
-  const categoryName=(id:string)=>data.categories.find(c=>c.id===id)?.name;
-  const filtered=data.products.filter(p=>(!category||p.category_id===category)&&p.name.toLowerCase().includes(query.toLowerCase()));
-  const status=(p:(typeof data.products)[number])=><span className={`inline-block rounded-full border px-2.5 py-0.5 text-xs font-semibold ${p.is_published?"border-primary bg-secondary":"border-border bg-muted"}`}>{p.is_published?"Published":"Draft"}</span>;
-  const empty=<div className="rounded-lg border border-border bg-card p-8 text-center"><p className="font-bold">No products found</p><p className="mt-1 text-sm text-muted-foreground">Try another search term or category.</p></div>;
-  return <><div className="flex flex-wrap items-center justify-between gap-4"><h1 className="type-h2">Products</h1><Button asChild className="h-11 rounded-lg"><Link to="/admin/products/new"><Plus/> Add New Product</Link></Button></div><div className="my-6 flex flex-wrap gap-4"><Input aria-label="Search admin products" placeholder="Search products" value={query} onChange={e=>setQuery(e.target.value)} className="max-w-sm"/><select aria-label="Filter category" className="h-11 rounded-lg border border-input bg-background px-3.5" value={category} onChange={e=>setCategory(e.target.value)}><option value="">All categories</option>{data.categories.map(c=><option key={c.id} value={c.id}>{c.name}</option>)}</select></div>{error&&<p role="alert" className="mb-4 text-destructive">{error}</p>}
-  <div className="space-y-3 md:hidden">{filtered.length===0?empty:filtered.map(p=><div key={p.id} className="rounded-lg border border-border bg-card p-4 shadow-sm">
-    <div className="flex min-w-0 items-center gap-3">{p.thumbnail_url&&<img src={p.thumbnail_url} alt="" className="h-14 w-16 shrink-0 object-contain"/>}<div className="min-w-0"><p className="truncate text-base font-bold">{p.name}</p><p className="truncate text-xs text-muted-foreground">{p.slug}</p></div></div>
-    <div className="mt-3 flex flex-wrap items-center gap-2"><span className="text-sm font-medium text-muted-foreground">{categoryName(p.category_id)}</span>{status(p)}{!p.catalogue_visible&&<span className="text-xs text-muted-foreground">Legacy detail page</span>}</div>
-    <div className="mt-3 flex gap-2"><Button variant="outline" size="sm" className="gap-1.5 rounded-lg" asChild><Link to="/admin/products/$id" params={{id:p.id}}><Pencil/> Edit</Link></Button><Button variant="ghost" size="sm" className="gap-1.5 rounded-lg text-destructive hover:text-destructive" aria-label={`Delete ${p.name}`} onClick={()=>setRemove(p)}><Trash2/> Delete</Button></div>
-  </div>)}</div>
-  <div className="hidden overflow-x-auto md:block">{filtered.length===0?empty:<table className="w-full min-w-[680px] text-left"><thead className="border-y border-border"><tr>{["Product","Category","Status","Actions"].map(h=><th key={h} className="p-4 text-sm uppercase">{h}</th>)}</tr></thead><tbody>{filtered.map(p=><tr key={p.id} className="border-b border-border"><td className="min-w-0 p-4 align-middle"><div className="flex min-w-0 items-center gap-4">{p.thumbnail_url&&<img src={p.thumbnail_url} alt="" className="h-14 w-16 shrink-0 object-contain"/>}<div className="min-w-44"><span className="font-bold">{p.name}</span><p className="text-sm text-muted-foreground">{p.slug}</p></div></div></td><td className="p-4 align-middle">{categoryName(p.category_id)}</td><td className="p-4 align-middle">{status(p)}{!p.catalogue_visible&&<p className="mt-1 text-sm text-muted-foreground">Legacy detail page</p>}</td><td className="p-4 align-middle"><div className="flex gap-2"><Button size="icon" variant="outline" asChild title={`Edit ${p.name}`}><Link to="/admin/products/$id" params={{id:p.id}}><Pencil/></Link></Button><Button size="icon" variant="ghost" aria-label={`Delete ${p.name}`} onClick={()=>setRemove(p)}><Trash2/></Button></div></td></tr>)}</tbody></table>}</div>
-  <ConfirmDelete name={remove?.name??null} busy={busy} onClose={()=>setRemove(null)} onConfirm={async()=>{if(!remove)return;setBusy(true);try{await deleteProduct({data:remove.id});setRemove(null);await router.invalidate();}catch(e){setError(e instanceof Error?e.message:"Deletion failed.");setRemove(null);}finally{setBusy(false);}}}/></>;
+export const Route = createFileRoute("/_admin/admin/products/")({
+  loader: () => getAdminData(),
+  head: () => adminHead("Products"),
+  component: AdminProducts,
+});
+function AdminProducts() {
+  const data = Route.useLoaderData();
+  const router = useRouter();
+  const [query, setQuery] = useState("");
+  const [category, setCategory] = useState("");
+  const [remove, setRemove] = useState<{ id: string; name: string } | null>(null);
+  const [error, setError] = useState("");
+  const [busy, setBusy] = useState(false);
+  const categoryName = (id: string) => data.categories.find((c) => c.id === id)?.name;
+  const filtered = data.products.filter(
+    (p) =>
+      (!category || p.category_id === category) &&
+      p.name.toLowerCase().includes(query.toLowerCase()),
+  );
+  const status = (p: (typeof data.products)[number]) => (
+    <span
+      className={`inline-block rounded-full border px-2.5 py-0.5 text-xs font-semibold ${p.is_published ? "border-primary bg-secondary" : "border-border bg-muted"}`}
+    >
+      {p.is_published ? "Published" : "Draft"}
+    </span>
+  );
+  const empty = (
+    <div className="rounded-lg border border-border bg-card p-8 text-center">
+      <p className="font-bold">No products found</p>
+      <p className="mt-1 text-sm text-muted-foreground">Try another search term or category.</p>
+    </div>
+  );
+  return (
+    <>
+      <div className="flex flex-wrap items-center justify-between gap-4">
+        <h1 className="type-h2">Products</h1>
+        <Button asChild className="h-11 rounded-lg">
+          <Link to="/admin/products/new">
+            <Plus /> Add New Product
+          </Link>
+        </Button>
+      </div>
+      <div className="my-6 flex flex-wrap gap-4">
+        <Input
+          aria-label="Search admin products"
+          placeholder="Search products"
+          value={query}
+          onChange={(e) => setQuery(e.target.value)}
+          className="max-w-sm"
+        />
+        <select
+          aria-label="Filter category"
+          className="h-11 rounded-lg border border-input bg-background px-3.5"
+          value={category}
+          onChange={(e) => setCategory(e.target.value)}
+        >
+          <option value="">All categories</option>
+          {data.categories.map((c) => (
+            <option key={c.id} value={c.id}>
+              {c.name}
+            </option>
+          ))}
+        </select>
+      </div>
+      {error && (
+        <p role="alert" className="mb-4 text-destructive">
+          {error}
+        </p>
+      )}
+      <div className="space-y-3 md:hidden">
+        {filtered.length === 0
+          ? empty
+          : filtered.map((p) => (
+              <div key={p.id} className="rounded-lg border border-border bg-card p-4 shadow-sm">
+                <div className="flex min-w-0 items-center gap-3">
+                  {p.thumbnail_url && (
+                    <img
+                      src={p.thumbnail_url}
+                      alt=""
+                      className="h-14 w-16 shrink-0 object-contain"
+                    />
+                  )}
+                  <div className="min-w-0">
+                    <p className="truncate text-base font-bold">{p.name}</p>
+                    <p className="truncate text-xs text-muted-foreground">{p.slug}</p>
+                  </div>
+                </div>
+                <div className="mt-3 flex flex-wrap items-center gap-2">
+                  <span className="text-sm font-medium text-muted-foreground">
+                    {categoryName(p.category_id)}
+                  </span>
+                  {status(p)}
+                  {!p.catalogue_visible && (
+                    <span className="text-xs text-muted-foreground">Legacy detail page</span>
+                  )}
+                </div>
+                <div className="mt-3 flex gap-2">
+                  <Button variant="outline" size="sm" className="gap-1.5 rounded-lg" asChild>
+                    <Link to="/admin/products/$id" params={{ id: p.id }}>
+                      <Pencil /> Edit
+                    </Link>
+                  </Button>
+                  <Button
+                    variant="ghost"
+                    size="sm"
+                    className="gap-1.5 rounded-lg text-destructive hover:text-destructive"
+                    aria-label={`Delete ${p.name}`}
+                    onClick={() => setRemove(p)}
+                  >
+                    <Trash2 /> Delete
+                  </Button>
+                </div>
+              </div>
+            ))}
+      </div>
+      <div className="hidden overflow-x-auto md:block">
+        {filtered.length === 0 ? (
+          empty
+        ) : (
+          <table className="w-full min-w-[680px] text-left">
+            <thead className="border-y border-border">
+              <tr>
+                {["Product", "Category", "Status", "Actions"].map((h) => (
+                  <th key={h} className="p-4 text-sm uppercase">
+                    {h}
+                  </th>
+                ))}
+              </tr>
+            </thead>
+            <tbody>
+              {filtered.map((p) => (
+                <tr key={p.id} className="border-b border-border">
+                  <td className="min-w-0 p-4 align-middle">
+                    <div className="flex min-w-0 items-center gap-4">
+                      {p.thumbnail_url && (
+                        <img
+                          src={p.thumbnail_url}
+                          alt=""
+                          className="h-14 w-16 shrink-0 object-contain"
+                        />
+                      )}
+                      <div className="min-w-44">
+                        <span className="font-bold">{p.name}</span>
+                        <p className="text-sm text-muted-foreground">{p.slug}</p>
+                      </div>
+                    </div>
+                  </td>
+                  <td className="p-4 align-middle">{categoryName(p.category_id)}</td>
+                  <td className="p-4 align-middle">
+                    {status(p)}
+                    {!p.catalogue_visible && (
+                      <p className="mt-1 text-sm text-muted-foreground">Legacy detail page</p>
+                    )}
+                  </td>
+                  <td className="p-4 align-middle">
+                    <div className="flex gap-2">
+                      <Button size="icon" variant="outline" asChild title={`Edit ${p.name}`}>
+                        <Link to="/admin/products/$id" params={{ id: p.id }}>
+                          <Pencil />
+                        </Link>
+                      </Button>
+                      <Button
+                        size="icon"
+                        variant="ghost"
+                        aria-label={`Delete ${p.name}`}
+                        onClick={() => setRemove(p)}
+                      >
+                        <Trash2 />
+                      </Button>
+                    </div>
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        )}
+      </div>
+      <ConfirmDelete
+        name={remove?.name ?? null}
+        busy={busy}
+        onClose={() => setRemove(null)}
+        onConfirm={async () => {
+          if (!remove) return;
+          setBusy(true);
+          try {
+            await deleteProduct({ data: remove.id });
+            setRemove(null);
+            await router.invalidate();
+          } catch (e) {
+            setError(e instanceof Error ? e.message : "Deletion failed.");
+            setRemove(null);
+          } finally {
+            setBusy(false);
+          }
+        }}
+      />
+    </>
+  );
 }

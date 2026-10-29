@@ -10,6 +10,16 @@ export const getRouter = () => {
     context: { queryClient },
     scrollRestoration: true,
     defaultPreloadStaleTime: 0,
+    defaultPendingMs: 300,
+    defaultPendingComponent: () => (
+      <div
+        role="status"
+        aria-label="Loading"
+        className="fixed inset-x-0 top-0 z-[100] h-1 overflow-hidden bg-secondary"
+      >
+        <div className="h-full w-1/3 animate-pulse bg-primary" />
+      </div>
+    ),
   });
 
   return router;

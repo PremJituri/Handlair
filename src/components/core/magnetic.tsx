@@ -17,7 +17,9 @@ const defaultSpring: SpringOptions = { stiffness: 150, damping: 15, mass: 0.1 };
 const labelSpring: SpringOptions = { bounce: 0.1 };
 
 function isWithin(clientX: number, clientY: number, rect: DOMRect) {
-  return clientX >= rect.left && clientX <= rect.right && clientY >= rect.top && clientY <= rect.bottom;
+  return (
+    clientX >= rect.left && clientX <= rect.right && clientY >= rect.top && clientY <= rect.bottom
+  );
 }
 
 export function Magnetic({
@@ -54,7 +56,11 @@ export function Magnetic({
       const active =
         actionArea === "global"
           ? Math.hypot(dx, dy) <= range
-          : isWithin(event.clientX, event.clientY, node.parentElement?.getBoundingClientRect() ?? rect);
+          : isWithin(
+              event.clientX,
+              event.clientY,
+              node.parentElement?.getBoundingClientRect() ?? rect,
+            );
       if (active) {
         x.set(dx * intensity);
         y.set(dy * intensity);
@@ -75,16 +81,32 @@ export function Magnetic({
   }, [intensity, actionArea, range, x, y]);
 
   return (
-    <motion.div ref={ref} className={className} style={{ x: xSpring, y: ySpring, rotate: rotation ? rotate : 0, willChange: "transform" }}>
+    <motion.div
+      ref={ref}
+      className={className}
+      style={{ x: xSpring, y: ySpring, rotate: rotation ? rotate : 0, willChange: "transform" }}
+    >
       {children}
     </motion.div>
   );
 }
 
 /** Inner drift layer for a button's own label, so the text lags slightly behind the button. */
-export function MagneticLabel({ children, className = "inline-flex items-center gap-2" }: { children: ReactNode; className?: string }) {
+export function MagneticLabel({
+  children,
+  className = "inline-flex items-center gap-2",
+}: {
+  children: ReactNode;
+  className?: string;
+}) {
   return (
-    <Magnetic intensity={0.1} springOptions={labelSpring} actionArea="global" range={200} className={className}>
+    <Magnetic
+      intensity={0.1}
+      springOptions={labelSpring}
+      actionArea="global"
+      range={200}
+      className={className}
+    >
       {children}
     </Magnetic>
   );

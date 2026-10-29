@@ -1,0 +1,1 @@
+DELETE FROM public.enquiries WHERE first_name = 'AuditTest' AND email = 'audit@example.com';

@@ -80,6 +80,45 @@ export type Database = {
         }
         Relationships: []
       }
+      enquiries: {
+        Row: {
+          city: string
+          company: string
+          country: string
+          created_at: string
+          email: string
+          first_name: string
+          id: string
+          last_name: string
+          message: string
+          mobile: string
+        }
+        Insert: {
+          city?: string
+          company?: string
+          country?: string
+          created_at?: string
+          email: string
+          first_name: string
+          id?: string
+          last_name?: string
+          message: string
+          mobile: string
+        }
+        Update: {
+          city?: string
+          company?: string
+          country?: string
+          created_at?: string
+          email?: string
+          first_name?: string
+          id?: string
+          last_name?: string
+          message?: string
+          mobile?: string
+        }
+        Relationships: []
+      }
       hero_slides: {
         Row: {
           alt_text: string

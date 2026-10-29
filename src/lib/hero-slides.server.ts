@@ -7,10 +7,22 @@ export async function heroPublicClient() {
 }
 export async function readHeroSlides() {
   try {
-    const { data, error } = await (await heroPublicClient()).from("hero_slides").select("id,image_url,alt_text,sort_order,created_at").order("sort_order").order("created_at");
+    const { data, error } = await (
+      await heroPublicClient()
+    )
+      .from("hero_slides")
+      .select("id,image_url,alt_text,sort_order,created_at")
+      .order("sort_order")
+      .order("created_at");
     if (error || !data?.length) throw new Error("Photos unavailable.");
     return data;
   } catch {
-    return heroSlides.map((slide, sort_order) => ({ id: `fallback-${sort_order}`, image_url: slide.src, alt_text: slide.alt, sort_order, created_at: "" }));
+    return heroSlides.map((slide, sort_order) => ({
+      id: `fallback-${sort_order}`,
+      image_url: slide.src,
+      alt_text: slide.alt,
+      sort_order,
+      created_at: "",
+    }));
   }
 }

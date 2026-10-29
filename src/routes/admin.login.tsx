@@ -5,5 +5,56 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { login } from "@/lib/cms-auth.functions";
 import { adminHead } from "@/lib/admin-head";
-export const Route=createFileRoute("/admin/login")({head:()=>adminHead("Sign in"),component:AdminLogin});
-function AdminLogin(){const navigate=useNavigate();const [error,setError]=useState("");const [busy,setBusy]=useState(false);return <section className="mx-auto max-w-md px-5 py-20"><LockKeyhole className="size-8 text-primary"/><p className="mt-6 eyebrow">Handlair / Admin</p><h1 className="mt-4 type-h2">Sign in</h1><form className="mt-8 space-y-5" onSubmit={async(e)=>{e.preventDefault();setBusy(true);setError("");const f=new FormData(e.currentTarget);try{const result=await login({data:{username:String(f.get("username")),password:String(f.get("password"))}});if(result.ok)await navigate({to:"/admin/products"});else setError(result.error);}catch{setError("Unable to sign in. Please try again.");}finally{setBusy(false);}}}><label className="block space-y-2"><span>Username</span><Input name="username" autoComplete="username" defaultValue="admin" required/></label><label className="block space-y-2"><span>Password</span><Input name="password" type="password" autoComplete="current-password" required/></label>{error&&<p role="alert" className="text-destructive">{error}</p>}<Button type="submit" disabled={busy} className="h-11 w-full rounded-lg">{busy&&<LoaderCircle className="animate-spin"/>}Sign in</Button></form></section>;}
+export const Route = createFileRoute("/admin/login")({
+  head: () => adminHead("Sign in"),
+  component: AdminLogin,
+});
+function AdminLogin() {
+  const navigate = useNavigate();
+  const [error, setError] = useState("");
+  const [busy, setBusy] = useState(false);
+  return (
+    <section className="mx-auto max-w-md px-5 py-20">
+      <LockKeyhole className="size-8 text-primary" />
+      <p className="mt-6 eyebrow">Handlair / Admin</p>
+      <h1 className="mt-4 type-h2">Sign in</h1>
+      <form
+        className="mt-8 space-y-5"
+        onSubmit={async (e) => {
+          e.preventDefault();
+          setBusy(true);
+          setError("");
+          const f = new FormData(e.currentTarget);
+          try {
+            const result = await login({
+              data: { username: String(f.get("username")), password: String(f.get("password")) },
+            });
+            if (result.ok) await navigate({ to: "/admin/products" });
+            else setError(result.error);
+          } catch {
+            setError("Unable to sign in. Please try again.");
+          } finally {
+            setBusy(false);
+          }
+        }}
+      >
+        <label className="block space-y-2">
+          <span>Username</span>
+          <Input name="username" autoComplete="username" required />
+        </label>
+        <label className="block space-y-2">
+          <span>Password</span>
+          <Input name="password" type="password" autoComplete="current-password" required />
+        </label>
+        {error && (
+          <p role="alert" className="text-destructive">
+            {error}
+          </p>
+        )}
+        <Button type="submit" disabled={busy} className="h-11 w-full rounded-lg">
+          {busy && <LoaderCircle className="animate-spin" />}Sign in
+        </Button>
+      </form>
+    </section>
+  );
+}
