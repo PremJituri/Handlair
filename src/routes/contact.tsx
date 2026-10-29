@@ -6,9 +6,7 @@ import { EnquiryForm } from "@/components/enquiry-form";
 import { PageHero } from "@/components/site-shell";
 import { contact } from "@/data/handlair";
 
-export const Route = createFileRoute("/contact")({ head: () => ({ meta: [
-  { title: "Contact Handlair — Industrial Air Systems" }, { name: "description", content: "Contact Handlair for air handling and industrial air pollution control equipment." }, { property: "og:title", content: "Contact Handlair" }, { property: "og:description", content: "Discuss your industrial air handling requirements." }, { property: "og:type", content: "website" }, { name: "twitter:card", content: "summary_large_image" },
-] }), component: ContactPage });
+export const Route = createFileRoute("/contact")({ head: () => pageSeo("/contact", "Contact Handlair — Faridabad Works & Sales Office", "Get in touch with Handlair Engineering Technologies in Faridabad, Haryana for technical guidance, equipment selection, and industrial air system enquiries."), component: ContactPage });
 
 const MAP_EMBED_URL =
   "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3508.7072667634734!2d77.33577567695254!3d28.42808859333276!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x390cdd0b4df45443%3A0x9606f598f4133489!2sHandlair%20Engineering%20Technologies!5e0!3m2!1sen!2sin!4v1792851952141!5m2!1sen!2sin";
