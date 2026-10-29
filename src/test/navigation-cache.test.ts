@@ -31,7 +31,7 @@ describe("Navigation caches", () => {
     await client.prefetchQuery(publicProductQuery("blower"));
     await client.ensureQueryData(publicProductQuery("blower"));
     const other = await client.ensureQueryData(publicProductQuery("filter"));
-    expect(other.product.slug).toBe("filter");
+    expect(other.product?.slug).toBe("filter");
     expect(getPublicProductBySlug).toHaveBeenCalledTimes(2);
     client.clear();
   });
