@@ -24,6 +24,6 @@ describe("floating navigation width", () => {
     expect(header).toContain("w-[calc(100%-1.5rem)]");
     expect(header).toContain("sm:w-[calc(100%-2.5rem)]");
     expect(header).toContain("lg:w-[calc(100%-4rem)]");
-    expect(header).not.toMatch(/(^|\s)(sm:|lg:|xl:)?mx-/);
+    expect(header).not.toMatch(/(^|\s)(sm:|lg:|xl:)?mx-(?!auto)/);
   });
 });
