@@ -10,7 +10,12 @@ export const Route = createFileRoute("/about")({
       "About Handlair — Three Decades of Air Engineering Excellence",
       "Founded in 1996, Handlair delivers industrial ventilation, cooling, and air pollution control solutions across automotive, cement, and engineering industries.",
     ),
-    scripts: [breadcrumbLd([{ name: "Home", path: "/" }, { name: "About", path: "/about" }])],
+    scripts: [
+      breadcrumbLd([
+        { name: "Home", path: "/" },
+        { name: "About", path: "/about" },
+      ]),
+    ],
   }),
   component: AboutPage,
 });
@@ -83,17 +88,16 @@ function AboutPage() {
           </div>
           <p className="mt-6 max-w-3xl type-lead">
             Founded in <strong className="text-foreground">1996 by A. D. Augustine</strong>,
-            Handlair brings over three decades of experience in industrial air handling,
-            ventilation and air pollution control. Its journey includes the incorporation of{" "}
+            Handlair brings over three decades of experience in industrial air handling, ventilation
+            and air pollution control. Its journey includes the incorporation of{" "}
             <strong className="text-foreground">
               Handlair Engineers Private Limited on 16 May 2013
             </strong>
             , an important milestone in its business history. Today,{" "}
-            <strong className="text-foreground">Handlair Engineering Technologies</strong>{" "}
-            carries forward the Handlair name with a focus on practical engineering, quality
-            workmanship and customer service.
+            <strong className="text-foreground">Handlair Engineering Technologies</strong> carries
+            forward the Handlair name with a focus on practical engineering, quality workmanship and
+            customer service.
           </p>
-
         </div>
       </section>
 
@@ -104,17 +108,25 @@ function AboutPage() {
             <h2 className="mt-5 type-h2">Equipment for moving and cleaning air.</h2>
           </div>
           <p className="mt-6 max-w-3xl type-body">
-            These solutions support industrial <strong>ventilation, cooling, pressurisation, dust
-            collection and fume extraction</strong>.
+            These solutions support industrial{" "}
+            <strong>
+              ventilation, cooling, pressurisation, dust collection and fume extraction
+            </strong>
+            .
           </p>
         </div>
         <ul className="grid auto-rows-fr grid-cols-2 gap-3 lg:grid-cols-5 lg:gap-4">
           {capabilities.map((item, i) => (
-            <li key={item} className="flex h-full min-w-0 flex-col items-start justify-center gap-2 border border-border/60 px-3 py-4 sm:flex-row sm:items-center sm:justify-start sm:gap-3 sm:px-5">
+            <li
+              key={item}
+              className="flex h-full min-w-0 flex-col items-start justify-center gap-2 border border-border/60 px-3 py-4 sm:flex-row sm:items-center sm:justify-start sm:gap-3 sm:px-5"
+            >
               <span className="shrink-0 text-xs font-bold text-primary">
                 {String(i + 1).padStart(2, "0")}
               </span>
-              <h3 className="min-w-0 break-words font-display text-sm font-bold uppercase leading-snug sm:text-base">{item}</h3>
+              <h3 className="min-w-0 break-words font-display text-sm font-bold uppercase leading-snug sm:text-base">
+                {item}
+              </h3>
             </li>
           ))}
         </ul>
@@ -132,11 +144,16 @@ function AboutPage() {
           </div>
           <ul className="mt-10 grid auto-rows-fr grid-cols-4 gap-3 lg:grid-cols-8 lg:gap-4">
             {applications.map((item, i) => (
-              <li key={item} className={`col-span-2 flex h-full min-w-0 items-center gap-3 border border-border/60 px-3 py-4 sm:px-5 ${i === 4 ? "lg:col-start-2" : i === 5 ? "lg:col-start-4" : i === 6 ? "col-start-2 lg:col-start-6" : ""}`}>
+              <li
+                key={item}
+                className={`col-span-2 flex h-full min-w-0 items-center gap-3 border border-border/60 px-3 py-4 sm:px-5 ${i === 4 ? "lg:col-start-2" : i === 5 ? "lg:col-start-4" : i === 6 ? "col-start-2 lg:col-start-6" : ""}`}
+              >
                 <span className="shrink-0 text-xs font-bold text-primary">
                   {String(i + 1).padStart(2, "0")}
                 </span>
-                <h3 className="min-w-0 break-words font-display text-base font-bold uppercase leading-snug">{item}</h3>
+                <h3 className="min-w-0 break-words font-display text-base font-bold uppercase leading-snug">
+                  {item}
+                </h3>
               </li>
             ))}
           </ul>
@@ -168,8 +185,9 @@ function AboutPage() {
               <h2 className="mt-5 type-h2">Built on lasting relationships.</h2>
             </div>
             <p className="mt-6 max-w-3xl type-lead">
-              With an emphasis on <strong className="text-foreground">dependable performance</strong>
-              , <strong className="text-foreground">competitive pricing</strong>,{" "}
+              With an emphasis on{" "}
+              <strong className="text-foreground">dependable performance</strong>,{" "}
+              <strong className="text-foreground">competitive pricing</strong>,{" "}
               <strong className="text-foreground">timely delivery</strong> and{" "}
               <strong className="text-foreground">responsive after-sales support</strong>, Handlair
               remains committed to building lasting customer relationships and supporting cleaner,
@@ -178,9 +196,14 @@ function AboutPage() {
           </div>
           <div className="mt-10 grid grid-cols-2 gap-x-5 gap-y-4 lg:grid-cols-4 lg:gap-x-8">
             {commitments.map(({ icon: Icon, title, copy }) => (
-              <div key={title} className="row-span-3 grid h-full min-w-0 grid-rows-subgrid gap-4 border-t border-border pt-6">
+              <div
+                key={title}
+                className="row-span-3 grid h-full min-w-0 grid-rows-subgrid gap-4 border-t border-border pt-6"
+              >
                 <Icon className="size-6 text-primary" aria-hidden />
-                <h3 className="font-display text-base font-bold uppercase leading-snug md:text-xl">{title}</h3>
+                <h3 className="font-display text-base font-bold uppercase leading-snug md:text-xl">
+                  {title}
+                </h3>
                 <p className="type-body">{copy}</p>
               </div>
             ))}

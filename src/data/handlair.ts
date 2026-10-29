@@ -195,4 +195,3 @@ export const contact = {
     { label: "handlairdelhi@gmail.com", href: "mailto:handlairdelhi@gmail.com" },
   ] satisfies ContactLink[],
 };
-

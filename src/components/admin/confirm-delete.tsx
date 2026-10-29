@@ -1,3 +1,43 @@
-import { Dialog,DialogContent,DialogTitle,DialogDescription } from "@/components/ui/dialog";
+import { Dialog, DialogContent, DialogTitle, DialogDescription } from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
-export function ConfirmDelete({name,onClose,onConfirm,blocked=false,busy=false}:{name:string|null;onClose:()=>void;onConfirm:()=>void;blocked?:boolean;busy?:boolean}){return <Dialog open={!!name} onOpenChange={(open)=>{if(!open)onClose();}}><DialogContent><DialogTitle>{blocked?"Category cannot be deleted":"Delete item?"}</DialogTitle><DialogDescription>{blocked?"Reassign or delete all products assigned to this category first.":`Delete ${name}? This cannot be undone.`}</DialogDescription><div className="flex justify-end gap-3"><Button variant="outline" onClick={onClose}>Cancel</Button>{!blocked&&<Button variant="destructive" disabled={busy} onClick={onConfirm}>Delete</Button>}</div></DialogContent></Dialog>;}
+export function ConfirmDelete({
+  name,
+  onClose,
+  onConfirm,
+  blocked = false,
+  busy = false,
+}: {
+  name: string | null;
+  onClose: () => void;
+  onConfirm: () => void;
+  blocked?: boolean;
+  busy?: boolean;
+}) {
+  return (
+    <Dialog
+      open={!!name}
+      onOpenChange={(open) => {
+        if (!open) onClose();
+      }}
+    >
+      <DialogContent>
+        <DialogTitle>{blocked ? "Category cannot be deleted" : "Delete item?"}</DialogTitle>
+        <DialogDescription>
+          {blocked
+            ? "Reassign or delete all products assigned to this category first."
+            : `Delete ${name}? This cannot be undone.`}
+        </DialogDescription>
+        <div className="flex justify-end gap-3">
+          <Button variant="outline" onClick={onClose}>
+            Cancel
+          </Button>
+          {!blocked && (
+            <Button variant="destructive" disabled={busy} onClick={onConfirm}>
+              Delete
+            </Button>
+          )}
+        </div>
+      </DialogContent>
+    </Dialog>
+  );
+}

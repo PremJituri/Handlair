@@ -14,7 +14,6 @@ export const footerNav = [
   ["Enquiry", "/enquiry"],
 ] as const;
 
-
 const headerNav = [
   ["Home", "/"],
   ["About", "/about"],
@@ -181,7 +180,6 @@ export function Footer() {
             ))}
           </div>
         </div>
-
       </div>
       <div className="border-t border-border px-5 py-6 text-center text-xs text-muted-foreground">
         © Handlair. All rights reserved.
@@ -190,7 +188,13 @@ export function Footer() {
   );
 }
 
-export function SiteShell({ children, fillViewport = false }: { children: ReactNode; fillViewport?: boolean }) {
+export function SiteShell({
+  children,
+  fillViewport = false,
+}: {
+  children: ReactNode;
+  fillViewport?: boolean;
+}) {
   return (
     <div className={fillViewport ? "flex min-h-svh flex-col" : "contents"}>
       <Header />

@@ -18,14 +18,21 @@ export const submitEnquiry = createServerFn({ method: "POST" })
       country: data.country,
       message: data.message,
     });
-    if (error) throw new Error("We could not send your enquiry. Please try again or email sales@handlair.co.in.");
+    if (error)
+      throw new Error(
+        "We could not send your enquiry. Please try again or email sales@handlair.co.in.",
+      );
     return { ok: true };
   });
 
 export const getEnquiries = createServerFn({ method: "GET" }).handler(async () => {
   await requireAdmin();
   const { supabaseAdmin: db } = await import("@/integrations/supabase/client.server");
-  const { data, error } = await db.from("enquiries").select("*").order("created_at", { ascending: false }).limit(500);
+  const { data, error } = await db
+    .from("enquiries")
+    .select("*")
+    .order("created_at", { ascending: false })
+    .limit(500);
   if (error) throw new Error("Unable to load enquiries.");
   return data ?? [];
 });

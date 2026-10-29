@@ -75,7 +75,11 @@ function NotFoundLottie() {
   }, [reduced, Lottie]);
 
   return (
-    <div role="img" aria-label="Animated table fan with 404 sparks, a playful nod to lost airflow" className="w-full max-w-md">
+    <div
+      role="img"
+      aria-label="Animated table fan with 404 sparks, a playful nod to lost airflow"
+      className="w-full max-w-md"
+    >
       {Lottie ? (
         <div className="aspect-[1044/900] w-full">
           <Lottie
@@ -106,7 +110,9 @@ function NotFoundComponent() {
           This duct leads nowhere.
         </h1>
         <p className="mt-4 max-w-xl type-lead">
-          The page or equipment spec you are looking for has been <strong className="text-foreground">moved, decommissioned</strong>, or lost in the ventilation ductwork.
+          The page or equipment spec you are looking for has been{" "}
+          <strong className="text-foreground">moved, decommissioned</strong>, or lost in the
+          ventilation ductwork.
         </p>
         <div className="mt-9 flex flex-wrap items-center justify-center gap-3">
           <Button asChild size="xl">
@@ -194,7 +200,10 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       { rel: "apple-touch-icon", href: "/favicon.png" },
       { rel: "preconnect", href: "https://fonts.googleapis.com" },
       { rel: "preconnect", href: "https://fonts.gstatic.com", crossOrigin: "anonymous" },
-      { rel: "stylesheet", href: "https://fonts.googleapis.com/css2?family=IBM+Plex+Serif:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600;1,700&display=swap" },
+      {
+        rel: "stylesheet",
+        href: "https://fonts.googleapis.com/css2?family=IBM+Plex+Serif:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600;1,700&display=swap",
+      },
     ],
   }),
   shellComponent: RootShell,
@@ -219,12 +228,17 @@ function RootShell({ children }: { children: ReactNode }) {
 
 function RootComponent() {
   const { queryClient } = Route.useRouteContext();
-  const isAdmin = useRouterState({ select: (state) => state.location.pathname === "/admin" || state.location.pathname.startsWith("/admin/") });
+  const isAdmin = useRouterState({
+    select: (state) =>
+      state.location.pathname === "/admin" || state.location.pathname.startsWith("/admin/"),
+  });
 
   return (
     <QueryClientProvider client={queryClient}>
       {/* Required: nested routes render here. Removing <Outlet /> breaks all child routes. */}
-      <SiteShell fillViewport={isAdmin}><Outlet /></SiteShell>
+      <SiteShell fillViewport={isAdmin}>
+        <Outlet />
+      </SiteShell>
     </QueryClientProvider>
   );
 }

@@ -51,7 +51,9 @@ function Index() {
           </div>
           <div className="home-hero-media relative">
             <div className="glass-surface p-3">
-              <HeroSlideshow slides={slides.map(slide => ({ src: slide.image_url, alt: slide.alt_text }))} />
+              <HeroSlideshow
+                slides={slides.map((slide) => ({ src: slide.image_url, alt: slide.alt_text }))}
+              />
             </div>
             <div className="absolute -bottom-5 -left-5 hidden size-32 border-b-2 border-l-2 border-primary md:block" />
             <MoveDown className="absolute -bottom-10 right-3 hidden size-5 text-primary lg:block" />

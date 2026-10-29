@@ -3,7 +3,11 @@ import { afterEach, describe, expect, it, vi } from "vitest";
 import { HeroSlideshow } from "@/components/hero-slideshow";
 import { heroSlides } from "@/data/hero-slideshow";
 
-afterEach(() => { cleanup(); vi.useRealTimers(); vi.restoreAllMocks(); });
+afterEach(() => {
+  cleanup();
+  vi.useRealTimers();
+  vi.restoreAllMocks();
+});
 
 describe("Hero slideshow", () => {
   it("keeps a single supplied photo static without scheduling a timer", async () => {
@@ -11,11 +15,17 @@ describe("Hero slideshow", () => {
     vi.spyOn(window, "Image").mockImplementation(function () {
       return { src: "", decode: () => Promise.resolve() } as unknown as HTMLImageElement;
     });
-    const { container } = render(<HeroSlideshow slides={[{ src: "/one.jpg", alt: "One photo" }]} />);
-    await act(async () => { await Promise.resolve(); });
+    const { container } = render(
+      <HeroSlideshow slides={[{ src: "/one.jpg", alt: "One photo" }]} />,
+    );
+    await act(async () => {
+      await Promise.resolve();
+    });
     expect(vi.getTimerCount()).toBe(0);
     act(() => vi.advanceTimersByTime(18000));
-    expect(container.querySelector('img[aria-hidden="false"]')?.getAttribute("src")).toBe("/one.jpg");
+    expect(container.querySelector('img[aria-hidden="false"]')?.getAttribute("src")).toBe(
+      "/one.jpg",
+    );
   });
 
   it("advances every 6000 ms through all ten supplied images in order and loops", async () => {
@@ -24,8 +34,11 @@ describe("Hero slideshow", () => {
       return { src: "", decode: () => Promise.resolve() } as unknown as HTMLImageElement;
     });
     const { container, unmount } = render(<HeroSlideshow />);
-    await act(async () => { await Promise.resolve(); });
-    const currentSrc = () => container.querySelector('img[aria-hidden="false"]')?.getAttribute("src");
+    await act(async () => {
+      await Promise.resolve();
+    });
+    const currentSrc = () =>
+      container.querySelector('img[aria-hidden="false"]')?.getAttribute("src");
     expect(heroSlides).toHaveLength(10);
     expect(currentSrc()).toBe(heroSlides[0].src);
     act(() => vi.advanceTimersByTime(5999));
@@ -44,14 +57,22 @@ describe("Hero slideshow", () => {
 
   it("does not autoplay when reduced motion is enabled", async () => {
     vi.useFakeTimers();
-    vi.spyOn(window, "matchMedia").mockReturnValue({ matches: true, addEventListener: vi.fn(), removeEventListener: vi.fn() } as unknown as MediaQueryList);
+    vi.spyOn(window, "matchMedia").mockReturnValue({
+      matches: true,
+      addEventListener: vi.fn(),
+      removeEventListener: vi.fn(),
+    } as unknown as MediaQueryList);
     vi.spyOn(window, "Image").mockImplementation(function () {
       return { src: "", decode: () => Promise.resolve() } as unknown as HTMLImageElement;
     });
     const { container } = render(<HeroSlideshow />);
-    await act(async () => { await Promise.resolve(); });
+    await act(async () => {
+      await Promise.resolve();
+    });
     act(() => vi.advanceTimersByTime(30000));
-    expect(container.querySelector('img[aria-hidden="false"]')?.getAttribute("src")).toBe(heroSlides[0].src);
+    expect(container.querySelector('img[aria-hidden="false"]')?.getAttribute("src")).toBe(
+      heroSlides[0].src,
+    );
     expect(vi.getTimerCount()).toBe(0);
   });
 });
