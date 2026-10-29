@@ -66,7 +66,11 @@ export async function readPublicCatalogue(slug?: string) {
       const category = c.data?.find((cat) => cat.id === row.category_id);
       const photoUrl = (image: { filename: string; image_url: string }) =>
         image.filename ? `/api/public/product-photo/${image.filename}` : image.image_url;
-      const photos = (i.data ?? []).filter((image) => image.product_id === row.id);
+      const photos = featuredFirst(
+        (i.data ?? []).filter((image) => image.product_id === row.id),
+        row.thumbnail_url,
+        (image) => image.image_url,
+      );
       const sections = z
         .array(
           z.object({

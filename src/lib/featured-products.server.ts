@@ -59,8 +59,10 @@ export async function readFeaturedProducts(): Promise<FeaturedProduct[]> {
     for (const row of data ?? []) {
       const p = row.products;
       if (!p) continue;
-      const photo = [...(p.product_images ?? [])].sort(
-        (a, b) => a.display_order - b.display_order,
+      const photo = featuredFirst(
+        [...(p.product_images ?? [])].sort((a, b) => a.display_order - b.display_order),
+        p.thumbnail_url,
+        (image) => image.image_url,
       )[0];
       const photoUrl = photo
         ? photo.filename
