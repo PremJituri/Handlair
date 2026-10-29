@@ -6,7 +6,10 @@ import { readFeaturedProducts } from "./featured-products.server";
 export const featuredSlotsSchema = z
   .array(z.object({ slot_number: z.number().int().min(1).max(6), product_id: z.string().uuid() }))
   .length(6)
-  .refine((rows) => new Set(rows.map((r) => r.slot_number)).size === 6, "Each slot must be set once.");
+  .refine(
+    (rows) => new Set(rows.map((r) => r.slot_number)).size === 6,
+    "Each slot must be set once.",
+  );
 
 export const getFeaturedProducts = createServerFn({ method: "GET" }).handler(() =>
   readFeaturedProducts(),
@@ -32,9 +35,10 @@ export const saveFeaturedProducts = createServerFn({ method: "POST" })
     if (check.error || (check.data ?? []).length !== ids.length)
       throw new Error("Every slot must use a published product.");
     const now = new Date().toISOString();
-    const result = await db
-      .from("featured_products")
-      .upsert(data.map((r) => ({ ...r, updated_at: now })), { onConflict: "slot_number" });
+    const result = await db.from("featured_products").upsert(
+      data.map((r) => ({ ...r, updated_at: now })),
+      { onConflict: "slot_number" },
+    );
     if (result.error) throw new Error("Featured range could not be saved.");
     return { ok: true };
   });

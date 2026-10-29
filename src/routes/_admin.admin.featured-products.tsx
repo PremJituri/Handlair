@@ -101,7 +101,11 @@ function FeaturedRange() {
               <p className="eyebrow">Slot {String(n).padStart(2, "0")}</p>
               <div className="mt-3 flex aspect-[4/3] items-center justify-center overflow-hidden rounded-lg bg-muted/40">
                 {src ? (
-                  <img src={src} alt={current?.name ?? ""} className="h-full w-full object-contain p-3" />
+                  <img
+                    src={src}
+                    alt={current?.name ?? ""}
+                    className="h-full w-full object-contain p-3"
+                  />
                 ) : (
                   <span className="text-sm text-muted-foreground">No photo</span>
                 )}
