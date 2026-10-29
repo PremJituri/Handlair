@@ -41,11 +41,12 @@ function HeroPhotos() {
     setError("");
     try {
       await work();
-      await router.invalidate();
-      await queries.invalidateQueries({ queryKey: ["hero-slides"] });
     } catch (e) {
       setError(e instanceof Error ? e.message : "Unable to update hero photos.");
     } finally {
+      // Refresh even after a failure so any photos saved before it are shown.
+      await router.invalidate();
+      await queries.invalidateQueries({ queryKey: ["hero-slides"] });
       setBusy(false);
     }
   }
@@ -72,10 +73,21 @@ function HeroPhotos() {
             e.target.value = "";
             if (!files.length) return;
             await action(async () => {
-              for (const file of files) {
-                const form = new FormData();
-                form.set("file", await optimizeImage(file));
-                await upload({ data: form });
+              let saved = 0;
+              try {
+                for (const file of files) {
+                  const form = new FormData();
+                  form.set("file", await optimizeImage(file));
+                  await upload({ data: form });
+                  saved++;
+                }
+              } catch (e) {
+                const reason = e instanceof Error ? e.message : "Upload failed.";
+                throw new Error(
+                  saved
+                    ? `${saved} of ${files.length} photos uploaded. The rest failed: ${reason}`
+                    : reason,
+                );
               }
             });
           }}
