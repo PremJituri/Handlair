@@ -43,7 +43,7 @@ function HeroPhotos() {
   return <>
     <div className="flex flex-wrap items-center justify-between gap-4">
       <div><h1 className="type-h2">Hero Slideshow Photos</h1><p className="mt-2 text-muted-foreground">{slides.length} photos</p></div>
-      <Button disabled={busy} onClick={() => picker.current?.click()}><Upload />{busy ? "Updating…" : "Upload photo"}</Button>
+      <Button disabled={busy} className="h-11 rounded-lg" onClick={() => picker.current?.click()}><Upload />{busy ? "Updating…" : "Upload photo"}</Button>
       <input ref={picker} type="file" accept="image/jpeg,image/png,image/webp" className="hidden" aria-label="Upload hero photo" onChange={async e => {
         const files = Array.from(e.target.files ?? []); e.target.value = "";
         if (!files.length) return;

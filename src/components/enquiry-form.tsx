@@ -15,7 +15,7 @@ export function EnquiryForm({ compact = false }: { compact?: boolean }) {
   const [sent, setSent] = useState(false);
   const { register, handleSubmit, formState: { errors, isSubmitting } } = useForm<FormData>({ resolver: zodResolver(schema) });
   if (sent) return <div className="border border-primary bg-secondary p-8"><CheckCircle2 className="size-9 text-primary" /><h2 className="mt-5 type-h3">Enquiry prepared</h2><p className="mt-2 type-body">Thank you. Email delivery is not connected in this preview; please contact sales@handlair.co.in.</p></div>;
-  const field = "w-full border border-input bg-background px-4 py-3 outline-none transition focus:border-primary focus:ring-2 focus:ring-primary/20";
+  const field = "w-full rounded-lg border border-input bg-background px-4 py-3 outline-none transition focus:border-primary focus:ring-2 focus:ring-primary/20";
   return <form onSubmit={handleSubmit(async () => { await new Promise((r) => setTimeout(r, 500)); setSent(true); })} className="grid gap-5 sm:grid-cols-2" noValidate>
     <Field label="First name" error={errors.firstName?.message}><input className={field} {...register("firstName")} /></Field>
     <Field label="Last name" error={errors.lastName?.message}><input className={field} {...register("lastName")} /></Field>
