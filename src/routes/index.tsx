@@ -32,7 +32,7 @@ function Index() {
           <div className="home-hero-copy animate-rise">
             <p className="eyebrow">Air handling & pollution control</p>
             <h1 className="home-hero-title mt-6 font-display font-bold text-4xl uppercase leading-[1.02] sm:text-6xl">
-              Engineering air for <span className="text-primary">industry.</span>
+              Engineering air for <span className="text-primary-text">industry.</span>
             </h1>
             <p className="mt-8 max-w-2xl type-lead">
               <strong className="text-foreground">HANDLAIR</strong> is a leading manufacturer of
@@ -89,7 +89,7 @@ function Index() {
             <p className="eyebrow">02 / Product range</p>
             <h2 className="mt-5 type-h2">Equipment built to move and clean air.</h2>
           </div>
-          <Link to="/products" className="flex items-center gap-2 font-bold text-primary">
+          <Link to="/products" className="flex items-center gap-2 font-bold text-primary-text">
             View all products <ArrowRight className="size-4" />
           </Link>
         </div>
@@ -112,7 +112,7 @@ function Index() {
                 key={system}
                 className="flex items-baseline gap-4 border-b border-background/15 py-3"
               >
-                <span className="shrink-0 text-sm font-bold text-primary">
+                <span className="shrink-0 text-sm font-bold text-primary-text">
                   {String(index + 1).padStart(2, "0")}
                 </span>
                 <span className="font-display text-base font-bold uppercase leading-snug sm:text-lg">

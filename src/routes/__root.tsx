@@ -124,7 +124,7 @@ function NotFoundComponent() {
         </div>
         <Link
           to="/contact"
-          className="mt-4 inline-flex items-center gap-1.5 font-bold text-primary underline-offset-4 transition-colors hover:text-primary/80 hover:underline"
+          className="mt-4 inline-flex items-center gap-1.5 font-bold text-primary-text underline-offset-4 transition-colors hover:text-primary-text/80 hover:underline"
         >
           Contact Engineering Support <ArrowUpRight className="size-4" />
         </Link>

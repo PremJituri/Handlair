@@ -36,14 +36,14 @@ function Enquiries() {
               </div>
               <div className="mt-2 flex flex-wrap gap-x-5 gap-y-1 text-sm">
                 <a
-                  className="inline-flex items-center gap-1 hover:text-primary"
+                  className="inline-flex items-center gap-1 hover:text-primary-text"
                   href={`mailto:${e.email}`}
                 >
                   <Mail className="size-4" />
                   {e.email}
                 </a>
                 <a
-                  className="inline-flex items-center gap-1 hover:text-primary"
+                  className="inline-flex items-center gap-1 hover:text-primary-text"
                   href={`tel:${e.mobile.replace(/[^+\d]/g, "")}`}
                 >
                   <Phone className="size-4" />

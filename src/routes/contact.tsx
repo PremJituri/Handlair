@@ -68,7 +68,7 @@ function ContactItem({
 }) {
   return (
     <div className="border-t border-border pt-5">
-      <div className="flex items-center gap-3 text-primary">
+      <div className="flex items-center gap-3 text-primary-text">
         {icon}
         <span className="eyebrow">{label}</span>
       </div>

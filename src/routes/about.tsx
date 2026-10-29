@@ -121,7 +121,7 @@ function AboutPage() {
               key={item}
               className="flex h-full min-w-0 flex-col items-start justify-center gap-2 border border-border/60 px-3 py-4 sm:flex-row sm:items-center sm:justify-start sm:gap-3 sm:px-5"
             >
-              <span className="shrink-0 text-xs font-bold text-primary">
+              <span className="shrink-0 text-xs font-bold text-primary-text">
                 {String(i + 1).padStart(2, "0")}
               </span>
               <h3 className="min-w-0 break-words font-display text-sm font-bold uppercase leading-snug sm:text-base">
@@ -148,7 +148,7 @@ function AboutPage() {
                 key={item}
                 className={`col-span-2 flex h-full min-w-0 items-center gap-3 border border-border/60 px-3 py-4 sm:px-5 ${i === 4 ? "lg:col-start-2" : i === 5 ? "lg:col-start-4" : i === 6 ? "col-start-2 lg:col-start-6" : ""}`}
               >
-                <span className="shrink-0 text-xs font-bold text-primary">
+                <span className="shrink-0 text-xs font-bold text-primary-text">
                   {String(i + 1).padStart(2, "0")}
                 </span>
                 <h3 className="min-w-0 break-words font-display text-base font-bold uppercase leading-snug">
@@ -208,7 +208,7 @@ function AboutPage() {
               </div>
             ))}
           </div>
-          <p className="mt-16 border-t border-border pb-4 pt-12 text-center font-display text-2xl font-bold uppercase tracking-wide text-primary md:text-3xl">
+          <p className="mt-16 border-t border-border pb-4 pt-12 text-center font-display text-2xl font-bold uppercase tracking-wide text-primary-text md:text-3xl">
             Engineering Air Solutions Since 1996.
           </p>
         </div>
