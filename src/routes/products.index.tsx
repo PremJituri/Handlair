@@ -1,4 +1,5 @@
 import { createFileRoute } from "@tanstack/react-router";
+import { pageSeo, breadcrumbLd } from "@/lib/seo";
 import { ProductCatalogue } from "@/components/products/catalogue";
 import { CtaBand, PageHero } from "@/components/site-shell";
 import { getPublicCatalogue } from "@/lib/catalogue.functions";

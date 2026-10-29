@@ -1,4 +1,5 @@
 import { createFileRoute, Link, notFound } from "@tanstack/react-router";
+import { pageSeo, ldScript, breadcrumbLd, absoluteUrl, metaDescription, ORG_NAME } from "@/lib/seo";
 import { ArrowLeft, ArrowRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { CtaBand } from "@/components/site-shell";

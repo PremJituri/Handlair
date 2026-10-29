@@ -1,4 +1,5 @@
 import { createFileRoute } from "@tanstack/react-router";
+import { pageSeo, breadcrumbLd } from "@/lib/seo";
 import { BadgeCheck, Globe2, LifeBuoy, Tag, Truck } from "lucide-react";
 import { CtaBand, PageHero } from "@/components/site-shell";
 
