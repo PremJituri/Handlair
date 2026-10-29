@@ -119,6 +119,32 @@ export type Database = {
         }
         Relationships: []
       }
+      featured_products: {
+        Row: {
+          product_id: string
+          slot_number: number
+          updated_at: string
+        }
+        Insert: {
+          product_id: string
+          slot_number: number
+          updated_at?: string
+        }
+        Update: {
+          product_id?: string
+          slot_number?: number
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "featured_products_product_id_fkey"
+            columns: ["product_id"]
+            isOneToOne: false
+            referencedRelation: "products"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       hero_slides: {
         Row: {
           alt_text: string

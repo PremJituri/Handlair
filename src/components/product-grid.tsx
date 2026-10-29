@@ -1,6 +1,5 @@
 import { Link } from "@tanstack/react-router";
 import { ArrowUpRight } from "lucide-react";
-import { products } from "@/data/handlair";
 import airCoolingUnit from "@/assets/optimized/product-air-cooling-unit.webp.asset.json";
 import bagFilterDustCollectors from "@/assets/optimized/product-bag-filter-dust-collectors.webp.asset.json";
 import cycloneDustCollectors from "@/assets/optimized/product-cyclone-dust-collectors.webp.asset.json";
@@ -14,24 +13,28 @@ const rangeImages: Record<string, string> = {
   "wet-scrubbers": wetScrubbers.url,
 };
 
-export function ProductGrid({ limit }: { limit?: number }) {
+export type GridProduct = { slug: string; name: string; summary: string; image: string };
+
+export function ProductGrid({ products }: { products: GridProduct[] }) {
   return (
     <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-      {products.slice(0, limit).map((product, index) => (
+      {products.map((product, index) => (
         <Link
-          key={product.slug}
+          key={`${index}-${product.slug}`}
           to="/products/$slug"
           params={{ slug: product.slug }}
           className="glass-surface group p-5 transition-shadow hover:shadow-lg md:p-7"
         >
           <div className="mb-6 aspect-[4/3] overflow-hidden">
-            <img
-              src={rangeImages[product.slug] ?? product.image}
-              alt={product.name}
-              loading="lazy"
-              decoding="async"
-              className="h-full w-full object-contain p-4 transition-transform duration-500 group-hover:scale-105"
-            />
+            {(rangeImages[product.slug] ?? product.image) && (
+              <img
+                src={rangeImages[product.slug] ?? product.image}
+                alt={product.name}
+                loading="lazy"
+                decoding="async"
+                className="h-full w-full object-contain p-4 transition-transform duration-500 group-hover:scale-105"
+              />
+            )}
           </div>
           <div className="flex items-start justify-between gap-4">
             <div>

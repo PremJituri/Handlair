@@ -1,6 +1,7 @@
 import { queryOptions, type QueryClient } from "@tanstack/react-query";
 import { getAdminData, getAdminHeroSlides } from "./cms.functions";
 import { getEnquiries } from "./enquiry.functions";
+import { adminFeaturedQuery } from "./featured-products-query";
 
 export const adminCatalogueQuery = queryOptions({
   queryKey: ["admin", "catalogue"],
@@ -26,6 +27,11 @@ export const adminEnquiriesQuery = (page: number) =>
 export function preloadAdminPage(queries: QueryClient, href: string) {
   const url = new URL(href, "https://handlair.local");
   if (url.pathname.startsWith("/admin/hero-slides")) return queries.prefetchQuery(adminHeroQuery);
+  if (url.pathname.startsWith("/admin/featured-products"))
+    return Promise.all([
+      queries.prefetchQuery(adminFeaturedQuery),
+      queries.prefetchQuery(adminCatalogueQuery),
+    ]);
   if (url.pathname.startsWith("/admin/enquiries")) {
     const page = Number(url.searchParams.get("page"));
     return queries.prefetchQuery(
