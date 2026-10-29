@@ -33,3 +33,5 @@
 - [x] Add ten seeded hero photos, secure management, atomic ordering and last-photo protection.
 - [x] Connect homepage and admin preview while preserving six-second timing and existing framing.
 - [x] Verify authenticated upload/edit/reorder/delete, session refresh/logout, public image access removal, desktop/mobile layouts, 1.2-second dissolve, and denied public mutation grants. All 23 tests pass, including last-photo and single-photo safeguards; automatic build OK. Transactional database last-photo simulation was unavailable to the restricted verification connection; no original photos were deleted for that check.
+- [x] Make the shared container always fill available width so admin pages stop shrink-wrapping; admin shell explicitly full width and the products table spans its container with balanced columns.
+- [x] Verify admin alignment at 1920x1080, 2560x1440 and 3840x2160, phone/tablet fluidity, public-page overflow, 38 tests, lint and automatic build OK.
