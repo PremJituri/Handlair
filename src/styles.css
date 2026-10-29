@@ -217,6 +217,7 @@
 
 /* Shared wide containers grow on desktop; narrower reading/form widths stay intact. */
 @utility site-container {
+  width: 100%;
   max-width: var(--site-content-width);
 }
 
