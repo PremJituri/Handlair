@@ -10,5 +10,5 @@ export function featuredFirst<T>(
 ): T[] {
   const index = featured ? images.findIndex((image) => key(image) === featured) : -1;
   if (index <= 0) return [...images];
-  return [images[index], ...images.slice(0, index), ...images.slice(index + 1)];
+  return [images[index] as T, ...images.slice(0, index), ...images.slice(index + 1)];
 }
