@@ -24,3 +24,4 @@
 - Uploaded images are resized in-browser, then decoded and JPEG re-encoded server-side with strict dimension and byte limits; only published product photos are served publicly.
 - Existing product slugs are immutable in the CMS to preserve legacy links; drafts and legacy-only records remain independently managed.
 - Hero management shares validated image optimization and private storage with the CMS; serialize append/reorder/delete through database locks and deny mutation RPCs to public roles so concurrent edits cannot empty the slideshow. Retain removed private files to avoid breaking concurrent or shared photo references; public serving requires an active slide.
+- Database tooling packages (drizzle-orm, postgres) are required by migrations even though app code never imports them; do not remove them as unused.
