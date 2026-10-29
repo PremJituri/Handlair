@@ -1,6 +1,8 @@
+import { invalidateContent } from "@/lib/invalidate-content";
+import { adminHeroQuery } from "@/lib/admin-query";
 import { createFileRoute, useRouter } from "@tanstack/react-router";
 import { useServerFn } from "@tanstack/react-start";
-import { useQueryClient } from "@tanstack/react-query";
+import { useQueryClient, useSuspenseQuery } from "@tanstack/react-query";
 import { useRef, useState } from "react";
 import { ArrowUp, ArrowDown, Pencil, Trash2, Upload, Save, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
@@ -8,7 +10,6 @@ import { Input } from "@/components/ui/input";
 import { ConfirmDelete } from "@/components/admin/confirm-delete";
 import { HeroSlideshow } from "@/components/hero-slideshow";
 import {
-  getAdminHeroSlides,
   uploadHeroPhoto,
   updateHeroSlidesOrder,
   updateHeroSlideAlt,
@@ -18,13 +19,15 @@ import { optimizeImage } from "@/lib/optimize-image";
 import { adminHead } from "@/lib/admin-head";
 
 export const Route = createFileRoute("/_admin/admin/hero-slides")({
-  loader: () => getAdminHeroSlides(),
+  loader: ({ context }) => context.queryClient.ensureQueryData(adminHeroQuery),
+  errorComponent: () => <p role="alert">This page could not load. Please try again.</p>,
+  notFoundComponent: () => <p>Admin page not found.</p>,
   head: () => adminHead("Hero Slideshow Photos"),
   component: HeroPhotos,
 });
 
 function HeroPhotos() {
-  const slides = Route.useLoaderData();
+  const { data: slides } = useSuspenseQuery(adminHeroQuery);
   const router = useRouter();
   const queries = useQueryClient();
   const upload = useServerFn(uploadHeroPhoto);
@@ -45,8 +48,8 @@ function HeroPhotos() {
       setError(e instanceof Error ? e.message : "Unable to update hero photos.");
     } finally {
       // Refresh even after a failure so any photos saved before it are shown.
+      await invalidateContent(queries, "hero");
       await router.invalidate();
-      await queries.invalidateQueries({ queryKey: ["hero-slides"] });
       setBusy(false);
     }
   }

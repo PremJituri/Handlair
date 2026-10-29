@@ -42,15 +42,17 @@ export const getEnquiries = createServerFn({ method: "GET" })
     z.object({ page: z.number().int().min(1).max(100000).default(1) }).parse(input ?? {}),
   )
   .handler(async ({ data: { page } }) => {
-    await requireAdmin();
     const { supabaseAdmin: db } = await import("@/integrations/supabase/client.server");
     const from = (page - 1) * ENQUIRIES_PAGE_SIZE;
-    const { data, error, count } = await db
-      .from("enquiries")
-      .select("*", { count: "exact" })
-      .order("created_at", { ascending: false })
-      .order("id", { ascending: false })
-      .range(from, from + ENQUIRIES_PAGE_SIZE - 1);
+    const [, { data, error, count }] = await Promise.all([
+      requireAdmin(),
+      db
+        .from("enquiries")
+        .select("*", { count: "exact" })
+        .order("created_at", { ascending: false })
+        .order("id", { ascending: false })
+        .range(from, from + ENQUIRIES_PAGE_SIZE - 1),
+    ]);
     if (error) throw new Error("Unable to load enquiries.");
     const total = count ?? 0;
     return {

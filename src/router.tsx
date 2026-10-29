@@ -10,8 +10,11 @@ export const getRouter = () => {
     routeTree,
     context: { queryClient },
     scrollRestoration: true,
+    defaultPreload: "intent",
+    defaultPreloadDelay: 50,
+    // Query owns the five-minute freshness window, including after invalidation.
     defaultPreloadStaleTime: 0,
-    defaultPendingMs: 250,
+    defaultPendingMs: 120,
     defaultPendingComponent: () => (
       <div
         role="status"

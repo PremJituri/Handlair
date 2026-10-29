@@ -1,13 +1,17 @@
+import { adminCatalogueQuery } from "@/lib/admin-query";
+import { useSuspenseQuery } from "@tanstack/react-query";
 import { createFileRoute } from "@tanstack/react-router";
-import { getAdminData } from "@/lib/cms.functions";
 import { adminHead } from "@/lib/admin-head";
 import { ProductEditor } from "@/components/admin/product-editor";
 export const Route = createFileRoute("/_admin/admin/products/$id")({
-  loader: () => getAdminData(),
+  loader: ({ context }) => context.queryClient.ensureQueryData(adminCatalogueQuery),
+  errorComponent: () => <p role="alert">This page could not load. Please try again.</p>,
+  notFoundComponent: () => <p>Admin page not found.</p>,
   head: () => adminHead("Edit product"),
   component: EditProduct,
 });
 function EditProduct() {
+  const { data } = useSuspenseQuery(adminCatalogueQuery);
   const { id } = Route.useParams();
-  return <ProductEditor key={id} id={id} data={Route.useLoaderData()} />;
+  return <ProductEditor key={id} id={id} data={data} />;
 }

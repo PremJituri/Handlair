@@ -7,9 +7,11 @@ import { readHeroSlides } from "./hero-slides.server";
 import { assertCanDeleteHeroSlide, heroAltSchema } from "./hero-slides";
 
 export const getAdminData = createServerFn({ method: "GET" }).handler(async () => {
-  await requireAdmin();
   const { supabaseAdmin: db } = await import("@/integrations/supabase/client.server");
-  const [products, categories, images] = await Promise.all([
+  // These reads have no side effects; authorization must resolve successfully
+  // before any result is returned, but need not delay independent database reads.
+  const [, products, categories, images] = await Promise.all([
+    requireAdmin(),
     db.from("products").select("*").order("display_order"),
     db.from("categories").select("*").order("display_order"),
     db.from("product_images").select("*").order("display_order"),
@@ -156,13 +158,11 @@ export const deleteImage = createServerFn({ method: "POST" })
 
 export const getHeroSlides = createServerFn({ method: "GET" }).handler(() => readHeroSlides());
 export const getAdminHeroSlides = createServerFn({ method: "GET" }).handler(async () => {
-  await requireAdmin();
   const { supabaseAdmin: db } = await import("@/integrations/supabase/client.server");
-  const { data, error } = await db
-    .from("hero_slides")
-    .select("*")
-    .order("sort_order")
-    .order("created_at");
+  const [, { data, error }] = await Promise.all([
+    requireAdmin(),
+    db.from("hero_slides").select("*").order("sort_order").order("created_at"),
+  ]);
   if (error) throw new Error("Unable to load hero photos.");
   return data ?? [];
 });

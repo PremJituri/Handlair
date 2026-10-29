@@ -4,6 +4,7 @@ import {
   Link,
   createRootRouteWithContext,
   useRouter,
+  useRouterState,
   HeadContent,
   Scripts,
   type ErrorComponentProps,
@@ -238,9 +239,17 @@ function RootShell({ children }: { children: ReactNode }) {
 
 function RootComponent() {
   const { queryClient } = Route.useRouteContext();
+  const loading = useRouterState({ select: (state) => state.status === "pending" });
 
   return (
     <QueryClientProvider client={queryClient}>
+      {loading && (
+        <div
+          role="progressbar"
+          aria-label="Loading page"
+          className="pointer-events-none fixed inset-x-0 top-0 z-[100] h-0.5 animate-pulse bg-primary motion-reduce:animate-none"
+        />
+      )}
       {/* Required: nested routes render here. Removing <Outlet /> breaks all child routes. */}
       <SiteShell>
         <Outlet />

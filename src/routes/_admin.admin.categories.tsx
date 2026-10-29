@@ -1,7 +1,10 @@
+import { invalidateContent } from "@/lib/invalidate-content";
+import { adminCatalogueQuery } from "@/lib/admin-query";
+import { useSuspenseQuery, useQueryClient } from "@tanstack/react-query";
 import { createFileRoute, useRouter } from "@tanstack/react-router";
 import { useState } from "react";
 import { Plus, Pencil, Trash2 } from "lucide-react";
-import { getAdminData, saveCategory, deleteCategory } from "@/lib/cms.functions";
+import { saveCategory, deleteCategory } from "@/lib/cms.functions";
 import { categorySchema, canDeleteCategory, slugify } from "@/lib/cms-schema";
 import { adminHead } from "@/lib/admin-head";
 import { Button } from "@/components/ui/button";
@@ -9,13 +12,16 @@ import { Input } from "@/components/ui/input";
 import { Dialog, DialogContent, DialogTitle, DialogDescription } from "@/components/ui/dialog";
 import { ConfirmDelete } from "@/components/admin/confirm-delete";
 export const Route = createFileRoute("/_admin/admin/categories")({
-  loader: () => getAdminData(),
+  loader: ({ context }) => context.queryClient.ensureQueryData(adminCatalogueQuery),
+  errorComponent: () => <p role="alert">This page could not load. Please try again.</p>,
+  notFoundComponent: () => <p>Admin page not found.</p>,
   head: () => adminHead("Categories"),
   component: Categories,
 });
 function Categories() {
-  const data = Route.useLoaderData();
+  const { data } = useSuspenseQuery(adminCatalogueQuery);
   const router = useRouter();
+  const queries = useQueryClient();
   const [edit, setEdit] = useState<{
     id?: string;
     name: string;
@@ -113,6 +119,7 @@ function Categories() {
                   setError("");
                   await saveCategory({ data: parsed.data });
                   setEdit(null);
+                  await invalidateContent(queries, "catalogue");
                   await router.invalidate();
                 } catch (e) {
                   setError(e instanceof Error ? e.message : "Save failed.");
@@ -178,6 +185,7 @@ function Categories() {
           try {
             await deleteCategory({ data: remove.id });
             setRemove(null);
+            await invalidateContent(queries, "catalogue");
             await router.invalidate();
           } catch (e) {
             setError(e instanceof Error ? e.message : "Deletion failed.");
