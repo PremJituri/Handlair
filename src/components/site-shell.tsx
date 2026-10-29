@@ -1,16 +1,19 @@
 import { Link } from "@tanstack/react-router";
-import { ArrowUpRight, Mail, Menu, Phone, X } from "lucide-react";
+import { ArrowUpRight, Mail, MapPin, Menu, Phone, Smartphone, X } from "lucide-react";
 import { useState, type ReactNode } from "react";
 import { Button } from "@/components/ui/button";
 import { Magnetic, MagneticLabel } from "@/components/core/magnetic";
 import { contact } from "@/data/handlair";
 import logoAsset from "@/assets/maaria-logo.jpg.asset.json";
 
-const nav = [
+const footerNav = [
+  ["Home", "/"],
   ["About", "/about"],
   ["Products", "/products"],
   ["Contact", "/contact"],
+  ["Enquiry", "/enquiry"],
 ] as const;
+
 
 const headerNav = [
   ["Home", "/"],
@@ -131,7 +134,7 @@ export function Footer() {
         <div>
           <h2 className="eyebrow">Navigate</h2>
           <div className="mt-5 grid gap-3">
-            {nav.map(([label, to]) => (
+            {footerNav.map(([label, to]) => (
               <Link key={to} to={to} className="font-semibold hover:text-primary">
                 {label}
               </Link>
