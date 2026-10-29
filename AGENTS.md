@@ -15,7 +15,7 @@
 
 - Extend opening page patterns behind the unchanged header using the shared header-slot offset and equal compensating inner top spacing to preserve content positions.
 - Keep Products-only taxonomy and image associations in `src/data/product-catalogue.ts`, derived from shared business/photo records; shared installation photos remain required after standalone Gallery removal so product viewers and legacy product URLs stay intact.
-- Use the shared `site-container` width for wide public layouts, retaining narrower reading/form limits; size the desktop home hero against available viewport height so shorter laptops retain visible recovery actions and complete equipment imagery.
+- Keep `site-container` filling its parent up to `--site-content-width` so admin and public pages share one aligned column; size the floating header with width utilities rather than side margins so it cannot overflow the viewport; size the desktop home hero against available viewport height so shorter laptops retain visible recovery actions and complete equipment imagery.
 - Keep slideshow playback isolated in `HeroSlideshow`, public reads in a cached route query, and static assets as an offline fallback; decode before playback and skip timers for single photos and reduced motion.
 - Catalogue CMS uses Cloud PostgreSQL and private image storage, not persistent local files or native Sharp, because the published runtime has no durable disk or native binaries.
 - CMS authentication uses bcrypt-verified configured admin credentials and encrypted HttpOnly sessions; every admin server operation revalidates the account, and no browser-controlled role grants access.
