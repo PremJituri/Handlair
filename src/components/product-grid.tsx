@@ -34,7 +34,7 @@ export function ProductGrid({ limit }: { limit?: number }) {
           </div>
           <div className="flex items-start justify-between gap-4">
             <div>
-              <span className="text-xs font-bold text-primary">
+              <span className="text-xs font-bold text-primary-text">
                 {String(index + 1).padStart(2, "0")}
               </span>
               <h3 className="mt-2 type-h3">{product.name}</h3>

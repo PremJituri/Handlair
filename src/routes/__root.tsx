@@ -99,6 +99,16 @@ function NotFoundLottie() {
 
 function NotFoundComponent() {
   const router = useRouter();
+
+  // The root metadata supplies a fallback title; make the tab specific to this page.
+  useEffect(() => {
+    const previous = document.title;
+    document.title = "Page not found — Handlair Engineering Technologies";
+    return () => {
+      document.title = previous;
+    };
+  }, []);
+
   return (
     <section className="pattern-grid -mt-[var(--header-slot)] overflow-hidden border-b border-border">
       <div className="mx-auto flex min-h-[calc(100vh-5rem)] w-full max-w-3xl flex-col items-center justify-center px-5 pb-16 pt-[calc(5rem+var(--header-slot))] text-center lg:px-8 lg:pb-24 lg:pt-[calc(7rem+var(--header-slot))]">
@@ -124,7 +134,7 @@ function NotFoundComponent() {
         </div>
         <Link
           to="/contact"
-          className="mt-4 inline-flex items-center gap-1.5 font-bold text-primary underline-offset-4 transition-colors hover:text-primary/80 hover:underline"
+          className="mt-4 inline-flex items-center gap-1.5 font-bold text-primary-text underline-offset-4 transition-colors hover:text-primary-text/80 hover:underline"
         >
           Contact Engineering Support <ArrowUpRight className="size-4" />
         </Link>
@@ -181,6 +191,7 @@ function ErrorComponent({ error, reset }: ErrorComponentProps) {
 export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()({
   head: () => ({
     meta: [
+      { title: "Handlair Engineering Technologies" },
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
       { name: "author", content: "Handlair Engineering Technologies" },

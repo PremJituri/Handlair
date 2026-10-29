@@ -84,7 +84,7 @@ function ProductPage() {
         <div className="mx-auto site-container px-5 pb-14 pt-[calc(3rem+var(--header-slot))] lg:px-8 lg:pb-20">
           <Link
             to="/products"
-            className="mb-8 inline-flex items-center gap-2 text-base font-bold text-foreground hover:text-primary"
+            className="mb-8 inline-flex items-center gap-2 text-base font-bold text-foreground hover:text-primary-text"
           >
             <ArrowLeft className="size-4" /> Full product catalogue
           </Link>

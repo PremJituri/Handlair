@@ -115,7 +115,7 @@ export function ProductEditor({ data, id }: { data: AdminData; id?: string }) {
     return (
       <div>
         <h1 className="type-h2">Product not found</h1>
-        <Link to="/admin/products" className="text-primary">
+        <Link to="/admin/products" className="text-primary-text">
           Back to products
         </Link>
       </div>
@@ -525,7 +525,7 @@ export function ProductEditor({ data, id }: { data: AdminData; id?: string }) {
           </p>
         )}
         {notice && (
-          <p role="status" className="text-primary">
+          <p role="status" className="text-primary-text">
             {notice}
           </p>
         )}
