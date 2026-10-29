@@ -44,12 +44,24 @@ function isH3SwallowedErrorBody(body: string): boolean {
   }
 }
 
+// Block framing by other sites (clickjacking) while allowing the Lovable editor preview.
+function withSecurityHeaders(response: Response): Response {
+  const secured = new Response(response.body, response);
+  secured.headers.set(
+    "Content-Security-Policy",
+    "frame-ancestors 'self' https://*.lovable.app https://*.lovable.dev https://lovable.dev https://*.lovableproject.com; base-uri 'self'; object-src 'none'; form-action 'self'",
+  );
+  secured.headers.set("Permissions-Policy", "camera=(), microphone=(), geolocation=()");
+  secured.headers.set("X-Content-Type-Options", "nosniff");
+  return secured;
+}
+
 export default {
   async fetch(request: Request, env: unknown, ctx: unknown) {
     try {
       const handler = await getServerEntry();
       const response = await handler.fetch(request, env, ctx);
-      return await normalizeCatastrophicSsrResponse(response);
+      return withSecurityHeaders(await normalizeCatastrophicSsrResponse(response));
     } catch (error) {
       console.error(error);
       return new Response(renderErrorPage(), {
