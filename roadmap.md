@@ -1,7 +1,7 @@
-- [ ] Optimize existing homepage photos without changing CMS data, slideshow timing, or framing.
-- [ ] Clear editable-file formatting failures and retain checks on generated integration code.
-- [ ] Preserve future custom-domain SEO and verify preview functionality and automatic build evidence.
-- [ ] Put approved launch fixes live and verify published headers, metadata and sitemap.
+- [x] Optimize existing homepage photos without changing CMS data, slideshow timing, or framing (hero downloads reduced from 2.21 MB to 1.31 MB).
+- [x] Clear editable-file formatting failures and retain checks on generated integration code (lint exits 0; two pre-existing development warnings remain).
+- [x] Preserve future custom-domain SEO and verify preview functionality and automatic build evidence (35 tests passed; automatic build OK; desktop/mobile browsing and slideshow verified).
+- [ ] Put approved launch fixes live and verify published headers, metadata and sitemap — waits for explicit publish authorization; custom domain connection remains external.
 - [x] Float and frost the shared navigation.
 - [x] Add selective glass details across public pages.
 - [x] Verify page rendering, navigation and mobile menu.
