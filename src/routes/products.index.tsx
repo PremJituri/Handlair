@@ -7,7 +7,7 @@ import { publicCatalogueQuery } from "@/lib/catalogue-query";
 
 export const Route = createFileRoute("/products/")({
   loader: ({ context }) => context.queryClient.ensureQueryData(publicCatalogueQuery),
-  errorComponent: ({ error }) => <p role="alert">{error.message}</p>,
+  errorComponent: () => <p role="alert">This page could not load. Please try again.</p>,
   notFoundComponent: () => <p>Catalogue not found.</p>,
   head: () => ({
     ...pageSeo(

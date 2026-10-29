@@ -14,7 +14,7 @@ export const Route = createFileRoute("/products/$slug")({
     if (!data.product) throw notFound();
     return { ...data.product, relatedProducts: data.related, categories: data.categories };
   },
-  errorComponent: ({ error }) => <p role="alert">{error.message}</p>,
+  errorComponent: () => <p role="alert">This page could not load. Please try again.</p>,
   notFoundComponent: () => <p>Product not found.</p>,
   head: ({ loaderData, params }) => {
     if (!loaderData)

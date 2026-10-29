@@ -20,7 +20,7 @@ import { adminHead } from "@/lib/admin-head";
 
 export const Route = createFileRoute("/_admin/admin/hero-slides")({
   loader: ({ context }) => context.queryClient.ensureQueryData(adminHeroQuery),
-  errorComponent: ({ error }) => <p role="alert">{error.message}</p>,
+  errorComponent: () => <p role="alert">This page could not load. Please try again.</p>,
   notFoundComponent: () => <p>Admin page not found.</p>,
   head: () => adminHead("Hero Slideshow Photos"),
   component: HeroPhotos,

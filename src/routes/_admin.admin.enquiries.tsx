@@ -9,7 +9,7 @@ export const Route = createFileRoute("/_admin/admin/enquiries")({
   validateSearch: z.object({ page: z.number().int().min(1).optional().catch(undefined) }),
   loaderDeps: ({ search }) => ({ page: search.page ?? 1 }),
   loader: ({ deps, context }) => context.queryClient.ensureQueryData(adminEnquiriesQuery(deps.page)),
-  errorComponent: ({ error }) => <p role="alert">{error.message}</p>,
+  errorComponent: () => <p role="alert">This page could not load. Please try again.</p>,
   notFoundComponent: () => <p>Enquiries not found.</p>,
   head: () => adminHead("Enquiries"),
   component: Enquiries,
