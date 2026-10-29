@@ -10,41 +10,59 @@ export function HeroSlideshow({ slides = heroSlides }: { slides?: readonly HeroP
 
 function SlideshowPlayback({ slides }: { slides: readonly HeroPhoto[] }) {
   const [active, setActive] = useState(0);
+  // Number of leading slides that are decoded and rendered. Further slides are
+  // fetched one at a time, just ahead of when they are needed.
+  const [loaded, setLoaded] = useState(1);
 
   useEffect(() => {
     let cancelled = false;
-    let timer: ReturnType<typeof setInterval> | undefined;
+    let timer: ReturnType<typeof setTimeout> | undefined;
     const motion = window.matchMedia("(prefers-reduced-motion: reduce)");
-    const images = slides.map((slide) => {
-      const image = new Image();
-      image.src = optimizedPhotoUrl(slide.src);
-      return image;
-    });
-    let ready = false;
-    const updatePlayback = () => {
-      clearInterval(timer);
+    const decoded = new Set<number>([0]);
+    const decode = (index: number) =>
+      new Promise<void>((resolve) => {
+        const image = new Image();
+        image.src = optimizedPhotoUrl(slides[index]!.src);
+        image
+          .decode()
+          .catch(() => undefined)
+          .then(() => {
+            decoded.add(index);
+            if (!cancelled) setLoaded((n) => Math.max(n, index + 1));
+            resolve();
+          });
+      });
+    let current = 0;
+    const schedule = () => {
+      clearTimeout(timer);
       timer = undefined;
-      if (cancelled || !ready || motion.matches || slides.length <= 1) return;
-      timer = setInterval(() => {
-        setActive((current) => (current + 1) % slides.length);
-      }, HERO_SLIDE_INTERVAL_MS);
+      if (cancelled || motion.matches || slides.length <= 1) return;
+      const next = (current + 1) % slides.length;
+      // Fetch the upcoming slide during the dwell time of the current one.
+      const ready = decoded.has(next) ? Promise.resolve() : decode(next);
+      const started = Date.now();
+      void ready.then(() => {
+        if (cancelled || motion.matches) return;
+        const wait = Math.max(0, HERO_SLIDE_INTERVAL_MS - (Date.now() - started));
+        timer = setTimeout(() => {
+          current = next;
+          setActive(next);
+          schedule();
+        }, wait);
+      });
     };
-    // Decode before starting the loop so a new slide never reveals an empty frame.
-    void Promise.all(images.map((image) => image.decode().catch(() => undefined))).then(() => {
-      ready = true;
-      updatePlayback();
-    });
-    motion.addEventListener("change", updatePlayback);
+    void decode(0).then(schedule);
+    motion.addEventListener("change", schedule);
     return () => {
       cancelled = true;
-      clearInterval(timer);
-      motion.removeEventListener("change", updatePlayback);
+      clearTimeout(timer);
+      motion.removeEventListener("change", schedule);
     };
   }, [slides]);
 
   return (
     <div className="relative aspect-[4/5] w-full">
-      {slides.map((slide, index) => (
+      {slides.slice(0, loaded).map((slide, index) => (
         <img
           key={`${slide.src}-${index}`}
           src={optimizedPhotoUrl(slide.src)}

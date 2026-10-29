@@ -174,6 +174,7 @@ export function ProductCatalogue({
                       onClick={() => {
                         pickCategory(item.id);
                         setMenuOpen(false);
+                        triggerRef.current?.focus();
                       }}
                       className={cn(
                         "h-auto min-h-11 max-w-full whitespace-normal rounded-full border px-4 py-2 text-left text-base leading-snug",

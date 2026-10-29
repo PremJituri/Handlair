@@ -4,6 +4,11 @@ import { HeroSlideshow } from "@/components/hero-slideshow";
 import { heroSlides } from "@/data/hero-slideshow";
 import { optimizedPhotoUrl } from "@/data/image-renditions";
 
+const advance = (ms: number) =>
+  act(async () => {
+    await vi.advanceTimersByTimeAsync(ms);
+  });
+
 afterEach(() => {
   cleanup();
   vi.useRealTimers();
@@ -23,7 +28,7 @@ describe("Hero slideshow", () => {
       await Promise.resolve();
     });
     expect(vi.getTimerCount()).toBe(0);
-    act(() => vi.advanceTimersByTime(18000));
+    await advance(18000);
     expect(container.querySelector('img[aria-hidden="false"]')?.getAttribute("src")).toBe(
       "/one.jpg",
     );
@@ -42,15 +47,15 @@ describe("Hero slideshow", () => {
       container.querySelector('img[aria-hidden="false"]')?.getAttribute("src");
     expect(heroSlides).toHaveLength(10);
     expect(currentSrc()).toBe(optimizedPhotoUrl(heroSlides[0].src));
-    act(() => vi.advanceTimersByTime(5999));
+    await advance(5999);
     expect(currentSrc()).toBe(optimizedPhotoUrl(heroSlides[0].src));
-    act(() => vi.advanceTimersByTime(1));
+    await advance(1);
     expect(currentSrc()).toBe(optimizedPhotoUrl(heroSlides[1].src));
     for (const slide of heroSlides.slice(2)) {
-      act(() => vi.advanceTimersByTime(6000));
+      await advance(6000);
       expect(currentSrc()).toBe(optimizedPhotoUrl(slide.src));
     }
-    act(() => vi.advanceTimersByTime(6000));
+    await advance(6000);
     expect(currentSrc()).toBe(optimizedPhotoUrl(heroSlides[0].src));
     unmount();
     expect(vi.getTimerCount()).toBe(0);
@@ -70,10 +75,13 @@ describe("Hero slideshow", () => {
     await act(async () => {
       await Promise.resolve();
     });
-    act(() => vi.advanceTimersByTime(30000));
+    await advance(30000);
     expect(container.querySelector('img[aria-hidden="false"]')?.getAttribute("src")).toBe(
       optimizedPhotoUrl(heroSlides[0].src),
     );
     expect(vi.getTimerCount()).toBe(0);
+    // Reduced motion only fetches and renders the displayed photo.
+    expect(container.querySelectorAll("img")).toHaveLength(1);
+    expect(window.Image).toHaveBeenCalledTimes(1);
   });
 });

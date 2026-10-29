@@ -37,8 +37,14 @@ export function EnquiryForm({ compact = false }: { compact?: boolean }) {
       onSubmit={handleSubmit(async (values) => {
         setFailure("");
         try {
-          await submitEnquiry({ data: values });
-          setSent(true);
+          const result = await submitEnquiry({ data: values });
+          if (result.ok) setSent(true);
+          else
+            setFailure(
+              result.reason === "rate_limited"
+                ? "Too many enquiries sent. Please try again in 15 minutes, or email sales@handlair.co.in."
+                : "We could not send your enquiry. Please try again or email sales@handlair.co.in.",
+            );
         } catch {
           setFailure(
             "We could not send your enquiry. Please try again or email sales@handlair.co.in.",

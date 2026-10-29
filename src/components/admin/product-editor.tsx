@@ -80,33 +80,45 @@ export function ProductEditor({ data, id }: { data: AdminData; id?: string }) {
     update("specs_json", rows);
   }
   async function upload(files: FileList | File[]) {
-    if (!id) {
+    if (!id || !product) {
       setError("Save the product before adding photos.");
       return;
     }
+    const list = Array.from(files);
     setBusy(true);
     setError("");
-    setPreviews(Array.from(files).map((f) => URL.createObjectURL(f)));
+    setPreviews(list.map((f) => URL.createObjectURL(f)));
+    let order = data.images.filter((i) => i.product_id === id).length;
+    // Only the persisted thumbnail decides whether a primary photo is needed, and
+    // only the thumbnail is saved, so unsaved editor changes stay under explicit Save.
+    let needsThumbnail = !product.thumbnail_url;
+    let saved = 0;
     try {
-      for (const file of Array.from(files)) {
+      for (const file of list) {
         const optimized = await optimizeImage(file);
         const form = new FormData();
         form.set("product_id", id);
         form.set("file", optimized);
         form.set("alt_text", value.name);
-        form.set("display_order", String(data.images.filter((i) => i.product_id === id).length));
+        form.set("display_order", String(order++));
         const image = await uploadImage({ data: form });
-        if (!value.thumbnail_url) {
-          const next = { ...value, thumbnail_url: image.image_url };
-          await saveProduct({ data: productSchema.parse(next) });
-          setValue(next);
+        saved++;
+        if (needsThumbnail) {
+          needsThumbnail = false;
+          await saveProduct({
+            data: productSchema.parse({ ...product, thumbnail_url: image.image_url }),
+          });
+          setValue((v) => ({ ...v, thumbnail_url: image.image_url }));
         }
       }
-      await router.invalidate();
       setNotice("Photos uploaded.");
     } catch (e) {
-      setError(e instanceof Error ? e.message : "Upload failed.");
+      const reason = e instanceof Error ? e.message : "Upload failed.";
+      setError(
+        saved ? `${saved} of ${list.length} photos uploaded. The rest failed: ${reason}` : reason,
+      );
     } finally {
+      if (saved) await router.invalidate();
       setBusy(false);
       setPreviews([]);
     }

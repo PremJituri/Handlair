@@ -1,20 +1,25 @@
-import { createFileRoute } from "@tanstack/react-router";
+import { createFileRoute, Link } from "@tanstack/react-router";
+import { z } from "zod";
 import { Mail, Phone } from "lucide-react";
 import { getEnquiries } from "@/lib/enquiry.functions";
 import { adminHead } from "@/lib/admin-head";
 
 export const Route = createFileRoute("/_admin/admin/enquiries")({
-  loader: () => getEnquiries(),
+  validateSearch: z.object({ page: z.number().int().min(1).optional().catch(undefined) }),
+  loaderDeps: ({ search }) => ({ page: search.page ?? 1 }),
+  loader: ({ deps }) => getEnquiries({ data: { page: deps.page } }),
   head: () => adminHead("Enquiries"),
   component: Enquiries,
 });
 
 function Enquiries() {
-  const items = Route.useLoaderData();
+  const { items, total, page, pages } = Route.useLoaderData();
   return (
     <>
       <h1 className="type-h2">Enquiries</h1>
-      <p className="mt-2 text-muted-foreground">{items.length} received, newest first.</p>
+      <p className="mt-2 text-muted-foreground">
+        {total} received, newest first.{pages > 1 && ` Page ${page} of ${pages}.`}
+      </p>
       {items.length === 0 ? (
         <p className="mt-8 rounded-lg border border-border p-8 text-center text-muted-foreground">
           No enquiries yet.
@@ -59,6 +64,30 @@ function Enquiries() {
             </li>
           ))}
         </ul>
+      )}
+      {pages > 1 && (
+        <nav aria-label="Enquiry pages" className="mt-8 flex items-center justify-between gap-4">
+          {page > 1 ? (
+            <Link
+              to="/admin/enquiries"
+              search={{ page: page - 1 }}
+              className="rounded-lg border border-border px-4 py-2"
+            >
+              Newer
+            </Link>
+          ) : (
+            <span />
+          )}
+          {page < pages && (
+            <Link
+              to="/admin/enquiries"
+              search={{ page: page + 1 }}
+              className="rounded-lg border border-border px-4 py-2"
+            >
+              Older
+            </Link>
+          )}
+        </nav>
       )}
     </>
   );
