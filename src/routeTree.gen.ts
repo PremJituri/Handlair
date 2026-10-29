@@ -15,6 +15,7 @@ import { Route as AboutRouteImport } from './routes/about'
 import { Route as ContactRouteImport } from './routes/contact'
 import { Route as EnquiryRouteImport } from './routes/enquiry'
 import { Route as ProductsRouteImport } from './routes/products'
+import { Route as SitemapDotxmlRouteImport } from './routes/sitemap[.]xml'
 import { Route as AdminLoginRouteImport } from './routes/admin.login'
 import { Route as ProductsIndexRouteImport } from './routes/products.index'
 import { Route as ProductsSlugRouteImport } from './routes/products.$slug'
@@ -54,6 +55,11 @@ const EnquiryRoute = EnquiryRouteImport.update({
 const ProductsRoute = ProductsRouteImport.update({
   id: '/products',
   path: '/products',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const SitemapDotxmlRoute = SitemapDotxmlRouteImport.update({
+  id: '/sitemap.xml',
+  path: '/sitemap.xml',
   getParentRoute: () => rootRouteImport,
 } as any)
 const AdminLoginRoute = AdminLoginRouteImport.update({
@@ -120,6 +126,7 @@ export interface FileRoutesByFullPath {
   '/contact': typeof ContactRoute
   '/enquiry': typeof EnquiryRoute
   '/products': typeof ProductsRouteWithChildren
+  '/sitemap.xml': typeof SitemapDotxmlRoute
   '/admin/login': typeof AdminLoginRoute
   '/products/$slug': typeof ProductsSlugRoute
   '/products/': typeof ProductsIndexRoute
@@ -137,6 +144,7 @@ export interface FileRoutesByTo {
   '/about': typeof AboutRoute
   '/contact': typeof ContactRoute
   '/enquiry': typeof EnquiryRoute
+  '/sitemap.xml': typeof SitemapDotxmlRoute
   '/admin/login': typeof AdminLoginRoute
   '/products/$slug': typeof ProductsSlugRoute
   '/products': typeof ProductsIndexRoute
@@ -157,6 +165,7 @@ export interface FileRoutesById {
   '/contact': typeof ContactRoute
   '/enquiry': typeof EnquiryRoute
   '/products': typeof ProductsRouteWithChildren
+  '/sitemap.xml': typeof SitemapDotxmlRoute
   '/admin/login': typeof AdminLoginRoute
   '/products/$slug': typeof ProductsSlugRoute
   '/products/': typeof ProductsIndexRoute
@@ -177,6 +186,7 @@ export interface FileRouteTypes {
     | '/contact'
     | '/enquiry'
     | '/products'
+    | '/sitemap.xml'
     | '/admin/login'
     | '/products/$slug'
     | '/products/'
@@ -194,6 +204,7 @@ export interface FileRouteTypes {
     | '/about'
     | '/contact'
     | '/enquiry'
+    | '/sitemap.xml'
     | '/admin/login'
     | '/products/$slug'
     | '/products'
@@ -213,6 +224,7 @@ export interface FileRouteTypes {
     | '/contact'
     | '/enquiry'
     | '/products'
+    | '/sitemap.xml'
     | '/admin/login'
     | '/products/$slug'
     | '/products/'
@@ -233,6 +245,7 @@ export interface RootRouteChildren {
   ContactRoute: typeof ContactRoute
   EnquiryRoute: typeof EnquiryRoute
   ProductsRoute: typeof ProductsRouteWithChildren
+  SitemapDotxmlRoute: typeof SitemapDotxmlRoute
   AdminLoginRoute: typeof AdminLoginRoute
   ApiPublicHeroPhotoFilenameRoute: typeof ApiPublicHeroPhotoFilenameRoute
   ApiPublicProductPhotoFilenameRoute: typeof ApiPublicProductPhotoFilenameRoute
@@ -280,6 +293,13 @@ declare module '@tanstack/react-router' {
       path: '/products'
       fullPath: '/products'
       preLoaderRoute: typeof ProductsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/sitemap.xml': {
+      id: '/sitemap.xml'
+      path: '/sitemap.xml'
+      fullPath: '/sitemap.xml'
+      preLoaderRoute: typeof SitemapDotxmlRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/admin/login': {
@@ -403,6 +423,7 @@ const rootRouteChildren: RootRouteChildren = {
   ContactRoute: ContactRoute,
   EnquiryRoute: EnquiryRoute,
   ProductsRoute: ProductsRouteWithChildren,
+  SitemapDotxmlRoute: SitemapDotxmlRoute,
   AdminLoginRoute: AdminLoginRoute,
   ApiPublicHeroPhotoFilenameRoute: ApiPublicHeroPhotoFilenameRoute,
   ApiPublicProductPhotoFilenameRoute: ApiPublicProductPhotoFilenameRoute,

@@ -1,14 +1,26 @@
 User-agent: Googlebot
 Allow: /
+Disallow: /admin
+Disallow: /admin/*
 
 User-agent: Bingbot
 Allow: /
+Disallow: /admin
+Disallow: /admin/*
 
 User-agent: Twitterbot
 Allow: /
+Disallow: /admin
+Disallow: /admin/*
 
 User-agent: facebookexternalhit
 Allow: /
+Disallow: /admin
+Disallow: /admin/*
 
 User-agent: *
 Allow: /
+Disallow: /admin
+Disallow: /admin/*
+
+Sitemap: https://www.handlair.co.in/sitemap.xml

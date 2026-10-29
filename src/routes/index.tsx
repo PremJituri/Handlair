@@ -1,4 +1,5 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
+import { pageSeo, ldScript, organizationLd } from "@/lib/seo";
 import { ArrowRight, MoveDown } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { ProductGrid } from "@/components/product-grid";
@@ -12,21 +13,12 @@ import { heroSlidesQuery } from "@/lib/hero-slides-query";
 export const Route = createFileRoute("/")({
   loader: ({ context }) => context.queryClient.ensureQueryData(heroSlidesQuery),
   head: () => ({
-    meta: [
-      { title: "Handlair — Industrial Air Handling & Pollution Control" },
-      {
-        name: "description",
-        content:
-          "Handlair manufactures air handling equipment, industrial ventilation and air pollution control systems.",
-      },
-      { property: "og:title", content: "Handlair — Industrial Air Handling & Pollution Control" },
-      {
-        property: "og:description",
-        content: "Engineered equipment and systems for cleaner, healthier industrial environments.",
-      },
-      { property: "og:type", content: "website" },
-      { name: "twitter:card", content: "summary_large_image" },
-    ],
+    ...pageSeo(
+      "/",
+      "Handlair Engineering Technologies — Industrial Air Handling & Pollution Control",
+      "Leading manufacturer of industrial air handling equipment, centrifugal blowers, axial flow fans, ventilation systems, and dust collectors in Faridabad, India.",
+    ),
+    scripts: [ldScript(organizationLd)],
   }),
   component: Index,
 });

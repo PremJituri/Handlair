@@ -1,30 +1,16 @@
 import { createFileRoute } from "@tanstack/react-router";
+import { pageSeo, breadcrumbLd } from "@/lib/seo";
 import { BadgeCheck, Globe2, LifeBuoy, Tag, Truck } from "lucide-react";
 import { CtaBand, PageHero } from "@/components/site-shell";
 
 export const Route = createFileRoute("/about")({
   head: () => ({
-    meta: [
-      {
-        title: "About Handlair Engineering Technologies — Industrial Air Solutions",
-      },
-      {
-        name: "description",
-        content:
-          "Handlair Engineering Technologies, founded in 1996 and based in Faridabad, Haryana, brings over three decades of experience in industrial air handling, ventilation and air pollution control.",
-      },
-      {
-        property: "og:title",
-        content: "About Handlair Engineering Technologies",
-      },
-      {
-        property: "og:description",
-        content:
-          "Over three decades of practical engineering, quality workmanship and customer service in industrial air solutions.",
-      },
-      { property: "og:type", content: "website" },
-      { name: "twitter:card", content: "summary_large_image" },
-    ],
+    ...pageSeo(
+      "/about",
+      "About Handlair — Three Decades of Air Engineering Excellence",
+      "Founded in 1996, Handlair delivers industrial ventilation, cooling, and air pollution control solutions across automotive, cement, and engineering industries.",
+    ),
+    scripts: [breadcrumbLd([{ name: "Home", path: "/" }, { name: "About", path: "/about" }])],
   }),
   component: AboutPage,
 });
