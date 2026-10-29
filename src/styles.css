@@ -53,7 +53,7 @@
 }
 
 :root {
-  --radius: 0.25rem;
+  --radius: 0.5rem;
   --glass: oklch(0.988 0.003 286 / 56%);
   --glass-navigation: oklch(0.988 0.003 286 / 55%);
   --glass-navigation-gradient: linear-gradient(135deg, oklch(0.965 0.071 137 / 18%), oklch(0.988 0.003 286 / 12%) 46%, oklch(0.86 0.16 143 / 16%));
