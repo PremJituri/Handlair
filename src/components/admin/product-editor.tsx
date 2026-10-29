@@ -1,3 +1,4 @@
+import { featuredFirst } from "@/lib/product-images";
 import { useQueryClient } from "@tanstack/react-query";
 import { invalidateContent } from "@/lib/invalidate-content";
 import { useState, useEffect, useRef } from "react";
