@@ -98,8 +98,8 @@
   --popover-foreground: oklch(0.145 0.041 286);
   --primary: oklch(0.75 0.19 151);
   --primary-foreground: oklch(0.145 0.041 286);
-  /* Readable green for text and focus rings; --primary stays bright for buttons. */
-  --primary-text: oklch(0.52 0.14 151);
+  /* Original brand green for text; keyboard focus rings remain darker. */
+  --primary-text: var(--primary);
   --secondary: oklch(0.965 0.071 137);
   --secondary-foreground: oklch(0.145 0.041 286);
   --muted: oklch(0.955 0.008 286);
@@ -151,7 +151,7 @@
   --popover-foreground: oklch(0.984 0.003 247.858);
   --primary: oklch(0.929 0.013 255.508);
   --primary-foreground: oklch(0.208 0.042 265.755);
-  --primary-text: oklch(0.85 0.13 151);
+  --primary-text: var(--primary);
   --secondary: oklch(0.279 0.041 260.031);
   --secondary-foreground: oklch(0.984 0.003 247.858);
   --muted: oklch(0.279 0.041 260.031);
