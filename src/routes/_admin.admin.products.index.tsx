@@ -1,19 +1,25 @@
+import { invalidateContent } from "@/lib/invalidate-content";
+import { adminCatalogueQuery } from "@/lib/admin-query";
+import { useSuspenseQuery, useQueryClient } from "@tanstack/react-query";
 import { createFileRoute, Link, useRouter } from "@tanstack/react-router";
 import { useState } from "react";
 import { Plus, Pencil, Trash2 } from "lucide-react";
-import { getAdminData, deleteProduct } from "@/lib/cms.functions";
+import { deleteProduct } from "@/lib/cms.functions";
 import { adminHead } from "@/lib/admin-head";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { ConfirmDelete } from "@/components/admin/confirm-delete";
 export const Route = createFileRoute("/_admin/admin/products/")({
-  loader: () => getAdminData(),
+  loader: ({ context }) => context.queryClient.ensureQueryData(adminCatalogueQuery),
+  errorComponent: ({ error }) => <p role="alert">{error.message}</p>,
+  notFoundComponent: () => <p>Admin page not found.</p>,
   head: () => adminHead("Products"),
   component: AdminProducts,
 });
 function AdminProducts() {
-  const data = Route.useLoaderData();
+  const { data } = useSuspenseQuery(adminCatalogueQuery);
   const router = useRouter();
+  const queries = useQueryClient();
   const [query, setQuery] = useState("");
   const [category, setCategory] = useState("");
   const [remove, setRemove] = useState<{ id: string; name: string } | null>(null);
@@ -196,6 +202,7 @@ function AdminProducts() {
           try {
             await deleteProduct({ data: remove.id });
             setRemove(null);
+            await invalidateContent(queries, "catalogue");
             await router.invalidate();
           } catch (e) {
             setError(e instanceof Error ? e.message : "Deletion failed.");

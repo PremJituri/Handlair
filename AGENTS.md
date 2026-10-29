@@ -27,3 +27,5 @@
 - Database tooling packages (drizzle-orm, postgres) are required by migrations even though app code never imports them; do not remove them as unused.
 - Keep semantic lint checks on generated integration files while excluding their externally managed formatting; never manually reformat generated clients or types.
 - Substitute optimized immutable static photos through the image-rendition lookup without changing CMS rows or original assets; unknown uploaded URLs pass through so admin edits and prior deployments remain intact.
+- Let TanStack Query own catalogue and product freshness with router preload stale time zero; invalidate both active and preloaded entries after CMS mutations so route caches cannot mask edits.
+- Start protected admin query prefetch alongside the route guard, share tab queries, and memoize account verification only per Request; client route identity never authorizes server operations.

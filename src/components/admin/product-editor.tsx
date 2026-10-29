@@ -1,3 +1,5 @@
+import { useQueryClient } from "@tanstack/react-query";
+import { invalidateContent } from "@/lib/invalidate-content";
 import { useState, useEffect, useRef } from "react";
 import { Link, useNavigate, useRouter } from "@tanstack/react-router";
 import {
@@ -23,6 +25,7 @@ export function ProductEditor({ data, id }: { data: AdminData; id?: string }) {
   const product = data.products.find((p) => p.id === id);
   const navigate = useNavigate();
   const router = useRouter();
+  const queries = useQueryClient();
   const [value, setValue] = useState<ProductInput>(() =>
     productSchema.parse(
       product
@@ -118,7 +121,10 @@ export function ProductEditor({ data, id }: { data: AdminData; id?: string }) {
         saved ? `${saved} of ${list.length} photos uploaded. The rest failed: ${reason}` : reason,
       );
     } finally {
-      if (saved) await router.invalidate();
+      if (saved) {
+        await invalidateContent(queries, "catalogue");
+        await router.invalidate();
+      }
       setBusy(false);
       setPreviews([]);
     }
@@ -162,6 +168,7 @@ export function ProductEditor({ data, id }: { data: AdminData; id?: string }) {
             const saved = await saveProduct({ data: productSchema.parse(value) });
             setDirty(false);
             setNotice("Product saved.");
+            await invalidateContent(queries, "catalogue");
             if (!id) await navigate({ to: "/admin/products/$id", params: { id: saved.id } });
             else await router.invalidate();
           } catch (e) {
@@ -558,6 +565,7 @@ export function ProductEditor({ data, id }: { data: AdminData; id?: string }) {
             await deleteImage({ data: remove.id });
             if (value.thumbnail_url === remove.image_url) update("thumbnail_url", "");
             setRemove(null);
+            await invalidateContent(queries, "catalogue");
             await router.invalidate();
           } catch (e) {
             setError(e instanceof Error ? e.message : "Photo deletion failed.");
