@@ -121,7 +121,7 @@ function AdminProducts() {
               </div>
             ))}
       </div>
-      <div className="hidden overflow-x-auto md:block">
+      <div className="hidden w-full overflow-x-auto md:block">
         {filtered.length === 0 ? (
           empty
         ) : (
@@ -129,7 +129,10 @@ function AdminProducts() {
             <thead className="border-y border-border">
               <tr>
                 {["Product", "Category", "Status", "Actions"].map((h) => (
-                  <th key={h} className="p-4 text-sm uppercase">
+                  <th
+                    key={h}
+                    className={`p-4 text-sm uppercase lg:px-6 ${h === "Product" ? "w-[40%]" : ""}`}
+                  >
                     {h}
                   </th>
                 ))}
@@ -138,7 +141,7 @@ function AdminProducts() {
             <tbody>
               {filtered.map((p) => (
                 <tr key={p.id} className="border-b border-border">
-                  <td className="min-w-0 p-4 align-middle">
+                  <td className="min-w-0 p-4 align-middle lg:px-6">
                     <div className="flex min-w-0 items-center gap-4">
                       {p.thumbnail_url && (
                         <img
@@ -153,14 +156,14 @@ function AdminProducts() {
                       </div>
                     </div>
                   </td>
-                  <td className="p-4 align-middle">{categoryName(p.category_id)}</td>
-                  <td className="p-4 align-middle">
+                  <td className="p-4 align-middle lg:px-6">{categoryName(p.category_id)}</td>
+                  <td className="p-4 align-middle lg:px-6">
                     {status(p)}
                     {!p.catalogue_visible && (
                       <p className="mt-1 text-sm text-muted-foreground">Legacy detail page</p>
                     )}
                   </td>
-                  <td className="p-4 align-middle">
+                  <td className="p-4 align-middle lg:px-6">
                     <div className="flex gap-2">
                       <Button size="icon" variant="outline" asChild title={`Edit ${p.name}`}>
                         <Link to="/admin/products/$id" params={{ id: p.id }}>

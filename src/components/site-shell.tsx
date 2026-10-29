@@ -44,7 +44,7 @@ export function Logo({ tagline = "Air systems engineering" }: { tagline?: string
 export function Header() {
   const [open, setOpen] = useState(false);
   return (
-    <header className="glass-surface sticky top-3 z-50 mx-3 mt-3 mb-3 sm:mx-5 lg:mx-8 xl:mx-auto xl:w-[calc(100%-4rem)] site-container">
+    <header className="glass-surface sticky top-3 z-50 mt-3 mb-3 mx-auto w-[calc(100%-1.5rem)] sm:w-[calc(100%-2.5rem)] lg:w-[calc(100%-4rem)] site-container">
       <div className="mx-auto flex h-20 site-container items-center justify-between gap-3 px-4 lg:px-6">
         <Logo tagline="Engineering Technologies" />
 

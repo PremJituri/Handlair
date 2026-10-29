@@ -17,7 +17,7 @@ export function AdminShell({ children }: { children: ReactNode }) {
   const queries = useQueryClient();
   const pathname = useRouterState({ select: (s) => s.location.pathname });
   return (
-    <div className="mx-auto site-container px-5 py-12 lg:px-8">
+    <div className="mx-auto w-full site-container px-5 py-12 lg:px-8">
       <div className="mb-10 flex flex-wrap items-center justify-between gap-4 border-b border-border pb-5">
         <div>
           <p className="eyebrow">Handlair / Administration</p>
