@@ -134,7 +134,11 @@ export function Footer() {
           <h2 className="eyebrow">Navigate</h2>
           <div className="mt-5 grid gap-3">
             {footerNav.map(([label, to]) => (
-              <Link key={to} to={to} className="inline-flex max-md:min-h-11 items-center font-semibold hover:text-primary-text">
+              <Link
+                key={to}
+                to={to}
+                className="inline-flex max-md:min-h-11 items-center font-semibold hover:text-primary-text"
+              >
                 {label}
               </Link>
             ))}

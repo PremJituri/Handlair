@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { HERO_SLIDE_CROSSFADE_MS, HERO_SLIDE_INTERVAL_MS, heroSlides } from "@/data/hero-slideshow";
 import type { HeroPhoto } from "@/lib/hero-slides";
+import { optimizedPhotoUrl } from "@/data/image-renditions";
 
 export function HeroSlideshow({ slides = heroSlides }: { slides?: readonly HeroPhoto[] }) {
   const photos = slides.length ? slides : heroSlides;
@@ -16,7 +17,7 @@ function SlideshowPlayback({ slides }: { slides: readonly HeroPhoto[] }) {
     const motion = window.matchMedia("(prefers-reduced-motion: reduce)");
     const images = slides.map((slide) => {
       const image = new Image();
-      image.src = slide.src;
+      image.src = optimizedPhotoUrl(slide.src);
       return image;
     });
     let ready = false;
@@ -46,7 +47,7 @@ function SlideshowPlayback({ slides }: { slides: readonly HeroPhoto[] }) {
       {slides.map((slide, index) => (
         <img
           key={`${slide.src}-${index}`}
-          src={slide.src}
+          src={optimizedPhotoUrl(slide.src)}
           alt={slide.alt}
           aria-hidden={index !== active}
           width={1024}

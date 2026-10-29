@@ -37,4 +37,12 @@ export default tseslint.config(
     },
   },
   eslintPluginPrettier,
+  {
+    // Platform-generated files retain semantic checks, but their formatting is managed externally.
+    files: [
+      "src/integrations/supabase/previewAuthStorage.ts",
+      "src/integrations/supabase/types.ts",
+    ],
+    rules: { "prettier/prettier": "off" },
+  },
 );
