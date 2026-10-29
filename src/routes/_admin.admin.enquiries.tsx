@@ -5,8 +5,8 @@ import { getEnquiries } from "@/lib/enquiry.functions";
 import { adminHead } from "@/lib/admin-head";
 
 export const Route = createFileRoute("/_admin/admin/enquiries")({
-  validateSearch: z.object({ page: z.number().int().min(1).catch(1).default(1) }),
-  loaderDeps: ({ search }) => ({ page: search.page }),
+  validateSearch: z.object({ page: z.number().int().min(1).optional().catch(undefined) }),
+  loaderDeps: ({ search }) => ({ page: search.page ?? 1 }),
   loader: ({ deps }) => getEnquiries({ data: { page: deps.page } }),
   head: () => adminHead("Enquiries"),
   component: Enquiries,
