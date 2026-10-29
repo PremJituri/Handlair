@@ -8,13 +8,22 @@ import { emphasize } from "@/lib/emphasize";
 
 export const Route = createFileRoute("/products/$slug")({
   loader: async ({ params }) => { const data = await getPublicProductBySlug({ data: { slug: params.slug } }); if (!data.product) throw notFound(); return { ...data.product, relatedProducts: data.related, categories: data.categories }; },
-  head: ({ loaderData }) => ({ meta: [
-    { title: loaderData ? `${loaderData.name} — Handlair` : "Unavailable product — Handlair" },
-    { name: "description", content: loaderData?.summary || "Handlair industrial air handling equipment. Contact us for product information." },
-    { property: "og:title", content: loaderData ? `${loaderData.name} — Handlair` : "Handlair product" },
-    { property: "og:description", content: loaderData?.summary || "Industrial air handling equipment and product enquiries." },
-    { property: "og:type", content: "website" }, { name: "twitter:card", content: "summary_large_image" },
-  ] }), component: ProductPage,
+  head: ({ loaderData, params }) => {
+    if (!loaderData) return { meta: [{ title: "Unavailable product — Handlair" }, { name: "robots", content: "noindex, follow" }] };
+    const path = `/products/${params.slug}`;
+    const description = metaDescription(loaderData.summary || loaderData.detail || `${loaderData.name} by Handlair Engineering Technologies.`);
+    const image = loaderData.images[0]?.src || loaderData.image;
+    const categoryName = loaderData.categories.find((c) => c.id === loaderData.category)?.name ?? "Industrial air handling equipment";
+    const seo = pageSeo(path, `${loaderData.name} — Industrial Air Handling Equipment | Handlair`, description, "product");
+    return {
+      ...seo,
+      meta: [...seo.meta, ...(image ? [{ property: "og:image", content: absoluteUrl(image) }, { name: "twitter:image", content: absoluteUrl(image) }] : [])],
+      scripts: [
+        ldScript({ "@context": "https://schema.org", "@type": "Product", name: loaderData.name, description, ...(image ? { image: absoluteUrl(image) } : {}), url: absoluteUrl(path), manufacturer: { "@type": "Organization", name: ORG_NAME }, brand: { "@type": "Brand", name: "Handlair" }, category: categoryName }),
+        breadcrumbLd([{ name: "Home", path: "/" }, { name: "Products", path: "/products" }, { name: loaderData.name, path }]),
+      ],
+    };
+  }, component: ProductPage,
 });
 
 function ProductPage() {

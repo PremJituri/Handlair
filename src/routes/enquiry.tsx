@@ -1,4 +1,5 @@
 import { createFileRoute } from "@tanstack/react-router";
+import { pageSeo } from "@/lib/seo";
 import { EnquiryForm } from "@/components/enquiry-form";
 import { PageHero } from "@/components/site-shell";
 

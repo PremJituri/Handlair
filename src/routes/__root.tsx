@@ -177,10 +177,13 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
     meta: [
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
-      { name: "author", content: "Handlair" },
+      { name: "author", content: "Handlair Engineering Technologies" },
+      { name: "robots", content: "index, follow" },
+      { name: "theme-color", content: "#2dcd74" },
       { property: "og:type", content: "website" },
+      { property: "og:site_name", content: "Handlair Engineering Technologies" },
+      { property: "og:locale", content: "en_IN" },
       { name: "twitter:card", content: "summary_large_image" },
-      { name: "twitter:site", content: "@Lovable" },
     ],
     links: [
       {

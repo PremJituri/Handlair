@@ -1,4 +1,5 @@
 import { createFileRoute } from "@tanstack/react-router";
+import { pageSeo } from "@/lib/seo";
 import { Mail, MapPin, Phone } from "lucide-react";
 import { useState } from "react";
 import { EnquiryForm } from "@/components/enquiry-form";
