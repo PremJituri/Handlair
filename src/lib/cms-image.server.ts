@@ -14,8 +14,10 @@ export async function cleanAdminImage(file: FormDataEntryValue | null) {
   });
   if (decoded.width > MAX_IMAGE_WIDTH || decoded.height > 3840)
     throw new Error("Image dimensions exceed the upload limit.");
-  const clean = jpeg.encode(decoded, 85).data;
-  if (clean.length > MAX_UPLOAD_BYTES)
-    throw new Error("Photo is too detailed. Please choose a smaller image.");
-  return clean;
+  // Browser JPEGs can grow when re-encoded; step quality down until it fits.
+  for (const quality of [85, 75, 65, 55]) {
+    const clean = jpeg.encode(decoded, quality).data;
+    if (clean.length <= MAX_UPLOAD_BYTES) return clean;
+  }
+  throw new Error("Photo is too detailed. Please choose a smaller image.");
 }

@@ -2,7 +2,7 @@ import { MAX_UPLOAD_BYTES, MAX_IMAGE_WIDTH } from "./cms-schema";
 
 const MAX_HEIGHT = 3840;
 // The server re-encodes at quality 85, which can grow the file; leave headroom.
-const TARGET_BYTES = Math.floor(MAX_UPLOAD_BYTES * 0.5);
+const TARGET_BYTES = Math.floor(MAX_UPLOAD_BYTES * 0.7);
 const QUALITIES = [0.82, 0.75, 0.65];
 
 type Source = { image: CanvasImageSource; width: number; height: number; close: () => void };
