@@ -15,7 +15,7 @@ describe("Approved performance preservation", () => {
   });
   it("keeps search metadata ready for handlair.co.in", () => {
     expect(SITE_URL).toBe("https://www.handlair.co.in");
-    expect(pageSeo("/products", "Products", "Equipment").links[0].href).toBe(
+    expect(pageSeo("/products", "Products", "Equipment").links[0]?.href).toBe(
       "https://www.handlair.co.in/products",
     );
   });
