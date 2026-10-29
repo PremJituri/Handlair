@@ -134,7 +134,7 @@ export function Footer() {
           <h2 className="eyebrow">Navigate</h2>
           <div className="mt-5 grid gap-3">
             {footerNav.map(([label, to]) => (
-              <Link key={to} to={to} className="font-semibold hover:text-primary-text">
+              <Link key={to} to={to} className="inline-flex max-md:min-h-11 items-center font-semibold hover:text-primary-text">
                 {label}
               </Link>
             ))}
@@ -149,7 +149,7 @@ export function Footer() {
               <span className="min-w-0 break-words">{contact.address}</span>
             </p>
             <a
-              className="flex gap-2 hover:text-foreground"
+              className="flex max-md:min-h-11 items-center gap-2 hover:text-foreground"
               href={contact.phoneHref}
               aria-label={`Call Handlair on landline ${contact.phone}`}
             >
@@ -159,7 +159,7 @@ export function Footer() {
             {contact.mobiles.map((mobile) => (
               <a
                 key={mobile.href}
-                className="flex gap-2 hover:text-foreground"
+                className="flex max-md:min-h-11 items-center gap-2 hover:text-foreground"
                 href={mobile.href}
                 aria-label={`Call Handlair on mobile ${mobile.label}`}
               >
@@ -170,7 +170,7 @@ export function Footer() {
             {contact.emails.map((email) => (
               <a
                 key={email.href}
-                className="flex gap-2 hover:text-foreground"
+                className="flex max-md:min-h-11 items-center gap-2 hover:text-foreground"
                 href={email.href}
                 aria-label={`Email Handlair at ${email.label}`}
               >
